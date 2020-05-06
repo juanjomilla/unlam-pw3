@@ -3,6 +3,7 @@
 ### Integrantes:
 1. [Callejas Nina Andrea](#linkUsuarioGitHub)
 1. [Milla Juan](https://github.com/juanjomilla)
+1. [Sosa Rodrigo](https://github.com/rodrigososa21)
 1. [Zornetta Yéssica](#linkUsuarioGitHub)
 ### Profesores:
 1. [Juiz Mariano](https://github.com/juizmariano)
