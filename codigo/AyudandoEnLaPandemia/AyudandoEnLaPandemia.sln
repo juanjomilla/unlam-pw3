@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyudandoEnLaPandemia", "AyudandoEnLaPandemia\AyudandoEnLaPandemia.csproj", "{8D309D00-7CD7-4F6C-BC06-E3986500F265}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicios", "Servicios\Servicios.csproj", "{F14D3C44-660C-442C-AF43-8B3F62F49141}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{326D1196-26E5-45C9-A063-3F50326AC201}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8D309D00-7CD7-4F6C-BC06-E3986500F265}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D309D00-7CD7-4F6C-BC06-E3986500F265}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D309D00-7CD7-4F6C-BC06-E3986500F265}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F14D3C44-660C-442C-AF43-8B3F62F49141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F14D3C44-660C-442C-AF43-8B3F62F49141}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F14D3C44-660C-442C-AF43-8B3F62F49141}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F14D3C44-660C-442C-AF43-8B3F62F49141}.Release|Any CPU.Build.0 = Release|Any CPU
+		{326D1196-26E5-45C9-A063-3F50326AC201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{326D1196-26E5-45C9-A063-3F50326AC201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{326D1196-26E5-45C9-A063-3F50326AC201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{326D1196-26E5-45C9-A063-3F50326AC201}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
