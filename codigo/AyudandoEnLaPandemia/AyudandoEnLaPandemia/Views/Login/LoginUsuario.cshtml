@@ -1,0 +1,23 @@
+﻿@model AyudandoEnLaPandemia.Models.FormularioLogin
+
+@{
+    ViewBag.Title = "LoginUsuario";
+}
+
+<h2>LoginUsuario</h2>
+
+<form action="/Login/LoginUsuario" method="post">
+
+    <div>
+        Email: @Html.EditorFor(o => o.email)
+        @Html.ValidationMessageFor(o => o.email)
+    </div>
+
+    <div>
+        Password: @Html.EditorFor(o => o.password)
+        @Html.ValidationMessageFor(o => o.password)
+    </div>
+   
+    <input type="submit" value="Iniciar Sesión" />
+
+</form>
