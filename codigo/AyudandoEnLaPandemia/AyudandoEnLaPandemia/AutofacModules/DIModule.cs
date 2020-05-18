@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Dao;
+using Servicios;
 
 namespace AyudandoEnLaPandemia.AutofacModules
 {
@@ -6,7 +8,9 @@ namespace AyudandoEnLaPandemia.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            base.Load(builder);
+            builder.RegisterType<NecesidadServicio>().AsSelf().InstancePerLifetimeScope();
+
+            builder.RegisterType<NecesidadDao>().As<INecesidadDao>().InstancePerLifetimeScope();
         }
     }
 }
