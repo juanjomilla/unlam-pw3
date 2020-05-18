@@ -6,11 +6,11 @@ namespace AyudandoEnLaPandemia.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly NecesidadServicio _necesidadServicio;
+        private readonly ServicioNecesidad _servicioNecesidad;
 
-        public HomeController(NecesidadServicio necesidadServicio)
+        public HomeController(ServicioNecesidad servicioNecesidad)
         {
-            _necesidadServicio = necesidadServicio;
+            _servicioNecesidad = servicioNecesidad;
         }
 
         [HttpGet]
@@ -23,7 +23,7 @@ namespace AyudandoEnLaPandemia.Controllers
         public string GetTopNecesidades()
         {
             var serializer = new JavaScriptSerializer();
-            var necesidades = _necesidadServicio.GetNecesidades();
+            var necesidades = _servicioNecesidad.GetNecesidades();
 
             return serializer.Serialize(necesidades);
         }

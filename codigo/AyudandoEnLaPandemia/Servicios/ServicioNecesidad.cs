@@ -4,11 +4,11 @@ using Entidades;
 
 namespace Servicios
 {
-    public class NecesidadServicio
+    public class ServicioNecesidad
     {
         private readonly INecesidadDao _necesidadDao;
 
-        public NecesidadServicio(INecesidadDao necesidadDao)
+        public ServicioNecesidad(INecesidadDao necesidadDao)
         {
             _necesidadDao = necesidadDao;
         }

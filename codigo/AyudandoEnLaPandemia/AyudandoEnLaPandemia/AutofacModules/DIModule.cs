@@ -8,7 +8,7 @@ namespace AyudandoEnLaPandemia.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<NecesidadServicio>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<ServicioNecesidad>().AsSelf().InstancePerLifetimeScope();
 
             builder.RegisterType<NecesidadDao>().As<INecesidadDao>().InstancePerLifetimeScope();
         }

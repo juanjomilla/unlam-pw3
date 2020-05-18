@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NecesidadServicio.cs" />
+    <Compile Include="ServicioNecesidad.cs" />
     <Compile Include="ServicioLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
