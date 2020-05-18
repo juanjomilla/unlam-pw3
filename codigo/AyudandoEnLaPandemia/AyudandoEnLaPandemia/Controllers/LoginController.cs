@@ -1,4 +1,6 @@
 ﻿using AyudandoEnLaPandemia.Models;
+using Entidades;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,13 @@ namespace AyudandoEnLaPandemia.Controllers
             {
                 return View(login);
             }
+
+            Usuario usuario = new Usuario();
+            usuario.Email = login.email;
+            usuario.Password = login.password;
+
+            Boolean status = ServicioLogin.ValidarLogin(usuario);
+
             return View();
         }
     }
