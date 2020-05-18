@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F14D3C44-660C-442C-AF43-8B3F62F49141}</ProjectGuid>
+    <ProjectGuid>{AC9C6067-1C8D-4E1E-92CD-6EBD548F5269}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Servicios</RootNamespace>
-    <AssemblyName>Servicios</AssemblyName>
+    <RootNamespace>Dao</RootNamespace>
+    <AssemblyName>Dao</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,17 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ServicioNecesidad.cs" />
-    <Compile Include="ServicioLogin.cs" />
+    <Compile Include="INecesidadDao.cs" />
+    <Compile Include="NecesidadDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dao\Dao.csproj">
-      <Project>{AC9C6067-1C8D-4E1E-92CD-6EBD548F5269}</Project>
-      <Name>Dao</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
-      <Project>{326d1196-26e5-45c9-a063-3f50326ac201}</Project>
+      <Project>{326D1196-26E5-45C9-A063-3F50326AC201}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
   </ItemGroup>
