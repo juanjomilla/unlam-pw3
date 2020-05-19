@@ -9,9 +9,18 @@ namespace Servicios
 {
     public class ServicioLogin
     {
-        public static bool ValidarLogin(Usuario usuario)
+        public static bool ValidarLogin(Usuario Usuario)
         {
-            return true;
+
+            Usuario UsuarioDB = new Usuario();
+            UsuarioDB.Email = "jose@gmail.com";
+            UsuarioDB.Password = "2222";
+
+            if (String.Equals(Usuario.Email,UsuarioDB.Email) && String.Equals(Usuario.Password,UsuarioDB.Password))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
