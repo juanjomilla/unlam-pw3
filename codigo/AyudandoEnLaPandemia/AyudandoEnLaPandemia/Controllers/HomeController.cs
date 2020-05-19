@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using AyudandoEnLaPandemia.ViewModels;
 using Servicios;
 
 namespace AyudandoEnLaPandemia.Controllers
@@ -14,18 +15,17 @@ namespace AyudandoEnLaPandemia.Controllers
         }
 
         [HttpGet]
-        public string Index()
+        public ActionResult Index()
         {
-            return "index";
-        }
-
-        [HttpGet]
-        public string GetTopNecesidades()
-        {
-            var serializer = new JavaScriptSerializer();
             var necesidades = _servicioNecesidad.GetNecesidades();
 
-            return serializer.Serialize(necesidades);
+            var viewModel = new HomeViewModel
+            {
+                TituloPagina = "Ayudando en la pandemia",
+                TopNecesidades = necesidades
+            };
+
+            return View("~/Views/Home/home.cshtml", viewModel);
         }
     }
 }
