@@ -5,28 +5,36 @@
     Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
 
-<div class="container mt-5">
+<div class="container">
     <div class="row justify-content-center">
-        <div class="col-4"></div>
-        <div class="col-4">
+        <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Ingresá</div>
+                <div class="card-header text-center">Ingresá</div>
                 <div class="card-body">
                     <form action="/Login/LoginUsuario" method="post">
-                        <div class="form-group">
-                            Email: @Html.EditorFor(o => o.email)
-                            @Html.ValidationMessageFor(o => o.email)
+                        <div class="form-group row">
+                            <label for="inputEmail" class="col-md-4 col-form-label text-md-right">Email:</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(o => o.email, new { @type = "email", @class = "form-control", @id = "inputEmail" })
+                                @Html.ValidationMessageFor(o => o.email)
+                            </div>
                         </div>
-                        <div class="form-group">
-                            Password: @Html.PasswordFor(o => o.password)
-                            @Html.ValidationMessageFor(o => o.password)
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-md-4 col-form-label text-md-right">Password:</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(o => o.password, new { @type = "password", @class = "form-control", @id = "inputPassword" })
+                                @Html.ValidationMessageFor(o => o.password)
+                            </div>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                        <div class="form-group row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-4"></div>
     </div>
 </div>
