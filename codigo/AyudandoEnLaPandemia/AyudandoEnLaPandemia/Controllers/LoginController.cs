@@ -12,8 +12,9 @@ namespace AyudandoEnLaPandemia.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        public ActionResult LoginUsuario()
+        public ActionResult LoginUsuario(String mensaje = "")
         {
+            ViewBag.Message = mensaje;
             return View();
         }
 
@@ -29,7 +30,15 @@ namespace AyudandoEnLaPandemia.Controllers
             usuario.Email = login.email;
             usuario.Password = login.password;
 
-            Boolean status = ServicioLogin.ValidarLogin(usuario);
+            bool status = ServicioLogin.ValidarLogin(usuario);
+
+            if (!status)
+            {
+                //TempData["datosInvalidos"] = true;
+                //return Redirect("/");
+                //return View("mal","mal");
+                return LoginUsuario("Usuario o contraseña inválido");
+            }
 
             return View();
         }
