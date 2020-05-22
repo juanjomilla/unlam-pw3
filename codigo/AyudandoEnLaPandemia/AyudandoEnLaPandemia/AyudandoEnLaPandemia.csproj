@@ -256,6 +256,7 @@
     <Content Include="Views\Shared\pv_Footer.cshtml" />
     <Content Include="Views\Shared\_AnonimoLayout.cshtml" />
     <Content Include="Views\Shared\_NecesidadesLayout.cshtml" />
+    <Content Include="Views\Home\home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
