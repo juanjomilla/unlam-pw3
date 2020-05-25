@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Entidades;
+using Repositorio;
 
 namespace Dao
 {
     public interface INecesidadDao
     {
-        IEnumerable<Necesidad> GetNecesidades();
+        IEnumerable<Necesidades> GetNecesidades(int top);
     }
 }

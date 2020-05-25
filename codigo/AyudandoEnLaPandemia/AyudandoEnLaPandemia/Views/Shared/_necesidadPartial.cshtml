@@ -7,18 +7,18 @@
                 <span>Top 5 necesidades</span>
             </div>
         </div>
-        @foreach (var necesidad in Model.Necesidades.Take(5))
+        @foreach (var necesidad in Model.Necesidades)
         {
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
-                    <img class="card-img-top" src="@necesidad.UrlImagen" alt="Card image cap">
+                    <img class="card-img-top" src="@necesidad.Foto" alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text">
                             @Html.DisplayFor(Model => necesidad.Nombre)
                         </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a href="@necesidad.LinkDetalle" type="button" class="btn btn-sm btn-outline-secondary">Ver más</a>
+                                <a href="@necesidad.IdNecesidad" type="button" class="btn btn-sm btn-outline-secondary">Ver más</a>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Dao;
-using Entidades;
+using Repositorio;
 
 namespace Servicios
 {
@@ -13,9 +15,19 @@ namespace Servicios
             _necesidadDao = necesidadDao;
         }
 
-        public IEnumerable<Necesidad> GetNecesidades()
+        public IEnumerable<Necesidades> GetNecesidades(int top = 0)
         {
-            return _necesidadDao.GetNecesidades();
+            return _necesidadDao.GetNecesidades(top);
+        }
+
+        public IEnumerable<Necesidades> GetMisNecesidades()
+        {
+            return _necesidadDao.GetNecesidades(0);
+        }
+
+        public IEnumerable<Necesidades> GetOtrasNecesidades()
+        {
+            return _necesidadDao.GetNecesidades(0);
         }
     }
 }
