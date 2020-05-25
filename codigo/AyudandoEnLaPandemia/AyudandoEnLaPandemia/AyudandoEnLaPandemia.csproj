@@ -257,6 +257,8 @@
     <Content Include="Views\Shared\_AnonimoLayout.cshtml" />
     <Content Include="Views\Shared\_NecesidadesLayout.cshtml" />
     <Content Include="Views\Home\home.cshtml" />
+    <Content Include="Views\Shared\_LoginIncorrectoLayout.cshtml" />
+    <Content Include="Views\Shared\_necesidadPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
