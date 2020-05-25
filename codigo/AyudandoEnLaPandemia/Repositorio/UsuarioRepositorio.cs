@@ -14,8 +14,10 @@ namespace Repositorio
         public static Usuarios BuscarUsuario(Usuarios usuario)
         {
             Contexto context = new Contexto();
-            var UsuarioEncontrado =context.Usuarios.Find(usuario.Email);
-            return UsuarioEncontrado;
+
+            var usuarioEcontrado = (from u in context.Usuarios where u.Email == usuario.Email select u).FirstOrDefault<Usuarios>();
+            return usuarioEcontrado;
+
         }
     }
 }
