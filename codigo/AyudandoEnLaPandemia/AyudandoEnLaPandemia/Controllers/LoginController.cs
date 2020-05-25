@@ -1,11 +1,12 @@
 ﻿using AyudandoEnLaPandemia.Models;
-using Entidades;
 using Servicios;
+using Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace AyudandoEnLaPandemia.Controllers
 {
@@ -21,26 +22,30 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpPost]
         public ActionResult LoginUsuario(FormularioLogin login)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(login);
             }
 
-            Usuario usuario = new Usuario();
+            Usuarios usuario = new Usuarios();
             usuario.Email = login.email;
             usuario.Password = login.password;
 
-            bool status = ServicioLogin.ValidarLogin(usuario);
+            Usuarios usuarioEncontrado = ServicioLogin.ValidarLogin(usuario);
 
-            if (!status)
+            if (usuarioEncontrado.IdUsuario<1)
             {
-                //TempData["datosInvalidos"] = true;
-                //return Redirect("/");
-                //return View("mal","mal");
-                return LoginUsuario("Usuario o contraseña inválido");
+                
+                return LoginUsuario("Email y/o Contraseña inválidos");
             }
+            else {
 
-            return View();
+                Session["UsuarioID"] = usuarioEncontrado.Email;
+
+                return RedirectToAction("Index","Home");
+
+            }
         }
     }
 }
