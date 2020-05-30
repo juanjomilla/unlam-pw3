@@ -129,6 +129,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\file-upload-perfil.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
@@ -264,7 +265,9 @@
     <Content Include="Views\Shared\_AnonimoLayout.cshtml" />
     <Content Include="Views\Shared\_NecesidadesLayout.cshtml" />
     <Content Include="Views\Home\home.cshtml" />
+    <Content Include="Views\Shared\_LoginIncorrectoLayout.cshtml" />
     <Content Include="Views\Shared\_necesidadPartial.cshtml" />
+    <Content Include="Views\Home\MiPerfil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
