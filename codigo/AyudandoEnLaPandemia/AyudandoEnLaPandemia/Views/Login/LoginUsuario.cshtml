@@ -1,19 +1,18 @@
-﻿@model AyudandoEnLaPandemia.Models.FormularioLogin
+﻿@model Repositorio.Usuarios
 
 @{
-    ViewBag.Title = "LoginUsuario";
     Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
 
 <h2>LoginUsuario</h2>
 
 
-@using (Html.BeginForm("LoginUsuario", "Login", FormMethod.Post, new { id = "loginForm" }))
+@using (Html.BeginForm("LoginUsuario", "Login", FormMethod.Post, new { id = "Usuarios" }))
 {
-    if (ViewBag.url != null)
+    @*if (ViewBag.url != null)
     {
         <input type="hidden" name="urlRedirect" value="@ViewBag.url" />
-    }
+    }*@
 
     if (!string.IsNullOrEmpty(ViewBag.Message))
     {
@@ -22,19 +21,15 @@
 
 
     <div>
-        Email: @Html.EditorFor(o => o.email)
-        @Html.ValidationMessageFor(o => o.email)
+        Email: @Html.EditorFor(o => Model.Email)
+        @Html.ValidationMessageFor(o => o.Email)
     </div>
 
     <div>
-        Password: @Html.EditorFor(o => o.password)
-        @Html.ValidationMessageFor(o => o.password)
+        Password: @Html.PasswordFor(o => Model.Password)
+        @Html.ValidationMessageFor(o => o.Password)
     </div>
 
     <input type="submit" value="Ingresar" />
 
-    <div id="datosInvalidos" style="display: none;">
-        <p> Email y/o Contraseña inválidos </p>
-    </div>
 }
-

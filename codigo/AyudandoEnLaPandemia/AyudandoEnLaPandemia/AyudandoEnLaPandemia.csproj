@@ -238,7 +238,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\FormularioLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -274,11 +273,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dao\Dao.csproj">
       <Project>{AC9C6067-1C8D-4E1E-92CD-6EBD548F5269}</Project>
       <Name>Dao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{326d1196-26e5-45c9-a063-3f50326ac201}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repositorio\Repositorio.csproj">
+      <Project>{50bce2e8-9f17-4a7d-9919-268e259c9061}</Project>
+      <Name>Repositorio</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servicios\Servicios.csproj">
       <Project>{f14d3c44-660c-442c-af43-8b3f62f49141}</Project>
