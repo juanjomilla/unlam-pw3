@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Repositorio;
+using Repositorio.Repositories;
 
 namespace Servicios
 {
     public class ServicioNecesidad
     {
-        private readonly IRepository<Necesidades> _necesidadesRepository;
+        private readonly INecesidadesRepository _necesidadesRepository;
 
-        public ServicioNecesidad(IRepository<Necesidades> necesidadDao)
+        public ServicioNecesidad(INecesidadesRepository necesidadDao)
         {
             _necesidadesRepository = necesidadDao;
         }

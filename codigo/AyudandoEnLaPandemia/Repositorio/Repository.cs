@@ -8,12 +8,12 @@ namespace Repositorio
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly Contexto _dbContext;
+        protected readonly Contexto _dbContext;
         private readonly DbSet<T> _dbSet;
 
-        public Repository()
+        public Repository(Contexto dbContext)
         {
-            _dbContext = new Contexto();
+            _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
         }
 

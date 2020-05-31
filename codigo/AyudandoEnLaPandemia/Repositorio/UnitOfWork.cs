@@ -1,21 +1,27 @@
-﻿namespace Repositorio
+﻿using Repositorio.Repositories;
+
+namespace Repositorio
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly Contexto _dbContext;
 
-        private static IRepository<Necesidades> _necesidadesRepository;
-
-        public UnitOfWork()
+        public UnitOfWork(Contexto dbContext)
         {
-            _dbContext = new Contexto();
+            _dbContext = dbContext;
+            Necesidades = new NecesidadesRepository(_dbContext);
         }
 
-        public IRepository<Necesidades> NecesidadesRepository => _necesidadesRepository ?? (_necesidadesRepository = new Repository<Necesidades>());
+        public INecesidadesRepository Necesidades { get; }
 
         public void Commit()
         {
             _dbContext.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            _dbContext.Dispose();
         }
     }
 }

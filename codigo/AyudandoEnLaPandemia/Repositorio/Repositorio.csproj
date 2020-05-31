@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="Partials\UsuarioMetadata.cs" />
     <Compile Include="Partials\Usuarios.cs" />
+    <Compile Include="Repositories\INecesidadesRepository.cs" />
+    <Compile Include="Repositories\NecesidadesRepository.cs" />
     <Compile Include="UsuarioRepositorio.cs" />
     <Compile Include="Denuncias.cs">
       <DependentUpon>Model1.tt</DependentUpon>

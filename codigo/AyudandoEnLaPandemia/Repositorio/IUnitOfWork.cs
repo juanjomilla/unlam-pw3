@@ -1,9 +1,9 @@
-﻿namespace Repositorio
-{
-    public interface IUnitOfWork
-    {
-        IRepository<Necesidades> NecesidadesRepository { get; }
+﻿using System;
 
+namespace Repositorio
+{
+    public interface IUnitOfWork : IDisposable
+    {
         void Commit();
     }
 }
