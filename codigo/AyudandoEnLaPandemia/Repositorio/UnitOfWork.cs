@@ -11,7 +11,7 @@
             _dbContext = new Contexto();
         }
 
-        public IRepository<Necesidades> NecesidadesRepository => _necesidadesRepository ?? (_necesidadesRepository = new NecesidadRepository());
+        public IRepository<Necesidades> NecesidadesRepository => _necesidadesRepository ?? (_necesidadesRepository = new Repository<Necesidades>());
 
         public void Commit()
         {
