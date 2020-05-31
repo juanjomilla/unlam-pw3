@@ -21,13 +21,16 @@
                     </li>
                     <li class="nav-item">
                         @if (Session["UsuarioID"] != null)
-                        {  <text>
-                            Bienvenido @Session["UsuarioID"].ToString()
-                            </text>
-                        }else{
-                            @Html.ActionLink("Ingresá", "LoginUsuario", "Login", new { area = "" }, new { @class = "nav-link" })
-                        }
-                     </li>
+                        {<text>
+                                Hola @Session["UsuarioNombreApellido"].ToString()
+                        </text>
+                        <a href="@Url.Action("Salir","Login")">Salir</a>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Ingresá", "LoginUsuario", "Login", new { area = "" }, new { @class = "nav-link" })
+                    }
+                    </li>
                 </ul>
             </div>
         </div>

@@ -26,8 +26,8 @@
     </div>
 
     <div>
-        @*Password: @Html.EditorFor(o => Model.Password)
-        @Html.ValidationMessageFor(o => o.Password)*@
+        Password: @Html.PasswordFor(o => Model.Password)
+        @Html.ValidationMessageFor(o => o.Password)
     </div>
 
     <input type="submit" value="Ingresar" />

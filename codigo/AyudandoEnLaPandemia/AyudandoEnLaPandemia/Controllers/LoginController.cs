@@ -29,18 +29,27 @@ namespace AyudandoEnLaPandemia.Controllers
 
             Usuarios usuarioEncontrado = ServicioLogin.ValidarLogin(login);
 
-            if (usuarioEncontrado.IdUsuario<1)
+            if ( usuarioEncontrado == null)
             {
-                
                 return LoginUsuario("Email y/o Contraseña inválidos");
             }
             else {
+                if (!usuarioEncontrado.Activo)
+                {
+                    return LoginUsuario("Su usuario está inactivo. Actívelo desde el email recibido");
+                }
+                else { 
+                    Session["UsuarioID"] = usuarioEncontrado.IdUsuario;
+                    Session["UsuarioNombreApellido"] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
 
-                Session["UsuarioID"] = usuarioEncontrado.Email;
-
-                return RedirectToAction("Index","Home");
-
+                    return RedirectToAction("Index","Home");
+                }
             }
+        }
+        public ActionResult Salir()
+        {
+            Session.Abandon();
+            return Redirect("/Login/LoginUsuario");
         }
     }
 }

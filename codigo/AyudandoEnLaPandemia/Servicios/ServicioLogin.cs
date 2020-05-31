@@ -11,16 +11,9 @@ namespace Servicios
     {
         public static Usuarios ValidarLogin(Usuarios Usuario)
         {
-            UsuarioRepositorio.BuscarUsuario(Usuario);
-
+            
             Usuarios UsuarioEncontrado = UsuarioRepositorio.BuscarUsuario(Usuario);
-            //UsuarioDB.Email = "jose@gmail.com";
-            //UsuarioDB.Password = "2222"; 
-
-            //if (String.Equals(Usuario.Email,UsuarioDB.Email) && String.Equals(Usuario.Password,UsuarioDB.Password))
-            //{
-            //    return true;
-            //}
+       
             return UsuarioEncontrado;
         }
     }

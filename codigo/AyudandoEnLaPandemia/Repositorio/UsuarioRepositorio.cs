@@ -15,7 +15,11 @@ namespace Repositorio
         {
             Contexto context = new Contexto();
 
-            var usuarioEcontrado = (from u in context.Usuarios where u.Email == usuario.Email select u).FirstOrDefault<Usuarios>();
+            var usuarioEcontrado = (from u in context.Usuarios 
+                                    where u.Email == usuario.Email && 
+                                    u.Password == usuario.Password 
+                                    select u).FirstOrDefault<Usuarios>();
+
             return usuarioEcontrado;
 
         }
