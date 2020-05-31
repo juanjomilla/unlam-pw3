@@ -1,4 +1,4 @@
-﻿using Entidades;
+﻿using Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +9,12 @@ namespace Servicios
 {
     public class ServicioLogin
     {
-        public static bool ValidarLogin(Usuario Usuario)
+        public static Usuarios ValidarLogin(Usuarios Usuario)
         {
-
-            Usuario UsuarioDB = new Usuario();
-            UsuarioDB.Email = "jose@gmail.com";
-            UsuarioDB.Password = "2222";
-
-            if (String.Equals(Usuario.Email,UsuarioDB.Email) && String.Equals(Usuario.Password,UsuarioDB.Password))
-            {
-                return true;
-            }
-            return false;
+            
+            Usuarios UsuarioEncontrado = UsuarioRepositorio.BuscarUsuario(Usuario);
+       
+            return UsuarioEncontrado;
         }
     }
 }

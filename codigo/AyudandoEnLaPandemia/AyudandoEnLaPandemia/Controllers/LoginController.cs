@@ -1,11 +1,11 @@
-﻿using AyudandoEnLaPandemia.Models;
-using Entidades;
-using Servicios;
+﻿using Servicios;
+using Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace AyudandoEnLaPandemia.Controllers
 {
@@ -19,28 +19,37 @@ namespace AyudandoEnLaPandemia.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoginUsuario(FormularioLogin login)
+        public ActionResult LoginUsuario(Usuarios login)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(login);
             }
 
-            Usuario usuario = new Usuario();
-            usuario.Email = login.email;
-            usuario.Password = login.password;
+            Usuarios usuarioEncontrado = ServicioLogin.ValidarLogin(login);
 
-            bool status = ServicioLogin.ValidarLogin(usuario);
-
-            if (!status)
+            if ( usuarioEncontrado == null)
             {
-                //TempData["datosInvalidos"] = true;
-                //return Redirect("/");
-                //return View("mal","mal");
-                return LoginUsuario("Usuario o contraseña inválido");
+                return LoginUsuario("Email y/o Contraseña inválidos");
             }
+            else {
+                if (!usuarioEncontrado.Activo)
+                {
+                    return LoginUsuario("Su usuario está inactivo. Actívelo desde el email recibido");
+                }
+                else { 
+                    Session["UsuarioID"] = usuarioEncontrado.IdUsuario;
+                    Session["UsuarioNombreApellido"] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
 
-            return View();
+                    return RedirectToAction("Index","Home");
+                }
+            }
+        }
+        public ActionResult Salir()
+        {
+            Session.Abandon();
+            return Redirect("/Login/LoginUsuario");
         }
     }
 }
