@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using AyudandoEnLaPandemia.ViewModels;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
+        [HttpGet]
         public ActionResult LoginUsuario(String mensaje = "")
         {
             ViewBag.Message = mensaje;
@@ -51,5 +51,27 @@ namespace AyudandoEnLaPandemia.Controllers
             Session.Abandon();
             return Redirect("/Login/LoginUsuario");
         }
+
+        [HttpGet]
+        public ActionResult RegistroUsuario(String mensaje = "")
+        {
+            ViewBag.Message = mensaje;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegistroUsuario(UsuariosViewModel registro)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(registro);
+            }
+
+
+
+            return View();
+        }
+      
     }
 }
