@@ -1,5 +1,4 @@
-﻿using AyudandoEnLaPandemia.Models;
-using Servicios;
+﻿using Servicios;
 using Repositorio;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ namespace AyudandoEnLaPandemia.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoginUsuario(FormularioLogin login)
+        public ActionResult LoginUsuario(Usuarios login)
         {
 
             if (!ModelState.IsValid)
@@ -28,11 +27,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(login);
             }
 
-            Usuarios usuario = new Usuarios();
-            usuario.Email = login.email;
-            usuario.Password = login.password;
-
-            Usuarios usuarioEncontrado = ServicioLogin.ValidarLogin(usuario);
+            Usuarios usuarioEncontrado = ServicioLogin.ValidarLogin(login);
 
             if (usuarioEncontrado.IdUsuario<1)
             {
