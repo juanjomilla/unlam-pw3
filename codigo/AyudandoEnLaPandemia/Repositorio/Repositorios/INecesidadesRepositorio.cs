@@ -1,4 +1,4 @@
-﻿namespace Repositorio.Repositories
+﻿namespace Repositorio.Repositorios
 {
     public interface INecesidadesRepositorio : IRepository<Necesidades>
     {

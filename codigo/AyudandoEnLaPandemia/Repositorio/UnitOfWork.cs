@@ -1,4 +1,4 @@
-﻿using Repositorio.Repositories;
+﻿using Repositorio.Repositorios;
 
 namespace Repositorio
 {

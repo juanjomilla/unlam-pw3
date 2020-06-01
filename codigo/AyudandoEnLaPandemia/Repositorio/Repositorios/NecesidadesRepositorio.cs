@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Repositorio.Repositories
+namespace Repositorio.Repositorios
 {
     public class NecesidadesRepositorio : Repository<Necesidades>, INecesidadesRepositorio
     {

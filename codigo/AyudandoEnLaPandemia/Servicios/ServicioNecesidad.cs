@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Repositorio;
-using Repositorio.Repositories;
+using Repositorio.Repositorios;
 
 namespace Servicios
 {
