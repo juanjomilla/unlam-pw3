@@ -6,9 +6,9 @@ namespace Servicios
 {
     public class ServicioNecesidad
     {
-        private readonly INecesidadesRepository _necesidadesRepository;
+        private readonly INecesidadesRepositorio _necesidadesRepository;
 
-        public ServicioNecesidad(INecesidadesRepository necesidadDao)
+        public ServicioNecesidad(INecesidadesRepositorio necesidadDao)
         {
             _necesidadesRepository = necesidadDao;
         }

@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Repositorio.Repositories
 {
-    public class NecesidadesRepository : Repository<Necesidades>, INecesidadesRepository
+    public class NecesidadesRepositorio : Repository<Necesidades>, INecesidadesRepositorio
     {
-        public NecesidadesRepository(Contexto dbContext) : base(dbContext) { }
+        public NecesidadesRepositorio(Contexto dbContext) : base(dbContext) { }
 
         public IEnumerable<Necesidades> GetNecesidades(int top)
         {

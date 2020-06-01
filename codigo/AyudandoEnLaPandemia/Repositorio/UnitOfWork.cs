@@ -9,10 +9,10 @@ namespace Repositorio
         public UnitOfWork(Contexto dbContext)
         {
             _dbContext = dbContext;
-            Necesidades = new NecesidadesRepository(_dbContext);
+            Necesidades = new NecesidadesRepositorio(_dbContext);
         }
 
-        public INecesidadesRepository Necesidades { get; }
+        public INecesidadesRepositorio Necesidades { get; }
 
         public void Commit()
         {
