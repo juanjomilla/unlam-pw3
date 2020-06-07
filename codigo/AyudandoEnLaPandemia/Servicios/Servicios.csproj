@@ -47,16 +47,8 @@
     <Compile Include="ServicioRegistrar.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dao\Dao.csproj">
-      <Project>{AC9C6067-1C8D-4E1E-92CD-6EBD548F5269}</Project>
-      <Name>Dao</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entidades\Entidades.csproj">
-      <Project>{326d1196-26e5-45c9-a063-3f50326ac201}</Project>
-      <Name>Entidades</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Repositorio\Repositorio.csproj">
-      <Project>{50bce2e8-9f17-4a7d-9919-268e259c9061}</Project>
+      <Project>{50BCE2E8-9F17-4A7D-9919-268E259C9061}</Project>
       <Name>Repositorio</Name>
     </ProjectReference>
   </ItemGroup>

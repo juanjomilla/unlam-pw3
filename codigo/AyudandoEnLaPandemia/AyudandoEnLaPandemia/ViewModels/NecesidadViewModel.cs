@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Entidades;
+using Repositorio;
 
 namespace AyudandoEnLaPandemia.ViewModels
 {
     public class NecesidadViewModel
     {
-        public IEnumerable<Necesidad> Necesidades { get; set; }
+        public IEnumerable<Necesidades> Necesidades { get; set; }
     }
 }

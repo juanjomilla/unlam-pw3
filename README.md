@@ -1,7 +1,6 @@
 # Programación Web III - Tecnicatura en Desarrollo Web - UNLaM
 ## Trabajo práctico "ayudando en la pandemia"
 ### Integrantes:
-1. [Callejas Nina Andrea](#linkUsuarioGitHub)
 1. [Milla Juan](https://github.com/juanjomilla)
 1. [Sosa Rodrigo](https://github.com/rodrigososa21)
 1. [Zornetta Yéssica](#linkUsuarioGitHub)
