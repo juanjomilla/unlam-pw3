@@ -9,9 +9,9 @@ namespace Servicios
 {
     public class ServicioRegistrar
     {
-        public static void ValidarRegistro(Usuarios usuario)
+        public static void crearRegistro(Usuarios usuarioNuevo)
         {
-
+            UsuarioRepositorio.crearUsuario(usuarioNuevo);
         }
     }
 }

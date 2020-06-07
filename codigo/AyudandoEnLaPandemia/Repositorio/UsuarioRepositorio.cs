@@ -23,5 +23,23 @@ namespace Repositorio
             return usuarioEcontrado;
 
         }
+
+        public static void crearUsuario(Usuarios usuarioNuevo)
+        {
+            Contexto context = new Contexto();
+
+            context.Usuarios.Add(usuarioNuevo);
+            //context.SaveChanges();
+
+           try { 
+            context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
+
     }
 }

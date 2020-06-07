@@ -68,7 +68,16 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(registro);
             }
 
+            Usuarios usuarioNuevo = new Usuarios();
 
+            usuarioNuevo.Nombre = registro.Nombre;
+            usuarioNuevo.Apellido = registro.Apellido;
+            usuarioNuevo.UserName = registro.UserName;
+            usuarioNuevo.Email = registro.Email;
+            usuarioNuevo.Password = registro.Password;
+            usuarioNuevo.FechaNacimiento = Convert.ToDateTime(registro.FechaNacimiento);
+
+            ServicioRegistrar.crearRegistro(usuarioNuevo);
 
             return View();
         }
