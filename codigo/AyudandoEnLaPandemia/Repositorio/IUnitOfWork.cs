@@ -4,6 +4,6 @@ namespace Repositorio
 {
     public interface IUnitOfWork : IDisposable
     {
-        void Commit();
+        void SaveChanges();
     }
 }

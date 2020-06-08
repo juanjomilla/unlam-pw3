@@ -1,17 +1,21 @@
 ﻿using Repositorio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositorio.Repositorios;
 
 namespace Servicios
 {
     public class ServicioRegistrar
     {
-        public static void crearRegistro(Usuarios usuarioNuevo)
+        private IUsuarioRepositorio _usuarioRepositorio;
+
+        // se arma el constructor y se guardan en variables privadas lo que inyecta autofac
+        public ServicioRegistrar(IUsuarioRepositorio usuarioRepositorio)
         {
-            UsuarioRepositorio.crearUsuario(usuarioNuevo);
+            _usuarioRepositorio = usuarioRepositorio;
+        }
+
+        public void CrearRegistro(Usuarios usuarioNuevo)
+        {
+            _usuarioRepositorio.CrearUsuario(usuarioNuevo);
         }
     }
 }

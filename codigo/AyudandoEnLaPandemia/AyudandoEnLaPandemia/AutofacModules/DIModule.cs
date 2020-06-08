@@ -11,6 +11,7 @@ namespace AyudandoEnLaPandemia.AutofacModules
             builder.RegisterType<ServicioNecesidad>().AsSelf().InstancePerLifetimeScope();
 
             builder.RegisterType<ServicioLogin>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<ServicioRegistrar>().AsSelf().InstancePerLifetimeScope();
 
             builder.RegisterType<Contexto>().AsSelf().InstancePerLifetimeScope();
 

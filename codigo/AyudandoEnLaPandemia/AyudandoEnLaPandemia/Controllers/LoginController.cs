@@ -1,16 +1,23 @@
-﻿using Servicios;
-using Repositorio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System;
 using System.Web.Mvc;
 using AyudandoEnLaPandemia.ViewModels;
+using Repositorio;
+using Servicios;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
     public class LoginController : Controller
     {
+        private ServicioLogin _servicioLogin;
+        private ServicioRegistrar _servicioRegistrar;
+
+        // se arma el constructor y se guardan en variables privadas lo que inyecta autofac
+        public LoginController(ServicioLogin servicioLogin, ServicioRegistrar servicioRegistrar) 
+        {
+            _servicioLogin = servicioLogin;
+            _servicioRegistrar = servicioRegistrar;
+        }
+
         [HttpGet]
         public ActionResult LoginUsuario(String mensaje = "")
         {
@@ -27,7 +34,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(login);
             }
 
-            Usuarios usuarioEncontrado = ServicioLogin.ValidarLogin(login);
+            Usuarios usuarioEncontrado = _servicioLogin.ValidarLogin(login);
 
             if ( usuarioEncontrado == null)
             {
@@ -77,7 +84,7 @@ namespace AyudandoEnLaPandemia.Controllers
             usuarioNuevo.Password = registro.Password;
             usuarioNuevo.FechaNacimiento = Convert.ToDateTime(registro.FechaNacimiento);
 
-            ServicioRegistrar.crearRegistro(usuarioNuevo);
+            _servicioRegistrar.CrearRegistro(usuarioNuevo);
 
             return View();
         }
