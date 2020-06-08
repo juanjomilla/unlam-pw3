@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Web.Mvc;
 using AyudandoEnLaPandemia.ViewModels;
 using Repositorio;
@@ -75,6 +76,8 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(registro);
             }
 
+            StringBuilder token = _servicioRegistrar.CrearToken();
+
             Usuarios usuarioNuevo = new Usuarios();
 
             usuarioNuevo.Nombre = registro.Nombre;
@@ -83,6 +86,10 @@ namespace AyudandoEnLaPandemia.Controllers
             usuarioNuevo.Email = registro.Email;
             usuarioNuevo.Password = registro.Password;
             usuarioNuevo.FechaNacimiento = Convert.ToDateTime(registro.FechaNacimiento);
+            usuarioNuevo.TipoUsuario = 0; //Usuario normal
+            usuarioNuevo.FechaCracion= DateTime.Today;
+            usuarioNuevo.Activo = false;
+            usuarioNuevo.Token = token.ToString();
 
             _servicioRegistrar.CrearRegistro(usuarioNuevo);
 

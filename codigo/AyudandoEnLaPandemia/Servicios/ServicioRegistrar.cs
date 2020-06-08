@@ -1,5 +1,7 @@
 ﻿using Repositorio;
 using Repositorio.Repositorios;
+using System;
+using System.Text;
 
 namespace Servicios
 {
@@ -16,6 +18,22 @@ namespace Servicios
         public void CrearRegistro(Usuarios usuarioNuevo)
         {
             _usuarioRepositorio.CrearUsuario(usuarioNuevo);
+        }
+
+        public StringBuilder CrearToken()
+        {
+            int longitud = 50;
+            const string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            StringBuilder token = new StringBuilder();
+            Random rnd = new Random();
+
+            for (int i = 0; i < longitud; i++)
+            {
+                int indice = rnd.Next(alfabeto.Length);
+                token.Append(alfabeto[indice]);
+            }
+
+            return token;
         }
     }
 }
