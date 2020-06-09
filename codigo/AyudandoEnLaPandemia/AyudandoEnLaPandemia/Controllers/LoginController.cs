@@ -1,17 +1,25 @@
-﻿using Servicios;
-using Repositorio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System;
+using System.Text;
 using System.Web.Mvc;
-
+using AyudandoEnLaPandemia.ViewModels;
+using Repositorio;
+using Servicios;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
+        private ServicioLogin _servicioLogin;
+        private ServicioRegistrar _servicioRegistrar;
+
+        // se arma el constructor y se guardan en variables privadas lo que inyecta autofac
+        public LoginController(ServicioLogin servicioLogin, ServicioRegistrar servicioRegistrar) 
+        {
+            _servicioLogin = servicioLogin;
+            _servicioRegistrar = servicioRegistrar;
+        }
+
+        [HttpGet]
         public ActionResult LoginUsuario(String mensaje = "")
         {
             ViewBag.Message = mensaje;
@@ -27,7 +35,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(login);
             }
 
-            Usuarios usuarioEncontrado = ServicioLogin.ValidarLogin(login);
+            Usuarios usuarioEncontrado = _servicioLogin.ValidarLogin(login);
 
             if ( usuarioEncontrado == null)
             {
@@ -51,5 +59,42 @@ namespace AyudandoEnLaPandemia.Controllers
             Session.Abandon();
             return Redirect("/Login/LoginUsuario");
         }
+
+        [HttpGet]
+        public ActionResult RegistroUsuario(String mensaje = "")
+        {
+            ViewBag.Message = mensaje;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegistroUsuario(UsuariosViewModel registro)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(registro);
+            }
+
+            StringBuilder token = _servicioRegistrar.CrearToken();
+
+            Usuarios usuarioNuevo = new Usuarios();
+
+            usuarioNuevo.Nombre = registro.Nombre;
+            usuarioNuevo.Apellido = registro.Apellido;
+            usuarioNuevo.UserName = registro.UserName;
+            usuarioNuevo.Email = registro.Email;
+            usuarioNuevo.Password = registro.Password;
+            usuarioNuevo.FechaNacimiento = Convert.ToDateTime(registro.FechaNacimiento);
+            usuarioNuevo.TipoUsuario = 0; //Usuario normal
+            usuarioNuevo.FechaCracion= DateTime.Today;
+            usuarioNuevo.Activo = false;
+            usuarioNuevo.Token = token.ToString();
+
+            _servicioRegistrar.CrearRegistro(usuarioNuevo);
+
+            return View();
+        }
+      
     }
 }

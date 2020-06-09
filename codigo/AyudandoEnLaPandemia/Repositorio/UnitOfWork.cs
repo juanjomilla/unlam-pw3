@@ -10,11 +10,14 @@ namespace Repositorio
         {
             _dbContext = dbContext;
             Necesidades = new NecesidadesRepositorio(_dbContext);
+            Usuarios = new UsuarioRepositorio(_dbContext);
         }
 
         public INecesidadesRepositorio Necesidades { get; }
 
-        public void Commit()
+        public IUsuarioRepositorio Usuarios { get; set; }
+
+        public void SaveChanges()
         {
             _dbContext.SaveChanges();
         }

@@ -14,7 +14,7 @@ namespace Repositorio
         public Repository(Contexto dbContext)
         {
             _dbContext = dbContext;
-            _dbSet = _dbContext.Set<T>();
+            _dbSet = dbContext.Set<T>();
         }
 
         public IEnumerable<T> Get(
