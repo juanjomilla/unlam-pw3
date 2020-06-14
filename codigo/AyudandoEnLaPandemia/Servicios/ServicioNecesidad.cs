@@ -1,33 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using Dao;
 using Repositorio;
+using Repositorio.Repositorios;
 
 namespace Servicios
 {
     public class ServicioNecesidad
     {
-        private readonly INecesidadDao _necesidadDao;
+        private readonly INecesidadesRepositorio _necesidadesRepository;
 
-        public ServicioNecesidad(INecesidadDao necesidadDao)
+        public ServicioNecesidad(INecesidadesRepositorio necesidadDao)
         {
-            _necesidadDao = necesidadDao;
+            _necesidadesRepository = necesidadDao;
         }
 
-        public IEnumerable<Necesidades> GetNecesidades(int top = 0)
+        public IEnumerable<Necesidades> GetNecesidades()
         {
-            return _necesidadDao.GetNecesidades(top);
-        }
-
-        public IEnumerable<Necesidades> GetMisNecesidades()
-        {
-            return _necesidadDao.GetNecesidades(0);
-        }
-
-        public IEnumerable<Necesidades> GetOtrasNecesidades()
-        {
-            return _necesidadDao.GetNecesidades(0);
+            return _necesidadesRepository.Get();
         }
     }
 }

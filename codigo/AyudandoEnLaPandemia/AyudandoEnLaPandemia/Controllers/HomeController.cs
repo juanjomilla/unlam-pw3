@@ -33,8 +33,8 @@ namespace AyudandoEnLaPandemia.Controllers
             var viewModel = new HomeViewModel()
             {
                 TituloPagina = "Home",
-                MisNecesidades = _servicioNecesidad.GetMisNecesidades(),
-                Necesidades = _servicioNecesidad.GetOtrasNecesidades()
+                MisNecesidades = _servicioNecesidad.GetNecesidades(),
+                Necesidades = _servicioNecesidad.GetNecesidades()
             };
 
             return View("~/Views/Home/home.cshtml", viewModel);

@@ -1,17 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Repositorio;
 
-namespace Dao
+namespace Repositorio.Repositorios
 {
-    public class NecesidadDao : INecesidadDao
+    public class NecesidadesRepositorio : Repository<Necesidades>, INecesidadesRepositorio
     {
-        private readonly Contexto _dbContext;
-
-        public NecesidadDao()
-        {
-            _dbContext = new Contexto();
-        }
+        public NecesidadesRepositorio(Contexto dbContext) : base(dbContext) { }
 
         public IEnumerable<Necesidades> GetNecesidades(int top)
         {

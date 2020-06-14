@@ -1,11 +1,9 @@
-﻿@model BaseViewModel
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@Html.Raw(Model?.TituloPagina) - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
@@ -19,10 +17,19 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Creá tu cuenta</a>
+                        <a class="nav-link" href="@Url.Action("RegistroUsuario","Login")">Creá tu cuenta</a>
                     </li>
                     <li class="nav-item">
+                        @if (Session["UsuarioID"] != null)
+                        {<text>
+                                Hola @Session["UsuarioNombreApellido"].ToString()
+                        </text>
+                        <a href="@Url.Action("Salir","Login")">Salir</a>
+                    }
+                    else
+                    {
                         @Html.ActionLink("Ingresá", "LoginUsuario", "Login", new { area = "" }, new { @class = "nav-link" })
+                    }
                     </li>
                 </ul>
             </div>

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Dao;
+using Repositorio;
 using Servicios;
 
 namespace AyudandoEnLaPandemia.AutofacModules
@@ -10,9 +10,12 @@ namespace AyudandoEnLaPandemia.AutofacModules
         {
             builder.RegisterType<ServicioNecesidad>().AsSelf().InstancePerLifetimeScope();
 
-            builder.RegisterType<NecesidadDao>().As<INecesidadDao>().InstancePerLifetimeScope();
-
             builder.RegisterType<ServicioLogin>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<ServicioRegistrar>().AsSelf().InstancePerLifetimeScope();
+
+            builder.RegisterType<Contexto>().AsSelf().InstancePerLifetimeScope();
+
+            builder.RegisterAssemblyTypes(typeof(IRepository<>).Assembly).AsClosedTypesOf(typeof(IRepository<>));
         }
     }
 }

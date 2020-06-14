@@ -1,0 +1,51 @@
+﻿@model AyudandoEnLaPandemia.ViewModels.UsuariosViewModel
+
+@{
+    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
+}
+
+<h2>Nuevo Usuario</h2>
+
+
+@using (Html.BeginForm("RegistroUsuario", "Login", FormMethod.Post, new { id = "UsuariosViewModel" }))
+{
+
+    if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-warning">@ViewBag.Message</div>
+    }
+
+    <div>
+        Nombre: @Html.EditorFor(o => Model.Nombre)
+        @Html.ValidationMessageFor(o => o.Nombre)
+    </div>
+    <div>
+        Apellido: @Html.EditorFor(o => Model.Apellido)
+        @Html.ValidationMessageFor(o => o.Apellido)
+    </div>
+    <div>
+        Nombre de usuario: @Html.EditorFor(o => Model.UserName)
+    </div>
+    <div>
+        Email: @Html.EditorFor(o => Model.Email)
+        @Html.ValidationMessageFor(o => o.Email)
+    </div>
+
+    <div>
+        Password: @Html.PasswordFor(o => Model.Password)
+        @Html.ValidationMessageFor(o => o.Password)
+    </div>
+
+    <div>
+        Reingresar Password: @Html.PasswordFor(o => Model.RePassword)
+        @Html.ValidationMessageFor(o => o.RePassword)
+    </div>
+
+    <div>
+        Fecha de Nacimiento (dd/mm/aa): @Html.EditorFor(o => Model.FechaNacimiento)
+        @Html.ValidationMessageFor(o => o.FechaNacimiento)
+    </div>
+
+    <input type="submit" value="Registrar" />
+
+}

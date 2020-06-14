@@ -1,29 +1,21 @@
 ﻿@model NecesidadViewModel
 
-<div class="album py-5 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12" id="collection-heading">
-                <span>Top 5 necesidades</span>
+@foreach (var necesidad in Model.Necesidades.Take(5))
+{
+    <div class="col-lg-4 col-sm-6 mb-4">
+        <div class="card h-100">
+            <img class="card-img-top" src="@necesidad.Foto" alt="">
+            <div class="card-body">
+                <h4 class="card-title">@necesidad.Nombre</h4>
+            </div>
+            <ul class="list-group list-group-flush text-left">
+                <li class="list-group-item">Usuario creador</li>
+                <li class="list-group-item">Valoración actual de los usuarios</li>
+                <li class="list-group-item">Fecha de creación</li>
+            </ul>
+            <div class="card-footer">
+                <a href="/#@necesidad.IdNecesidad" class="btn btn-primary text-white">Ver más</a>
             </div>
         </div>
-        @foreach (var necesidad in Model.Necesidades)
-        {
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <img class="card-img-top" src="@necesidad.Foto" alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">
-                            @Html.DisplayFor(Model => necesidad.Nombre)
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="@necesidad.IdNecesidad" type="button" class="btn btn-sm btn-outline-secondary">Ver más</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
     </div>
-</div>
+}

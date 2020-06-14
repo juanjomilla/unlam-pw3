@@ -1,26 +1,23 @@
-﻿using Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Repositorio;
+using Repositorio.Repositorios;
 
 namespace Servicios
 {
     public class ServicioLogin
     {
-        public static bool ValidarLogin(Usuario Usuario)
+        private IUsuarioRepositorio _usuarioRepositorio;
+
+        // se arma el constructor y se guardan en variables privadas lo que inyecta autofac
+        public ServicioLogin(IUsuarioRepositorio usuarioRepositorio)
         {
+            _usuarioRepositorio = usuarioRepositorio;
+        }
 
-            Usuario UsuarioDB = new Usuario();
-            UsuarioDB.Email = "jose@gmail.com";
-            UsuarioDB.Password = "2222";
-
-            if (String.Equals(Usuario.Email,UsuarioDB.Email) && String.Equals(Usuario.Password,UsuarioDB.Password))
-            {
-                return true;
-            }
-            return false;
+        public Usuarios ValidarLogin(Usuarios Usuario)
+        {
+            Usuarios UsuarioEncontrado = _usuarioRepositorio.BuscarUsuario(Usuario);
+       
+            return UsuarioEncontrado;
         }
     }
 }
