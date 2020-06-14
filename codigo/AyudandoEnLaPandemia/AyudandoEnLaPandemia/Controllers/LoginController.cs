@@ -93,8 +93,29 @@ namespace AyudandoEnLaPandemia.Controllers
 
             _servicioRegistrar.CrearRegistro(usuarioNuevo);
 
+            return Json("Registration Successfull", JsonRequestBehavior.AllowGet);
+
+            //return Redirect("/Login/LoginUsuario");
+        }
+
+        
+        public ActionResult Confirm(int IdUsuario, String mensaje = "")
+        {
+            ViewBag.Message = mensaje;
+            ViewBag.IdUsuario = IdUsuario;
             return View();
         }
-      
+        
+ 
+        public ActionResult RegisterConfirm(int IdUsuario)
+        {
+
+            _servicioRegistrar.ValidarUsuario(IdUsuario);
+
+            ViewBag.Message = "Your Email Is Verified!";
+
+            return Redirect("/Login/Confirm");
+        }
+
     }
 }

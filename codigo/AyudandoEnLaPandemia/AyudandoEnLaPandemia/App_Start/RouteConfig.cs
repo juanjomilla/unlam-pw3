@@ -14,6 +14,12 @@ namespace AyudandoEnLaPandemia
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Login",
+                url: "Login/RegisterConfirm/{IdUsuario}",
+                defaults: new { controller = "Login", action = "RegisterConfirm", IdUsuario = UrlParameter.Optional }
+            );
         }
     }
 }
