@@ -1,21 +1,31 @@
 ﻿@model NecesidadViewModel
 
-@foreach (var necesidad in Model.Necesidades.Take(5))
-{
-    <div class="col-lg-4 col-sm-6 mb-4">
-        <div class="card h-100">
-            <img class="card-img-top" src="@necesidad.Foto" alt="">
-            <div class="card-body">
-                <h4 class="card-title">@necesidad.Nombre</h4>
+@{
+    if (Model.Necesidades.Any())
+    {
+        foreach (var necesidad in Model.Necesidades)
+        {
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <img class="card-img-top" src="@necesidad.Foto" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">@necesidad.Nombre</h4>
+                    </div>
+                    <ul class="list-group list-group-flush text-left">
+                        <li class="list-group-item">Creado por: @necesidad.Usuarios.UserName</li>
+                        <li class="list-group-item">Valoración actual: @necesidad.Valoracion</li>
+                        <li class="list-group-item">Creado el día: @necesidad.FechaCreacion</li>
+                    </ul>
+                    <div class="card-footer">
+                        <a href="/necesidad/detalle/@necesidad.IdNecesidad" class="btn btn-primary text-white">Ver más</a>
+                    </div>
+                </div>
             </div>
-            <ul class="list-group list-group-flush text-left">
-                <li class="list-group-item">Usuario creador</li>
-                <li class="list-group-item">Valoración actual de los usuarios</li>
-                <li class="list-group-item">Fecha de creación</li>
-            </ul>
-            <div class="card-footer">
-                <a href="/#@necesidad.IdNecesidad" class="btn btn-primary text-white">Ver más</a>
-            </div>
-        </div>
-    </div>
+        }
+    }
+    else
+    {
+        <p>No existen necesidades para mostrar</p>
+    }
 }
+

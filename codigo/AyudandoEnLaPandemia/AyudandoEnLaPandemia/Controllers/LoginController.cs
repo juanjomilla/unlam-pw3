@@ -50,7 +50,7 @@ namespace AyudandoEnLaPandemia.Controllers
                     Session["UsuarioID"] = usuarioEncontrado.IdUsuario;
                     Session["UsuarioNombreApellido"] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
 
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Home","Home");
                 }
             }
         }
