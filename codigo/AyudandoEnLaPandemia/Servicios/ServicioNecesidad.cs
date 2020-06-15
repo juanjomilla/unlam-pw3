@@ -27,5 +27,10 @@ namespace Servicios
         {
             return _necesidadesRepository.GetNecesidadesMasValoradas(top: top);
         }
+
+        public Necesidades GetNecesidad(int idNecesidad)
+        {
+            return _necesidadesRepository.Get(idNecesidad);
+        }
     }
 }

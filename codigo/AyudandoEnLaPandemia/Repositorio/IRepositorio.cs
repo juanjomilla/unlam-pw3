@@ -9,5 +9,7 @@ namespace Repositorio
         IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
             int top = 0);
+
+        T Get(int id);
     }
 }

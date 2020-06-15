@@ -1,0 +1,30 @@
+﻿@model DetalleNecesidadViewModel
+
+@{ 
+    Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
+}
+
+<div>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="@Model.Necesidad.Foto" class="card-img" alt="">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Necesidad.Nombre</h5>
+                    <p class="card-text">@Model.Necesidad.Descripcion</p>
+                    <p class="card-text"><small class="text-muted">Fecha de creación: @Model.Necesidad.FechaCreacion</small></p>
+                    @if (!Model.EsPropietario)
+                    {
+                        <p>Me gusta</p>
+                        <p>No Me gusta</p>
+                        <p>Denunciar</p>
+                        <p>Realizar donación</p>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

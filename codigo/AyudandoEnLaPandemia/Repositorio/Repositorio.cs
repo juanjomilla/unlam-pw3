@@ -35,5 +35,10 @@ namespace Repositorio
 
             return query.ToList();
         }
+
+        public T Get(int id)
+        {
+            return _dbSet.Find(id);
+        }
     }
 }
