@@ -109,7 +109,7 @@ namespace Repositorio.Repositorios
                 client.EnableSsl = true;
                 client.UseDefaultCredentials = false;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.Credentials = new System.Net.NetworkCredential("yzornetta@gmail.com", "");
+                client.Credentials = new System.Net.NetworkCredential("yzornetta@gmail.com", "tatiana003");
                 try
                 {
                     client.Send(mail);

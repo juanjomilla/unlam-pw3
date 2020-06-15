@@ -90,12 +90,11 @@ namespace AyudandoEnLaPandemia.Controllers
             usuarioNuevo.FechaCracion= DateTime.Today;
             usuarioNuevo.Activo = false;
             usuarioNuevo.Token = token.ToString();
-
+            
             _servicioRegistrar.CrearRegistro(usuarioNuevo);
 
-            return Json("Registration Successfull", JsonRequestBehavior.AllowGet);
+            return RegistroUsuario("OK");
 
-            //return Redirect("/Login/LoginUsuario");
         }
 
         
@@ -114,7 +113,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
             ViewBag.Message = "Your Email Is Verified!";
 
-            return Redirect("/Login/Confirm");
+            return Redirect("/Login/LoginUsuario");
         }
 
     }
