@@ -16,7 +16,7 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var necesidades = _servicioNecesidad.GetNecesidades();
+            var necesidades = _servicioNecesidad.GetNecesidadesMasValoradas();
 
             var viewModel = new IndexViewModel
             {
@@ -33,8 +33,8 @@ namespace AyudandoEnLaPandemia.Controllers
             var viewModel = new HomeViewModel()
             {
                 TituloPagina = "Home",
-                MisNecesidades = _servicioNecesidad.GetNecesidades(),
-                Necesidades = _servicioNecesidad.GetNecesidades()
+                MisNecesidades = _servicioNecesidad.GetNecesidadesUsuario((int) Session["UsuarioID"]),
+                Necesidades = _servicioNecesidad.GetNecesidadesOtrosUsuarios((int)Session["UsuarioID"])
             };
 
             return View("~/Views/Home/home.cshtml", viewModel);
