@@ -13,9 +13,19 @@ namespace Servicios
             _necesidadesRepository = necesidadDao;
         }
 
-        public IEnumerable<Necesidades> GetNecesidades()
+        public IEnumerable<Necesidades> GetNecesidadesOtrosUsuarios(int idUsuario)
         {
-            return _necesidadesRepository.Get();
+            return _necesidadesRepository.Get(x => x.IdUsuarioCreador != idUsuario);
+        }
+
+        public IEnumerable<Necesidades> GetNecesidadesUsuario(int idUsuario)
+        {
+            return _necesidadesRepository.Get(x => x.IdUsuarioCreador == idUsuario);
+        }
+
+        public IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top = 5)
+        {
+            return _necesidadesRepository.GetNecesidadesMasValoradas(top: top);
         }
     }
 }

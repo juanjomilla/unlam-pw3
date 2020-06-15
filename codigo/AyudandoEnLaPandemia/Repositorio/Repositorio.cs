@@ -19,18 +19,18 @@ namespace Repositorio
 
         public IEnumerable<T> Get(
             Expression<Func<T, bool>> filtro = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
+            int top = 0)
         {
             IQueryable<T> query = _dbSet;
+
+            if (top > 0)
+            {
+                query = query.Take(top);
+            }
 
             if (filtro != null)
             {
                 query = query.Where(filtro);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
             }
 
             return query.ToList();
