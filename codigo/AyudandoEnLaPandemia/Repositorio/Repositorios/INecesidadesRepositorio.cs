@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Repositorio.Repositorios
+﻿namespace Repositorio.Repositorios
 {
     public interface INecesidadesRepositorio : IRepository<Necesidades>
     {
-        IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top = 5);
     }
 }

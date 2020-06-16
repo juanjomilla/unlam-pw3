@@ -11,5 +11,6 @@ namespace Repositorio.Repositorios
         Usuarios BuscarUsuario(Usuarios usuario);
 
         void CrearUsuario(Usuarios usuarioNuevo);
+        void ValidarUsuario(int IdUsuario);
     }
 }

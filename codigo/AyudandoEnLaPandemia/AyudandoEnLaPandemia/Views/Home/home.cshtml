@@ -1,17 +1,22 @@
 ﻿@model HomeViewModel
 
-<div>
-    <div id="misNecesidades">
-        <h2>Mis Necesidades</h2>
-        @{
-            Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.MisNecesidades });
-        }
-    </div>
-    <div id="otrasNecesidades">
-        <h2>Otras necesidades</h2>
-        @{
-            Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.Necesidades });
-        }
-    </div>
+@{
+    Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
+}
 
-</div>
+<body>
+    <header class="jumbotron text-center">
+        <h1 class="jumbotron-heading">Ayudando en la pandemia</h1>
+        <p class="lead">
+            Acá podrás encontrar las necesidades de la sociedad en el contexto actual de la pandemia COVID-19.
+            Podrás crear una necesidad, votar o ayudar.
+        </p>
+    </header>
+
+    <h3 class="text-center">Top 5 necesidades más valoradas por los usuarios:</h3>
+    <div class="row text-center">
+        @{
+            Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.TopNecesidades });
+        }
+    </div>
+</body>

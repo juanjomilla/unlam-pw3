@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,10 +48,6 @@
     <Compile Include="ServicioRegistrar.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Repositorio\Repositorio.csproj">
-      <Project>{50BCE2E8-9F17-4A7D-9919-268E259C9061}</Project>
-      <Name>Repositorio</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Repositorio\Repositorio.csproj">
       <Project>{50BCE2E8-9F17-4A7D-9919-268E259C9061}</Project>
       <Name>Repositorio</Name>

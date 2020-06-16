@@ -2,6 +2,7 @@
 using Repositorio.Repositorios;
 using System;
 using System.Text;
+using System.Web.Hosting;
 
 namespace Servicios
 {
@@ -34,6 +35,11 @@ namespace Servicios
             }
 
             return token;
+        }
+
+        public void ValidarUsuario(int IdUsuario)
+        {
+            _usuarioRepositorio.ValidarUsuario(IdUsuario);
         }
     }
 }
