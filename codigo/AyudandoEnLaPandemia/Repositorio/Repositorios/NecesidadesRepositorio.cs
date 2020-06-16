@@ -9,7 +9,7 @@ namespace Repositorio.Repositorios
 
         public IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top = 5)
         {
-            IQueryable<Necesidades> query = _dbContext.Necesidades;
+            IQueryable<Necesidades> query = _dbSet;
 
             return query
                 .OrderByDescending(x => x.Valoracion)

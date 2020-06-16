@@ -157,6 +157,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\necesidad\crearNecesidad.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -233,16 +234,22 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutofacModules\DIModule.cs" />
+    <Compile Include="Controllers\NecesidadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="CustomDataAnnotations\EnumerableMinLength.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Necesidad\CrearNecesidadForm.cs" />
+    <Compile Include="ViewModels\Necesidad\CrearNecesidadViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\NecesidadViewModel.cs" />
+    <Compile Include="ViewModels\Necesidad\InsumoForm.cs" />
+    <Compile Include="ViewModels\Necesidad\ReferenciaForm.cs" />
     <Compile Include="ViewModels\UsuariosViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +275,11 @@
     <Content Include="Views\Home\home.cshtml" />
     <Content Include="Views\Shared\_necesidadPartial.cshtml" />
     <Content Include="Views\Login\RegistroUsuario.cshtml" />
+    <Content Include="Views\Necesidad\crearNecesidad.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\InsumoForm.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ReferenciaForm.cshtml" />
+    <Content Include="Views\Shared\Necesidad\_agregarInsumoPartial.cshtml" />
+    <Content Include="Views\Shared\Necesidad\_agregarReferenciaPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,7 +9,7 @@ namespace Repositorio
     public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly Contexto _dbContext;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbSet<T> _dbSet;
 
         public Repository(Contexto dbContext)
         {
@@ -34,6 +34,11 @@ namespace Repositorio
             }
 
             return query.ToList();
+        }
+
+        public void Add(T entidad)
+        {
+            _dbSet.Add(entidad);
         }
     }
 }
