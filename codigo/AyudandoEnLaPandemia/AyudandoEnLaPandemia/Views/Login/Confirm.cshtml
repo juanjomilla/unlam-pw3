@@ -1,34 +1,23 @@
 ﻿
 @{
-    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
 
 <br />
 <br />
 <div class="alert alert-warning" id="previous">
-    <strong>Confirm Your Account</strong>
+    <strong>Confirmación de cuenta</strong>
 
-    <a href="/Login/RegisterConfirm?IdUsuario=@ViewBag.IdUsuario">Aqui</a>
+    <a href="/Login/RegisterConfirm?IdUsuario=@ViewBag.IdUsuario">Click Aqui</a>
     <!--  <input type="submit" class="btn btn-warning" value="Confirm" onclick="Verified()" /> -->
 
-    @if (!string.IsNullOrEmpty(ViewBag.Message))
-    {
-        <div class="alert alert-warning">@ViewBag.Message</div>
-    }
 </div>
-    <!--
-    <script>
-        function Verified() {
-            $.ajax({
-                type: "get",
-                url: "/Login/RegisterConfirm",
-                data: { 'IdUsuario': '@ViewBag.IdUsuario' },
-                success: function (msg) {
-                    $("#previous").hide();
-                    $("#after").show();
-                    alert(msg);
-                }
-            })
-        }
-    </script>-->
+<script>
+
+   if(@ViewBag.Message="OK")
+   {
+        $("#message1").show();
+   };
+
+</script>
 

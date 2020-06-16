@@ -69,7 +69,7 @@ namespace Repositorio.Repositorios
                 var url = "https://localhost:44384/" + "Login/Confirm?IdUsuario=" + IdUsuario;
                 body = body.Replace("@ViewBag.ConfirmationLink", url);
                 body = body.ToString();
-                BuildEmailTemplate("Your Account Is Successfully Created", body, regInfo.Email);
+                BuildEmailTemplate("Su cuenta fue exitosamente creada", body, regInfo.Email);
             }
 
             private void BuildEmailTemplate(string subjectText, string bodyText, string sendTo)
@@ -109,7 +109,7 @@ namespace Repositorio.Repositorios
                 client.EnableSsl = true;
                 client.UseDefaultCredentials = false;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.Credentials = new System.Net.NetworkCredential("yzornetta@gmail.com", "tatiana003");
+                client.Credentials = new System.Net.NetworkCredential("miEmail@gmail.com", "MiClave");
                 try
                 {
                     client.Send(mail);

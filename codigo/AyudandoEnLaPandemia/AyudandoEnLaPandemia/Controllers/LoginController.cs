@@ -105,16 +105,18 @@ namespace AyudandoEnLaPandemia.Controllers
             return View();
         }
         
- 
         public ActionResult RegisterConfirm(int IdUsuario)
         {
-
             _servicioRegistrar.ValidarUsuario(IdUsuario);
 
-            ViewBag.Message = "Your Email Is Verified!";
-
-            return Redirect("/Login/LoginUsuario");
+            return View();
         }
+
+        //[HttpPost]
+        //public ActionResult RegisterConfirm()
+        //{
+        //    return View();
+        //}
 
     }
 }
