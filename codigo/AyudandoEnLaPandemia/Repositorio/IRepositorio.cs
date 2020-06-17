@@ -9,6 +9,8 @@ namespace Repositorio
     {
         IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null);
+            int top = 0);
+
+        void Add(T entidad);
     }
 }

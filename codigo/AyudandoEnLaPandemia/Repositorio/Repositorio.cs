@@ -9,7 +9,7 @@ namespace Repositorio
     public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly Contexto _dbContext;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbSet<T> _dbSet;
 
         public Repository(Contexto dbContext)
         {
@@ -18,22 +18,22 @@ namespace Repositorio
         }
 
         public IEnumerable<T> Get(
-            Expression<Func<T, bool>> filtro = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
+            Expression<Func<T, bool>> filter = null,
+            int top = 0)
         {
             IQueryable<T> query = _dbSet;
 
-            if (filtro != null)
+            if (filter != null)
             {
-                query = query.Where(filtro);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
+                query = query.Where(filter);
             }
 
             return query.ToList();
+        }
+
+        public void Add(T entidad)
+        {
+            _dbSet.Add(entidad);
         }
     }
 }

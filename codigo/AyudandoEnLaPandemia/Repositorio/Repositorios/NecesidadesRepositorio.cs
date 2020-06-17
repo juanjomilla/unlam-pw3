@@ -7,16 +7,13 @@ namespace Repositorio.Repositorios
     {
         public NecesidadesRepositorio(Contexto dbContext) : base(dbContext) { }
 
-        public IEnumerable<Necesidades> GetNecesidades(int top)
+        public IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top)
         {
-            var query = _dbContext.Necesidades.AsQueryable();
+            IQueryable<Necesidades> query = _dbSet;
 
-            if (top >= 1)
-            {
-                query = query.Take(top);
-            }
-
-            return query.ToList();
+            return query
+                .OrderByDescending(x => x.Valoracion)
+                .Take(top);
         }
     }
 }
