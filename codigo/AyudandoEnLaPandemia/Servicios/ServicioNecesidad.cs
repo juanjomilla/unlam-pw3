@@ -35,8 +35,6 @@ namespace Servicios
         {
             necesidad.Foto = GuardarImagen(necesidad.IdUsuarioCreador, imagen);
 
-            
-
             _unitOfWork.Necesidades.Add(necesidad);
 
             _unitOfWork.SaveChanges();

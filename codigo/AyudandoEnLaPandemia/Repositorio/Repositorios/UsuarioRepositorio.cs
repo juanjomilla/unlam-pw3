@@ -28,11 +28,11 @@ namespace Repositorio.Repositorios
         {
             using (var unitOfWork = new UnitOfWork(_dbContext))
             {
-                _dbContext.Usuarios.Add(usuarioNuevo);
+                unitOfWork.Usuarios.Add(usuarioNuevo);
 
                 try
                 {
-                   _dbContext.SaveChanges();
+                    unitOfWork.SaveChanges();
 
                 }
                 catch (DbEntityValidationException e)
@@ -75,7 +75,7 @@ namespace Repositorio.Repositorios
             private void BuildEmailTemplate(string subjectText, string bodyText, string sendTo)
             {
                 string from, to, bcc, cc, subject, body;
-                from = "yzornetta@gmail.com";
+                from = "ayudandoenlapandemia@gmail.com";
                 to = sendTo.Trim();
                 bcc = "";
                 cc = "";

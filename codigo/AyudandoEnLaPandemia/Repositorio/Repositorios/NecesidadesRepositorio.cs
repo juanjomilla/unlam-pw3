@@ -7,7 +7,7 @@ namespace Repositorio.Repositorios
     {
         public NecesidadesRepositorio(Contexto dbContext) : base(dbContext) { }
 
-        public IEnumerable<Necesidades> GetNecesidades(int top)
+        public IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top)
         {
             IQueryable<Necesidades> query = _dbSet;
 

@@ -17,7 +17,7 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var necesidades = _servicioNecesidad.GetNecesidades();
+            var necesidades = _servicioNecesidad.GetNecesidadesMasValoradas();
 
             var viewModel = new HomeViewModel
             {
