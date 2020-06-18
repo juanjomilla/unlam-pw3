@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Repositorio.Repositorios
 {
-    public class NecesidadesRepositorio : Repository<Necesidades>, INecesidadesRepositorio
+    public class NecesidadesRepositorio : Repositorio<Necesidades>, INecesidadesRepositorio
     {
         public NecesidadesRepositorio(Contexto dbContext) : base(dbContext) { }
 

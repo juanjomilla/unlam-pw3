@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repositorio.Repositorios
 {
-    public interface IUsuarioRepositorio : IRepository<Usuarios>
+    public interface IUsuarioRepositorio : IRepositorio<Usuarios>
     {
         Usuarios BuscarUsuario(Usuarios usuario);
 

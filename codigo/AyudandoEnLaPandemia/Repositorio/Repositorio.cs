@@ -6,12 +6,12 @@ using System.Linq.Expressions;
 
 namespace Repositorio
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repositorio<T> : IRepositorio<T> where T : class
     {
         protected readonly Contexto _dbContext;
         protected readonly DbSet<T> _dbSet;
 
-        public Repository(Contexto dbContext)
+        public Repositorio(Contexto dbContext)
         {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<T>();

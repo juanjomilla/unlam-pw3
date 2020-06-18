@@ -15,7 +15,7 @@ namespace AyudandoEnLaPandemia.AutofacModules
 
             builder.RegisterType<Contexto>().AsSelf().InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(typeof(IRepository<>).Assembly).AsClosedTypesOf(typeof(IRepository<>));
+            builder.RegisterAssemblyTypes(typeof(IRepositorio<>).Assembly).AsClosedTypesOf(typeof(IRepositorio<>));
         }
     }
 }
