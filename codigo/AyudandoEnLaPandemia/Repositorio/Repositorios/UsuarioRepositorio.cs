@@ -7,7 +7,7 @@ using System.Web.Hosting;
 
 namespace Repositorio.Repositorios
 {
-    public class UsuarioRepositorio : Repository<Usuarios>, IUsuarioRepositorio
+    public class UsuarioRepositorio : Repositorio<Usuarios>, IUsuarioRepositorio
     {
         // El contexto ya está registrado en autofac, por lo tanto se inyecta automáticamente
         public UsuarioRepositorio(Contexto contexto) : base(contexto) { }
