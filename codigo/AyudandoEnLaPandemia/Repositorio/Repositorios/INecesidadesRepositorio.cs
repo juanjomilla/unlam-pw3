@@ -2,8 +2,8 @@
 
 namespace Repositorio.Repositorios
 {
-    public interface INecesidadesRepositorio : IRepository<Necesidades>
+    public interface INecesidadesRepositorio : IRepositorio<Necesidades>
     {
-        IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top = 5);
+        IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top);
     }
 }

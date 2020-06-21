@@ -10,13 +10,14 @@
 @using (Html.BeginForm("LoginUsuario", "Login", FormMethod.Post, new { id = "Usuarios" }))
 {
     @*if (ViewBag.url != null)
-    {
-        <input type="hidden" name="urlRedirect" value="@ViewBag.url" />
-    }*@
+        {
+            <input type="hidden" name="urlRedirect" value="@ViewBag.url" />
+        }*@
 
     if (!string.IsNullOrEmpty(ViewBag.Message))
     {
         <div class="alert alert-warning">@ViewBag.Message</div>
+
     }
 
 

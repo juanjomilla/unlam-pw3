@@ -3,13 +3,13 @@ using System.Linq;
 
 namespace Repositorio.Repositorios
 {
-    public class NecesidadesRepositorio : Repository<Necesidades>, INecesidadesRepositorio
+    public class NecesidadesRepositorio : Repositorio<Necesidades>, INecesidadesRepositorio
     {
         public NecesidadesRepositorio(Contexto dbContext) : base(dbContext) { }
 
-        public IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top = 5)
+        public IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top)
         {
-            IQueryable<Necesidades> query = _dbContext.Necesidades;
+            IQueryable<Necesidades> query = _dbSet;
 
             return query
                 .OrderByDescending(x => x.Valoracion)

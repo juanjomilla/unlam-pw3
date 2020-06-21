@@ -50,7 +50,7 @@ namespace AyudandoEnLaPandemia.Controllers
                     Session["UsuarioID"] = usuarioEncontrado.IdUsuario;
                     Session["UsuarioNombreApellido"] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
 
-                    return RedirectToAction("Home","Home");
+                    return RedirectToAction("Index","Home");
                 }
             }
         }
@@ -90,11 +90,33 @@ namespace AyudandoEnLaPandemia.Controllers
             usuarioNuevo.FechaCracion= DateTime.Today;
             usuarioNuevo.Activo = false;
             usuarioNuevo.Token = token.ToString();
-
+            
             _servicioRegistrar.CrearRegistro(usuarioNuevo);
+
+            return RegistroUsuario("OK");
+
+        }
+
+        
+        public ActionResult Confirm(int IdUsuario, String mensaje = "")
+        {
+            ViewBag.Message = mensaje;
+            ViewBag.IdUsuario = IdUsuario;
+            return View();
+        }
+        
+        public ActionResult RegisterConfirm(int IdUsuario)
+        {
+            _servicioRegistrar.ValidarUsuario(IdUsuario);
 
             return View();
         }
-      
+
+        //[HttpPost]
+        //public ActionResult RegisterConfirm()
+        //{
+        //    return View();
+        //}
+
     }
 }

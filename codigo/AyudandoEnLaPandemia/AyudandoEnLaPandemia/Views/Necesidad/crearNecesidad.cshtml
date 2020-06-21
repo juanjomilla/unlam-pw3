@@ -1,0 +1,50 @@
+﻿@model CrearNecesidadViewModel
+
+@{ 
+    Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
+}
+
+    <div>
+        @using (Html.BeginForm("GuardarNecesidad", "Necesidad", FormMethod.Post, new { id = "CrearNecesidadForm", enctype = "multipart/form-data" }))
+        {
+            @Html.LabelFor(model => Model.Form.Nombre, "Nombre")
+            @Html.TextBoxFor(model => Model.Form.Nombre)
+
+            @Html.LabelFor(model => Model.Form.Descripcion, "Descripcion")
+            @Html.TextBoxFor(model => Model.Form.Descripcion)
+
+            @Html.LabelFor(model => Model.Form.FechaFin, "Fecha de finalización (dd/mm/aa)")
+            @Html.EditorFor(model => Model.Form.FechaFin)
+
+            @Html.LabelFor(model => Model.Form.TelefonoDeContacto, "Teléfono de contacto")
+            @Html.TextBoxFor(model => Model.Form.TelefonoDeContacto)
+
+            @Html.LabelFor(model => Model.Form.TipoDonacion, "Tipo de donación")
+            @Html.EnumDropDownListFor(model => Model.Form.TipoDonacion)
+
+            @Html.LabelFor(model => Model.Form.CantidadDinero, "Cantidad de dinero")
+            @Html.TextBoxFor(model => Model.Form.CantidadDinero)
+
+            @Html.LabelFor(model => Model.Form.CBUAlias, "CBU/Alias")
+            @Html.TextBoxFor(model => Model.Form.CBUAlias)
+
+            <div>
+                @Html.LabelFor(model => Model.Form.Insumos, "Insumos")
+                <div id="editorInsumos">
+                    @Html.EditorFor(model => Model.Form.Insumos)
+                </div>
+                <input class="btn btn-primary" type="button" id="btnAgregarInsumo" value="Agregar insumos" />
+            </div>
+
+            <div>
+                @Html.LabelFor(model => Model.Form.Referencias, "Referencias")
+                <div id="editorReferencias">
+                    @Html.EditorFor(model => Model.Form.Referencias)
+                </div>
+                <input class="btn btn-primary" type="button" id="btnAgregarReferencia" value="Agregar referencia" />
+            </div>
+            <input type="file" title="Agregar imagen" id="imagenNecesidad" name="imagenNecesidad" />
+
+            <input type="submit" value="Crear" />
+        }
+    </div>

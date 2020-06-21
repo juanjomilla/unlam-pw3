@@ -6,34 +6,34 @@ using System.Linq.Expressions;
 
 namespace Repositorio
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repositorio<T> : IRepositorio<T> where T : class
     {
         protected readonly Contexto _dbContext;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbSet<T> _dbSet;
 
-        public Repository(Contexto dbContext)
+        public Repositorio(Contexto dbContext)
         {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<T>();
         }
 
         public IEnumerable<T> Get(
-            Expression<Func<T, bool>> filtro = null,
+            Expression<Func<T, bool>> filter = null,
             int top = 0)
         {
             IQueryable<T> query = _dbSet;
 
-            if (top > 0)
+            if (filter != null)
             {
-                query = query.Take(top);
-            }
-
-            if (filtro != null)
-            {
-                query = query.Where(filtro);
+                query = query.Where(filter);
             }
 
             return query.ToList();
+        }
+
+        public void Add(T entidad)
+        {
+            _dbSet.Add(entidad);
         }
 
         public T Get(int id)
