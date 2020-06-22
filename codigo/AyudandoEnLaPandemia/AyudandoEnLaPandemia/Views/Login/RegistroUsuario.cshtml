@@ -1,0 +1,80 @@
+﻿@model AyudandoEnLaPandemia.ViewModels.UsuariosViewModel
+
+@{
+    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
+}
+
+<h2>Nuevo Usuario</h2>
+
+<link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+
+<div class="modal-header">
+   
+    <div id="message1" style="display: none;">
+        <div class="alert alert-success">
+            <span class="glyphicon glyphicon-ok"></span><strong>
+                Gracias por registrarte!<br />
+                Un email fue enviado a tu casilla con el link de confirmación!<br />
+                Por favor revisar correo
+            </strong>
+        </div>
+    </div>
+    <div id="message2">
+        <!-- <div class="alert alert-danger">
+         <span class="glyphicon glyphicon-remove"></span><strong>Error Message! Your Registration Is Not Complete</strong>
+     </div>-->
+    </div>
+</div>
+
+@using (Html.BeginForm("RegistroUsuario", "Login", FormMethod.Post, new { id = "UsuariosViewModel" }))
+{
+
+    <div>
+        Nombre: @Html.EditorFor(o => Model.Nombre)
+        @Html.ValidationMessageFor(o => o.Nombre)
+    </div>
+    <div>
+        Apellido: @Html.EditorFor(o => Model.Apellido)
+        @Html.ValidationMessageFor(o => o.Apellido)
+    </div>
+    <div>
+        Nombre de usuario: @Html.EditorFor(o => Model.UserName)
+    </div>
+    <div>
+        Email: @Html.EditorFor(o => Model.Email)
+        @Html.ValidationMessageFor(o => o.Email)
+    </div>
+
+    <div>
+        Password: @Html.PasswordFor(o => Model.Password)
+        @Html.ValidationMessageFor(o => o.Password)
+    </div>
+
+    <div>
+        Reingresar Password: @Html.PasswordFor(o => Model.RePassword)
+        @Html.ValidationMessageFor(o => o.RePassword)
+    </div>
+
+    <div>
+        Fecha de Nacimiento (dd/mm/aa): @Html.EditorFor(o => Model.FechaNacimiento)
+        @Html.ValidationMessageFor(o => o.FechaNacimiento)
+    </div>
+
+    <input type="submit" value="Registrar" />
+
+}
+
+<script>
+
+   if(@ViewBag.Message="OK")
+   {
+        $("#message2").hide();
+        $("#message1").show();
+   };
+
+    $("#UsuariosViewModel").validate({
+        lang: 'es'
+    });
+
+
+</script>
