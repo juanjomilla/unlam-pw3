@@ -103,34 +103,6 @@ namespace AyudandoEnLaPandemia.Controllers
             return PartialView("~/Views/Shared/Necesidad/_agregarInsumoPartial.cshtml", crearNecesidadViewModel.Form);
         }
 
-        private void ValidarDatosForm(CrearNecesidadForm form)
-        {
-            if (form.TipoDonacion == CrearNecesidadForm.TipoDeDonacion.Monetaria)
-            {
-                if (form.CantidadDinero < 1)
-                {
-                    ModelState.AddModelError("CantidadDinero", "La cantidad de dinero no puede ser menor a 1");
-                }
-
-                if (string.IsNullOrWhiteSpace(form.CBUAlias))
-                {
-                    ModelState.AddModelError("CBUAliasEmpty", "Se debe ingrear un CBU/Alias");
-                }
-            }
-            else
-            {
-                if (!form.Insumos.Any())
-                {
-                    ModelState.AddModelError("InsumosEmpty", "Se debe ingresar como mínimo un insumo");
-                }
-            }
-
-            if (form.Referencias.Count < 2)
-            {
-                ModelState.AddModelError("InsuficientesReferencias", "Se deben ingresar como mínimo dos referencias");
-            }
-        }
-
         public ActionResult Detalle(int id, string mensaje = "")
         {
             var necesidad = _servicioNecesidad.GetNecesidad(id);
@@ -167,6 +139,34 @@ namespace AyudandoEnLaPandemia.Controllers
             _servicioValoraciones.ValorarNecesidad(idNecesidad, idUsuario, valoracion);
 
             return RedirectToAction("Detalle", new { id = idNecesidad, mensaje = "¡Valoración realizada correctamente!" });
+        }
+
+        private void ValidarDatosForm(CrearNecesidadForm form)
+        {
+            if (form.TipoDonacion == CrearNecesidadForm.TipoDeDonacion.Monetaria)
+            {
+                if (form.CantidadDinero < 1)
+                {
+                    ModelState.AddModelError("CantidadDinero", "La cantidad de dinero no puede ser menor a 1");
+                }
+
+                if (string.IsNullOrWhiteSpace(form.CBUAlias))
+                {
+                    ModelState.AddModelError("CBUAliasEmpty", "Se debe ingrear un CBU/Alias");
+                }
+            }
+            else
+            {
+                if (!form.Insumos.Any())
+                {
+                    ModelState.AddModelError("InsumosEmpty", "Se debe ingresar como mínimo un insumo");
+                }
+            }
+
+            if (form.Referencias.Count < 2)
+            {
+                ModelState.AddModelError("InsuficientesReferencias", "Se deben ingresar como mínimo dos referencias");
+            }
         }
     }
 }

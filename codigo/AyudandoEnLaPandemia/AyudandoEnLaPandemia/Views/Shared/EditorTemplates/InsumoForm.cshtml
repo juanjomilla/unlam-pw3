@@ -1,7 +1,11 @@
 ﻿@model InsumoForm
-
-@Html.LabelFor(model => model.Nombre, "Nombre del insumo")
-@Html.EditorFor(model => model.Nombre)
-
-@Html.LabelFor(model => model.Cantidad, "Cantidad")
-@Html.EditorFor(model => model.Cantidad)
+    <div class="row">
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.Nombre, "Nombre del insumo")
+            @Html.EditorFor(model => model.Nombre, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(model => model.Cantidad, "Cantidad")
+            @Html.EditorFor(model => model.Cantidad, new { @class = "form-control" })
+        </div>
+    </div>
