@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using Repositorio;
-using Repositorio.Repositorios;
 
 namespace Servicios
 {
@@ -29,6 +29,11 @@ namespace Servicios
         public IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top = 5)
         {
             return _unitOfWork.Necesidades.GetNecesidadesMasValoradas(top: top);
+        }
+
+        public Necesidades GetNecesidad(int idNecesidad)
+        {
+            return _unitOfWork.Necesidades.Get(idNecesidad);
         }
 
         public void CrearNecesidad(Necesidades necesidad, HttpPostedFileBase imagen)

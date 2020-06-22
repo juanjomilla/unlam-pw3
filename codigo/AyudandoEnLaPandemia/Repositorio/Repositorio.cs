@@ -35,5 +35,10 @@ namespace Repositorio
         {
             _dbSet.Add(entidad);
         }
+
+        public T Get(int id)
+        {
+            return _dbSet.Find(id);
+        }
     }
 }

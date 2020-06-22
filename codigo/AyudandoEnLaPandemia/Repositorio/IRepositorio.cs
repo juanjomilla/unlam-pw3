@@ -11,5 +11,7 @@ namespace Repositorio
             int top = 0);
 
         void Add(T entidad);
+
+        T Get(int id);
     }
 }
