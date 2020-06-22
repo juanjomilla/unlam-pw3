@@ -12,19 +12,6 @@
     });
 })
 
-$("#btnAgregarReferencia").on('click', function () {
-    $.ajax({
-        async: true,
-        data: $('#CrearNecesidadForm').serialize(),
-        type: "POST",
-        url: '/Necesidad/AgregarReferenciaPartial',
-        success: function (partialView) {
-            console.log("partialView: " + partialView);
-            $('#editorReferencias').html(partialView);
-        }
-    });
-})
-
 function show(input) {
     if (input.files && input.files[0]) {  
         var filerdr = new FileReader();  
@@ -32,6 +19,6 @@ function show(input) {
             $('#user_img').attr('src', e.target.result);  
         }
 
-        filerdr.readAsDataURL(input.files[0]);  
+        filerdr.readAsDataURL(input.files[0]);
     }
 }

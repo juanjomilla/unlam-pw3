@@ -28,7 +28,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 Form = new CrearNecesidadForm
                 { 
                     Insumos = new List<InsumoForm> { new InsumoForm() },
-                    Referencias = new List<ReferenciaForm> { new ReferenciaForm() }
+                    Referencias = new List<ReferenciaForm> { new ReferenciaForm(), new ReferenciaForm() }
                 }
             };
 
@@ -101,22 +101,6 @@ namespace AyudandoEnLaPandemia.Controllers
             crearNecesidadViewModel.Form.Insumos.Add(new InsumoForm());
 
             return PartialView("~/Views/Shared/Necesidad/_agregarInsumoPartial.cshtml", crearNecesidadViewModel.Form);
-        }
-
-        [HttpPost]
-        public ActionResult AgregarReferenciaPartial(
-            [Bind(Include = "Form")] CrearNecesidadViewModel crearNecesidadViewModel,
-            List<InsumoForm> insumos,
-            List<ReferenciaForm> referencias)
-        {
-            var insumosList = insumos ?? crearNecesidadViewModel.Form.Insumos;
-            var referenciasList = referencias ?? crearNecesidadViewModel.Form.Referencias;
-
-            crearNecesidadViewModel.Form.Insumos = insumosList;
-            crearNecesidadViewModel.Form.Referencias = referenciasList;
-            crearNecesidadViewModel.Form.Referencias.Add(new ReferenciaForm());
-
-            return PartialView("~/Views/Shared/Necesidad/_agregarReferenciaPartial.cshtml", crearNecesidadViewModel.Form);
         }
 
         private void ValidarDatosForm(CrearNecesidadForm form)
