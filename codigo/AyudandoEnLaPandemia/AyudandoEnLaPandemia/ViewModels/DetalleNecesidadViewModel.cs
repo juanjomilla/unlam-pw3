@@ -9,5 +9,7 @@ namespace AyudandoEnLaPandemia.ViewModels
         public bool EsPropietario { get; set; }
 
         public bool PuedeValorar { get; set; }
+
+        public string Mensaje { get; set; }
     }
 }

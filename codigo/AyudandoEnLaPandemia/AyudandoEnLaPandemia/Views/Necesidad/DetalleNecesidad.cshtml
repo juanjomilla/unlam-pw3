@@ -8,7 +8,7 @@
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src="@Model.Necesidad.Foto" class="card-img" alt="">
+                <img src="~/Content/necesidades/imagenes/@Model.Necesidad.IdUsuarioCreador/@Model.Necesidad.Foto" class="card-img" alt="">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -17,12 +17,15 @@
                     <p class="card-text"><small class="text-muted">Fecha de creación: @Model.Necesidad.FechaCreacion</small></p>
                     @if (!Model.EsPropietario)
                     {
-                        <p>Me gusta</p>
-                        <p>No Me gusta</p>
+                        <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=true">Me Gusta</a>
+                        <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=false">No Me Gusta</a>
                         <p>Denunciar</p>
                         <p>Realizar donación</p>
                     }
-
+                    @if (!string.IsNullOrWhiteSpace(Model.Mensaje))
+                    {
+                        <p>@Model.Mensaje</p>
+                    }
                 </div>
             </div>
         </div>

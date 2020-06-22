@@ -13,10 +13,12 @@ namespace AyudandoEnLaPandemia.Controllers
     public class NecesidadController : Controller
     {
         private readonly ServicioNecesidad _servicioNecesidad;
+        private readonly ServicioValoraciones _servicioValoraciones;
 
-        public NecesidadController(ServicioNecesidad servicioNecesidad)
+        public NecesidadController(ServicioNecesidad servicioNecesidad, ServicioValoraciones servicioValoraciones)
         {
             _servicioNecesidad = servicioNecesidad;
+            _servicioValoraciones = servicioValoraciones;
         }
 
         public ActionResult CrearNecesidad()
@@ -145,7 +147,7 @@ namespace AyudandoEnLaPandemia.Controllers
             }
         }
 
-        public ActionResult Detalle(int id)
+        public ActionResult Detalle(int id, string mensaje = "")
         {
             var necesidad = _servicioNecesidad.GetNecesidad(id);
 
@@ -158,17 +160,29 @@ namespace AyudandoEnLaPandemia.Controllers
             {
                 Necesidad = necesidad,
                 EsPropietario = necesidad.IdUsuarioCreador == (int)Session["UsuarioID"],
-                TituloPagina = necesidad.Nombre + " - Detalle de necesidad"
+                TituloPagina = necesidad.Nombre + " - Detalle de necesidad",
+                Mensaje = mensaje
             };
 
             return View("~/Views/Necesidad/DetalleNecesidad.cshtml", viewModel);
         }
 
-        public ActionResult ValorarNecesidad(int id, bool voto)
+        public ActionResult ValorarNecesidad(int idNecesidad, bool valoracion)
         {
             // primero busco si el usuario ya valoró la necesidad
+            var idUsuario = (int) Session["UsuarioID"];
 
-            return View();
+            var necesidadValorada = _servicioValoraciones.NecesidadValorada(idNecesidad, idUsuario);
+
+            if (necesidadValorada)
+            {
+                // la necesidad ya fue valorada por el usuario, debería retornar un mensaje para ser mostrado en la vista
+                return RedirectToAction("Detalle", new { id = idNecesidad, mensaje = "Ya has valorado esta necesidad" });
+            }
+
+            _servicioValoraciones.ValorarNecesidad(idNecesidad, idUsuario, valoracion);
+
+            return RedirectToAction("Detalle", new { id = idNecesidad, mensaje = "¡Valoración realizada correctamente!" });
         }
     }
 }

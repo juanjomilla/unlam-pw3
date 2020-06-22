@@ -296,6 +296,7 @@
     <Content Include="Views\Login\Confirm.cshtml" />
     <Content Include="Views\Login\RegisterConfirm.cshtml" />
     <Content Include="Views\EmailTemplate\Text.cshtml" />
+    <Content Include="Views\Necesidad\DetalleNecesidad.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
