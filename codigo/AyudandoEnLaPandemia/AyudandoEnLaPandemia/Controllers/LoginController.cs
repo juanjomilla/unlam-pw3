@@ -20,14 +20,16 @@ namespace AyudandoEnLaPandemia.Controllers
         }
 
         [HttpGet]
-        public ActionResult LoginUsuario(String mensaje = "")
+        public ActionResult LoginUsuario(String mensaje = "", String redirigir = "")
         {
             ViewBag.Message = mensaje;
+            ViewBag.url = redirigir;
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult LoginUsuario(Usuarios login)
+        public ActionResult LoginUsuario(Usuarios login, String redirigir)
         {
 
             if (!ModelState.IsValid)
@@ -50,7 +52,15 @@ namespace AyudandoEnLaPandemia.Controllers
                     Session["UsuarioID"] = usuarioEncontrado.IdUsuario;
                     Session["UsuarioNombreApellido"] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
 
-                    return RedirectToAction("Index","Home");
+                    if (redirigir != null)
+                    {
+                        return Redirect(redirigir);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
                 }
             }
         }
