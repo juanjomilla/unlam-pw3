@@ -11,7 +11,9 @@ namespace AyudandoEnLaPandemia.HttpModules
         {
             "/",
             "/Login/LoginUsuario",
-            "/Login/RegistroUsuario"
+            "/Login/RegistroUsuario",
+            "/Login/RegisterConfirm",
+            "/Login/Confirm"
         };
 
         private readonly string ScriptsPath = "/Scripts/";

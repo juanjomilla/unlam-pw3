@@ -51,22 +51,22 @@ namespace Repositorio.Repositorios
                 }
                 /////////////////////////////////////////////Enviar Email//////////////////////////////////////////
 
-                BuildEmailTemplate(usuarioNuevo.IdUsuario);
+                BuildEmailTemplate(usuarioNuevo.IdUsuario, usuarioNuevo.Token);
             }
         }
 
-        public void ValidarUsuario(int IdUsuario)
+        public void ValidarUsuario(int IdUsuario, string token)
         {
-            var usuarioValidado = Get(x => x.IdUsuario == IdUsuario).FirstOrDefault();
+            var usuarioValidado = Get(x => x.IdUsuario == IdUsuario & x.Token==token).FirstOrDefault();
             usuarioValidado.Activo = true;
             _dbContext.SaveChanges();
         }
 
-        private void BuildEmailTemplate(int IdUsuario)
+        private void BuildEmailTemplate(int IdUsuario, string token)
         {
                 string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/Views/EmailTemplate/") + "Text" + ".cshtml");
                 var regInfo = _dbContext.Usuarios.Where(x => x.IdUsuario == IdUsuario).FirstOrDefault();
-                var url = "https://localhost:44384/" + "Login/Confirm?IdUsuario=" + IdUsuario;
+                var url = "https://localhost:44384/" + "Login/Confirm?IdUsuario="+IdUsuario+"&Token="+token;
                 body = body.Replace("@ViewBag.ConfirmationLink", url);
                 body = body.ToString();
                 BuildEmailTemplate("Su cuenta fue exitosamente creada", body, regInfo.Email);
