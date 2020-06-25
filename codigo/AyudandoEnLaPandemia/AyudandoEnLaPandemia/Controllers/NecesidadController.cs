@@ -47,12 +47,12 @@ namespace AyudandoEnLaPandemia.Controllers
             CrearNecesidadViewModel crearNecesidadViewModel,
             List<InsumoForm> insumos,
             List<ReferenciaForm> referencias,
-            HttpPostedFileBase imagenNecesidad)
+            HttpPostedFileBase foto)
         {
             crearNecesidadViewModel.Insumos = insumos ?? crearNecesidadViewModel.Insumos;
             crearNecesidadViewModel.Referencias = referencias ?? crearNecesidadViewModel.Referencias;
 
-            if (imagenNecesidad == null)
+            if (foto == null)
             {
                 ModelState.AddModelError("ImagenEmpty", "Se debe adjuntar una imagen");
             }
@@ -70,6 +70,12 @@ namespace AyudandoEnLaPandemia.Controllers
 
             var insumosList = new List<NecesidadesDonacionesInsumos>();
             var referenciasList = new List<NecesidadesReferencias>();
+            var monetaria = new List<NecesidadesDonacionesMonetarias>();
+            monetaria.Add(new NecesidadesDonacionesMonetarias
+            {
+                CBU = crearNecesidadViewModel.CBUAlias,
+                Dinero = crearNecesidadViewModel.CantDinero
+            });
 
             foreach (var insumo in crearNecesidadViewModel.Insumos)
             {
@@ -85,15 +91,23 @@ namespace AyudandoEnLaPandemia.Controllers
             {
                 Nombre = crearNecesidadViewModel.Nombre,
                 Descripcion = crearNecesidadViewModel.Descripcion,
-                NecesidadesDonacionesInsumos = insumosList,
                 NecesidadesReferencias = referenciasList,
                 IdUsuarioCreador = idUsuario,
                 TelefonoContacto = crearNecesidadViewModel.TelefonoContacto,
                 FechaFin = Convert.ToDateTime(crearNecesidadViewModel.FechaFin),
                 FechaCreacion = DateTime.Now
-        };
+            };
 
-            _servicioNecesidad.CrearNecesidad(necesidad, imagenNecesidad);
+            if (crearNecesidadViewModel.TipoDonacion == CrearNecesidadViewModel.TipoDeDonacion.Insumos)
+            {
+                necesidad.NecesidadesDonacionesInsumos = insumosList;
+            }
+            else
+            {
+                necesidad.NecesidadesDonacionesMonetarias = monetaria;
+            }   
+
+            _servicioNecesidad.CrearNecesidad(necesidad, foto);
 
             return RedirectToAction("Home", "Home");
         }
