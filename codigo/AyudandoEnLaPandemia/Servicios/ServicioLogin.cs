@@ -19,5 +19,15 @@ namespace Servicios
        
             return UsuarioEncontrado;
         }
+
+        public bool UsuarioConPerfilCompleto(int idUsuario)
+        {
+            var usuario = _usuarioRepositorio.Get(idUsuario);
+
+            return !string.IsNullOrWhiteSpace(usuario.Apellido) &&
+                !string.IsNullOrWhiteSpace(usuario.Nombre) &&
+                !string.IsNullOrWhiteSpace(usuario.Foto) &&
+                usuario.FechaNacimiento != null;
+        }
     }
 }

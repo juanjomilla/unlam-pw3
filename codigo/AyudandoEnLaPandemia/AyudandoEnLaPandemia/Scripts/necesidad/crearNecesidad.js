@@ -12,18 +12,19 @@
     });
 })
 
-$("#btnAgregarReferencia").on('click', function () {
-    $.ajax({
-        async: true,
-        data: $('#CrearNecesidadForm').serialize(),
-        type: "POST",
-        url: '/Necesidad/AgregarReferenciaPartial',
-        success: function (partialView) {
-            console.log("partialView: " + partialView);
-            $('#editorReferencias').html(partialView);
-        }
-    });
-})
+$(document).ready(function () {
+    $("select").change(function () {
+        $(this).find("option:selected").each(function () {
+            var optionValue = $(this).attr("value");
+            if (optionValue) {
+                $(".tipoDonacion").not("." + optionValue).hide();
+                $("." + optionValue).show();
+            } else {
+                $(".tipoDonacion").hide();
+            }
+        });
+    }).change();
+});
 
 function show(input) {
     if (input.files && input.files[0]) {  
@@ -32,6 +33,6 @@ function show(input) {
             $('#user_img').attr('src', e.target.result);  
         }
 
-        filerdr.readAsDataURL(input.files[0]);  
+        filerdr.readAsDataURL(input.files[0]);
     }
 }
