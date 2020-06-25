@@ -19,18 +19,22 @@
                     <div class="form-group">
                         @Html.LabelFor(model => Model.Nombre, "Nombre")
                         @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.Nombre)
 
                         @Html.LabelFor(model => Model.Descripcion, "Descripcion")
                         @Html.TextBoxFor(model => Model.Descripcion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.Descripcion)
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         @Html.LabelFor(model => Model.FechaFin, "Fecha de finalización (dd/mm/aa)")
                         @Html.EditorFor(model => Model.FechaFin, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => Model.FechaFin)
 
                         @Html.LabelFor(model => Model.TelefonoContacto, "Teléfono de contacto")
                         @Html.TextBoxFor(model => Model.TelefonoContacto, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.TelefonoContacto)
                     </div>
                 </div>
             </div>
@@ -48,10 +52,12 @@
                             <div class="col-md-6">
                                 @Html.LabelFor(model => Model.CantDinero, "Cantidad de dinero")
                                 @Html.TextBoxFor(model => Model.CantDinero, new { @class = "form-control" })
+                                @Html.ValidationMessage("CantidadDinero")
                             </div>
                             <div class="col-md-6">
                                 @Html.LabelFor(model => Model.CBUAlias, "CBU/Alias")
                                 @Html.TextBoxFor(model => Model.CBUAlias, new { @class = "form-control" })
+                                @Html.ValidationMessage("CBUAliasEmpty")
                             </div>
                         </div>
                     </div>
@@ -62,6 +68,7 @@
                         <div id="editorInsumos">
                             @Html.EditorFor(model => Model.Insumos, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
+                        @Html.ValidationMessage("InsumosEmpty")
                         <input class="btn btn-primary" type="button" id="btnAgregarInsumo" value="Agregar insumos" />
                     </div>
                 </div>
@@ -72,8 +79,10 @@
                 <div id="editorReferencias">
                     @Html.EditorFor(model => Model.Referencias, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
+                @Html.ValidationMessage("InsuficientesReferencias")
             </div>
             <input type="file" title="Agregar imagen" id="Foto" name="Foto" class="form-control-file" />
+            @Html.ValidationMessage("ImagenEmpty")
 
             <input type="submit" value="Crear" class="btn btn-primary" />
         }
