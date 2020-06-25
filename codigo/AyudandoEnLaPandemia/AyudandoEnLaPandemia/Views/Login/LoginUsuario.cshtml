@@ -9,10 +9,10 @@
 
 @using (Html.BeginForm("LoginUsuario", "Login", FormMethod.Post, new { id = "Usuarios" }))
 {
-    @*if (ViewBag.url != null)
+    if (ViewBag.url != null)
         {
-            <input type="hidden" name="urlRedirect" value="@ViewBag.url" />
-        }*@
+            <input type="hidden" name="redirigir" value="@ViewBag.url" />
+        }
 
     if (!string.IsNullOrEmpty(ViewBag.Message))
     {
