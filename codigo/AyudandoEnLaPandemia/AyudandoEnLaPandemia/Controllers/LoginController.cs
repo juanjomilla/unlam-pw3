@@ -108,16 +108,17 @@ namespace AyudandoEnLaPandemia.Controllers
         }
 
         
-        public ActionResult Confirm(int IdUsuario, String mensaje = "")
+        public ActionResult Confirm(int IdUsuario, string token, String mensaje = "")
         {
             ViewBag.Message = mensaje;
             ViewBag.IdUsuario = IdUsuario;
+            ViewBag.Token = token;
             return View();
         }
         
-        public ActionResult RegisterConfirm(int IdUsuario)
+        public ActionResult RegisterConfirm(int IdUsuario, string Token)
         {
-            _servicioRegistrar.ValidarUsuario(IdUsuario);
+            _servicioRegistrar.ValidarUsuario(IdUsuario, Token);
 
             return View();
         }

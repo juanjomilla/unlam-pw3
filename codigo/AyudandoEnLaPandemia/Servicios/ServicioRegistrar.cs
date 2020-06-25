@@ -37,9 +37,9 @@ namespace Servicios
             return token;
         }
 
-        public void ValidarUsuario(int IdUsuario)
+        public void ValidarUsuario(int IdUsuario, string token)
         {
-            _usuarioRepositorio.ValidarUsuario(IdUsuario);
+            _usuarioRepositorio.ValidarUsuario(IdUsuario, token);
         }
     }
 }
