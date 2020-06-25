@@ -14,43 +14,54 @@ namespace AyudandoEnLaPandemia.Controllers
     {
         private readonly ServicioNecesidad _servicioNecesidad;
         private readonly ServicioValoraciones _servicioValoraciones;
+        private readonly ServicioLogin _servicioLogin;
 
-        public NecesidadController(ServicioNecesidad servicioNecesidad, ServicioValoraciones servicioValoraciones)
+        public NecesidadController(
+            ServicioNecesidad servicioNecesidad,
+            ServicioValoraciones servicioValoraciones,
+            ServicioLogin servicioLogin)
         {
             _servicioNecesidad = servicioNecesidad;
             _servicioValoraciones = servicioValoraciones;
+            _servicioLogin = servicioLogin;
         }
 
         public ActionResult CrearNecesidad()
         {
             var viewModel = new CrearNecesidadViewModel
             {
-                Form = new CrearNecesidadForm
-                { 
-                    Insumos = new List<InsumoForm> { new InsumoForm() },
-                    Referencias = new List<ReferenciaForm> { new ReferenciaForm(), new ReferenciaForm() }
-                }
+                Insumos = new List<InsumoForm> { new InsumoForm() },
+                Referencias = new List<ReferenciaForm> { new ReferenciaForm(), new ReferenciaForm() }
             };
+
+            var idUsuario = (int) Session["UsuarioID"];
+
+            ValidarMaximoNecesidades(idUsuario);
+            ValidarUsuarioActivo(idUsuario);
 
             return View("~/Views/Necesidad/crearNecesidad.cshtml", viewModel);
         }
 
         [HttpPost]
         public ActionResult GuardarNecesidad(
-            [Bind(Include = "Form")] CrearNecesidadViewModel crearNecesidadViewModel,
+            CrearNecesidadViewModel crearNecesidadViewModel,
             List<InsumoForm> insumos,
             List<ReferenciaForm> referencias,
             HttpPostedFileBase imagenNecesidad)
         {
-            crearNecesidadViewModel.Form.Insumos = insumos ?? crearNecesidadViewModel.Form.Insumos;
-            crearNecesidadViewModel.Form.Referencias = referencias ?? crearNecesidadViewModel.Form.Referencias;
+            crearNecesidadViewModel.Insumos = insumos ?? crearNecesidadViewModel.Insumos;
+            crearNecesidadViewModel.Referencias = referencias ?? crearNecesidadViewModel.Referencias;
 
             if (imagenNecesidad == null)
             {
                 ModelState.AddModelError("ImagenEmpty", "Se debe adjuntar una imagen");
             }
 
-            ValidarDatosForm(crearNecesidadViewModel.Form);
+            var idUsuario = (int)Session["UsuarioID"];
+
+            ValidarMaximoNecesidades(idUsuario);
+            ValidarUsuarioActivo(idUsuario);
+            ValidarDatosForm(crearNecesidadViewModel);
 
             if (!ModelState.IsValid)
             {
@@ -60,25 +71,25 @@ namespace AyudandoEnLaPandemia.Controllers
             var insumosList = new List<NecesidadesDonacionesInsumos>();
             var referenciasList = new List<NecesidadesReferencias>();
 
-            foreach (var insumo in crearNecesidadViewModel.Form.Insumos)
+            foreach (var insumo in crearNecesidadViewModel.Insumos)
             {
                 insumosList.Add(new NecesidadesDonacionesInsumos { Nombre = insumo.Nombre, Cantidad = insumo.Cantidad });
             }
 
-            foreach (var referencia in crearNecesidadViewModel.Form.Referencias)
+            foreach (var referencia in crearNecesidadViewModel.Referencias)
             {
                 referenciasList.Add(new NecesidadesReferencias { Nombre = referencia.Nombre, Telefono = referencia.Telefono });
             }
 
             var necesidad = new Necesidades
             {
-                Nombre = crearNecesidadViewModel.Form.Nombre,
-                Descripcion = crearNecesidadViewModel.Form.Descripcion,
+                Nombre = crearNecesidadViewModel.Nombre,
+                Descripcion = crearNecesidadViewModel.Descripcion,
                 NecesidadesDonacionesInsumos = insumosList,
                 NecesidadesReferencias = referenciasList,
-                IdUsuarioCreador = (int) Session["UsuarioID"],
-                TelefonoContacto = crearNecesidadViewModel.Form.TelefonoDeContacto,
-                FechaFin = Convert.ToDateTime(crearNecesidadViewModel.Form.FechaFin),
+                IdUsuarioCreador = idUsuario,
+                TelefonoContacto = crearNecesidadViewModel.TelefonoContacto,
+                FechaFin = Convert.ToDateTime(crearNecesidadViewModel.FechaFin),
                 FechaCreacion = DateTime.Now
         };
 
@@ -93,14 +104,14 @@ namespace AyudandoEnLaPandemia.Controllers
             List<InsumoForm> insumos,
             List<ReferenciaForm> referencias)
         {
-            var insumosList = insumos ?? crearNecesidadViewModel.Form.Insumos;
-            var referenciasList = referencias ?? crearNecesidadViewModel.Form.Referencias;
+            var insumosList = insumos ?? crearNecesidadViewModel.Insumos;
+            var referenciasList = referencias ?? crearNecesidadViewModel.Referencias;
 
-            crearNecesidadViewModel.Form.Insumos = insumosList;
-            crearNecesidadViewModel.Form.Referencias = referenciasList;
-            crearNecesidadViewModel.Form.Insumos.Add(new InsumoForm());
+            crearNecesidadViewModel.Insumos = insumosList;
+            crearNecesidadViewModel.Referencias = referenciasList;
+            crearNecesidadViewModel.Insumos.Add(new InsumoForm());
 
-            return PartialView("~/Views/Shared/Necesidad/_agregarInsumoPartial.cshtml", crearNecesidadViewModel.Form);
+            return PartialView("~/Views/Shared/Necesidad/_agregarInsumoPartial.cshtml", crearNecesidadViewModel);
         }
 
         public ActionResult Detalle(int id, string mensaje = "")
@@ -141,11 +152,30 @@ namespace AyudandoEnLaPandemia.Controllers
             return RedirectToAction("Detalle", new { id = idNecesidad, mensaje = "¡Valoración realizada correctamente!" });
         }
 
-        private void ValidarDatosForm(CrearNecesidadForm form)
+        private void ValidarMaximoNecesidades(int idUsuario)
         {
-            if (form.TipoDonacion == CrearNecesidadForm.TipoDeDonacion.Monetaria)
+            var limiteNecesidades = 3;
+            var cantNecesidades = _servicioNecesidad.GetNecesidadesUsuario(idUsuario).Count();
+
+            if (cantNecesidades >= limiteNecesidades)
             {
-                if (form.CantidadDinero < 1)
+                ModelState.AddModelError("LimiteNecesidades", $"Se ha alcanzado el límite de {limiteNecesidades} necesidades por usuario");
+            }
+        }
+
+        private void ValidarUsuarioActivo(int idUsuario)
+        {
+            if (!_servicioLogin.UsuarioConPerfilCompleto(idUsuario))
+            {
+                ModelState.AddModelError("PerfilIncompleto", "Debe completar el perfil antes de poder crear una necesidad. Ir a {0}");
+            }
+        }
+
+        private void ValidarDatosForm(CrearNecesidadViewModel form)
+        {
+            if (form.TipoDonacion == CrearNecesidadViewModel.TipoDeDonacion.Monetaria)
+            {
+                if (form.CantDinero < 1)
                 {
                     ModelState.AddModelError("CantidadDinero", "La cantidad de dinero no puede ser menor a 1");
                 }

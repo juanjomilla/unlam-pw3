@@ -257,7 +257,6 @@
     <Compile Include="HttpModules\UsuarioAutenticado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\Necesidad\CrearNecesidadForm.cs" />
     <Compile Include="ViewModels\Necesidad\CrearNecesidadViewModel.cs" />
     <Compile Include="ViewModels\DetalleNecesidadViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
