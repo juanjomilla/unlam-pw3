@@ -39,7 +39,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
             Usuarios usuarioEncontrado = _servicioLogin.ValidarLogin(login);
 
-            if ( usuarioEncontrado == null)
+            if (usuarioEncontrado == null)
             {
                 return LoginUsuario("Email y/o Contraseña inválidos");
             }
@@ -52,7 +52,7 @@ namespace AyudandoEnLaPandemia.Controllers
                     Session["UsuarioID"] = usuarioEncontrado.IdUsuario;
                     Session["UsuarioNombreApellido"] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
 
-                    if (redirigir != null)
+                    if (!string.IsNullOrWhiteSpace(redirigir))
                     {
                         return Redirect(redirigir);
                     }
