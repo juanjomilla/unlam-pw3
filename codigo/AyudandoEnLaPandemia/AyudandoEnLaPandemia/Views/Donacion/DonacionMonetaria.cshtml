@@ -1,0 +1,34 @@
+﻿@model Repositorio.DonacionesMonetarias
+@{
+    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Donacion Monetaria</title>
+</head>
+<body>
+    <div>
+          @using (Html.BeginForm("DonacionMonetaria", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data" }))
+          {      <div>
+                    <input type="hidden" name="IdNecesidadDonacionMonetaria" value="@TempData["IdnecesidadesDonacionesMonetarias"] " />
+                    CBU : @TempData["CBU"]
+                    Cantidad de dinero requerida: @TempData["Dinero"]
+                    Cantidad a donar :
+                    @Html.EditorFor(o => o.Dinero)
+                    @Html.ValidationMessageFor(o => o.Dinero)
+                    <br>
+                    Adjuntar comprobante :
+                    <input type="file" title="Agregar Comprobante" id="archivo" name="archivo" />
+                    @Html.ValidationMessage("ImagenEmpty")
+                </div>
+            <div>
+                <input type="submit" value="Confirmar" />
+            </div>
+          }
+    </div>
+</body>
+</html>

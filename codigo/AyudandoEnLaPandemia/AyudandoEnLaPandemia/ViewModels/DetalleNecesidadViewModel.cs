@@ -11,5 +11,7 @@ namespace AyudandoEnLaPandemia.ViewModels
         public bool PuedeValorar { get; set; }
 
         public string Mensaje { get; set; }
+
+
     }
 }
