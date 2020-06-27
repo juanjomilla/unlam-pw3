@@ -1,0 +1,25 @@
+﻿@model GestionDenunciasViewModel
+
+<div>
+    <table>
+        <tr>
+            <th>Fecha de creación</th>
+            <th>Motivo</th>
+            <th>Detalle de necesidad</th>
+            <th>Comentarios</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var denuncia in Model.Denuncias)
+        {
+            <tr>
+                <td>@denuncia.FechaCreacion</td>
+                <td>@denuncia.MotivoDenuncia.Descripcion</td>
+                <td>@Html.ActionLink("Detalle de necesidad", $"Detalle/{denuncia.IdNecesidad}", "Necesidad", null, new { target = "_blank" })</td>
+                <td>@denuncia.Comentarios</td>
+                <td>@Html.ActionLink("Desestimar denuncia", $"DesestimarDenuncia/{denuncia.IdDenuncia}", "Denuncias")</td>
+                <td>@Html.ActionLink("Aceptar denuncia", $"AceptarDenuncia/{denuncia.IdDenuncia}", "Denuncias")</td>
+            </tr>
+        }
+    </table>
+</div>

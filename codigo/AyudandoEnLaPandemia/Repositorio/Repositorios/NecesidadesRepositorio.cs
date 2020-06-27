@@ -12,6 +12,7 @@ namespace Repositorio.Repositorios
             IQueryable<Necesidades> query = _dbSet;
 
             return query
+                .Where(x => x.Estado != 3)
                 .OrderByDescending(x => x.Valoracion)
                 .Take(top);
         }
