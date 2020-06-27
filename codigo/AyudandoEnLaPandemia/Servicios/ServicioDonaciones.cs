@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Repositorio;
+using Repositorio.Repositorios;
 
 namespace Servicios
 {
@@ -8,9 +9,12 @@ namespace Servicios
     {
         private readonly UnitOfWork _unitOfWork;
 
-        public ServicioDonaciones(Contexto contexto)
+        private IDonacionesMonetariasRepositorio _donacionesMonetariasRepositorio;
+
+        public ServicioDonaciones(Contexto contexto, IDonacionesMonetariasRepositorio donacionesMonetariasRepositorio)
         {
             _unitOfWork = new UnitOfWork(contexto);
+            _donacionesMonetariasRepositorio = donacionesMonetariasRepositorio;
         }
 
         public IEnumerable<DonacionesInsumos> GetDonacionesInsumosUsuario(int idUsuario)
@@ -33,12 +37,22 @@ namespace Servicios
             return _unitOfWork.DonacionesMonetarias.GetTotalDonaciones(idNecesidadDonacionMonetaria);
         }
 
+        //public int BuscarIdNecesidadDonacionMonetaria(int idNecesidad)
+        //{
+        //   return IdNecesidadDonacionMonetaria = _donacionesMonetariasRepositorio.BuscarIdNecesidadDonacionMonetaria(idNecesidad);
+        //}
+
         public void Dispose()
         {
             if (_unitOfWork != null)
             {
                 _unitOfWork.Dispose();
             }
+        }
+
+        public void CrearDonacionMonetaria(DonacionesMonetarias donacion)
+        {
+            _donacionesMonetariasRepositorio.CrearDonacionMonetaria(donacion);
         }
     }
 }

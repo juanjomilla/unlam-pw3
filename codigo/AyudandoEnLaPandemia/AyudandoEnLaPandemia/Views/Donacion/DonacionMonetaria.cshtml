@@ -1,0 +1,32 @@
+﻿@model Repositorio.DonacionesMonetarias
+@{
+    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Donacion Monetaria</title>
+</head>
+<body>
+    <div>
+        <form action="/Donacion/DonacionMonetaria" method="post">
+            <div>
+                <input type="hidden" name="idNecesidad" value="@ViewBag.idNecesidad" />
+                Cantidad a donar $ :
+                @Html.EditorFor(o => o.Dinero)
+                @Html.ValidationMessageFor(o => o.Dinero)
+                <br>
+                Adjuntar comprobante :
+                <input type="file" title="Agregar Comprobante" id="ArchivoTransferencia" name="ArchivoTransferencia" />
+                @Html.ValidationMessageFor(o => o.ArchivoTransferencia)
+            </div>
+            <div>
+                <input type="submit" value="Confirmar" />
+            </div>
+        </form>
+    </div>
+</body>
+</html>

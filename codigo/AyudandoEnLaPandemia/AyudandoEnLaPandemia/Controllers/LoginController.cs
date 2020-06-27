@@ -52,7 +52,7 @@ namespace AyudandoEnLaPandemia.Controllers
                     Session["UsuarioID"] = usuarioEncontrado.IdUsuario;
                     Session["UsuarioNombreApellido"] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
 
-                    if (redirigir != null)
+                    if (redirigir != "")
                     {
                         return Redirect(redirigir);
                     }
@@ -123,11 +123,6 @@ namespace AyudandoEnLaPandemia.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult RegisterConfirm()
-        //{
-        //    return View();
-        //}
 
     }
 }

@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Partials\DonacionesMonetarias.cs" />
+    <Compile Include="Partials\DonacionesMonetariasMetadata.cs" />
     <Compile Include="Partials\UsuarioMetadata.cs" />
     <Compile Include="Partials\Usuarios.cs" />
     <Compile Include="Repositorios\DonacionesInsumosRepositorio.cs" />
