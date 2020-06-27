@@ -95,7 +95,8 @@ namespace AyudandoEnLaPandemia.Controllers
                 IdUsuarioCreador = idUsuario,
                 TelefonoContacto = crearNecesidadViewModel.TelefonoContacto,
                 FechaFin = Convert.ToDateTime(crearNecesidadViewModel.FechaFin),
-                FechaCreacion = DateTime.Now
+                FechaCreacion = DateTime.Now,
+                TipoDonacion = (int) crearNecesidadViewModel.TipoDonacion
             };
 
             if (crearNecesidadViewModel.TipoDonacion == CrearNecesidadViewModel.TipoDeDonacion.Insumos)
@@ -109,7 +110,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
             _servicioNecesidad.CrearNecesidad(necesidad, foto);
 
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
