@@ -1,4 +1,5 @@
-﻿using Repositorio;
+﻿using AyudandoEnLaPandemia.ViewModels;
+using Repositorio;
 using Servicios;
 using System;
 using System.Collections.Generic;
@@ -11,18 +12,29 @@ namespace AyudandoEnLaPandemia.Controllers
     public class DonacionController : Controller
     {
         private ServicioDonaciones _servicioDonaciones;
+        private ServicioNecesidad _servicioNecesidad;
 
-        public DonacionController (ServicioDonaciones servicioDonaciones)
+        public DonacionController (ServicioDonaciones servicioDonaciones, ServicioNecesidad servicioNecesidad)
         {
             _servicioDonaciones = servicioDonaciones;
+            _servicioNecesidad = servicioNecesidad;
         }
 
-        public ActionResult Donacion(string tipoDonacion, int idNecesidad)
+        public ActionResult Donacion(string TipoDonacion, int idNecesidad)
         {
-            if (tipoDonacion.Equals("monetario"))
+            var necesidadesDonacionesMonetarias = _servicioDonaciones.GetNecesidadesDonacionesMonetarias(idNecesidad);
+
+            TempData["IdnecesidadesDonacionesMonetarias"] = necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria;
+            TempData["Dinero"] = necesidadesDonacionesMonetarias.Dinero;
+            TempData["CBU"] = necesidadesDonacionesMonetarias.CBU;
+            //ViewBag.IdnecesidadesDonacionesMonetarias = necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria;
+            // ViewBag.Dinero = necesidadesDonacionesMonetarias.Dinero;
+            // ViewBag.CBU = necesidadesDonacionesMonetarias.CBU;
+
+            if (TipoDonacion.Equals("monetario"))
             {
                 
-                return RedirectToAction("DonacionMonetaria", new { idNecesidad });
+                return RedirectToAction("DonacionMonetaria");
             }
             else
             {
@@ -32,22 +44,30 @@ namespace AyudandoEnLaPandemia.Controllers
         }
         
         [HttpGet]
-        public ActionResult DonacionMonetaria( int idNecesidad )
+        public ActionResult DonacionMonetaria()
         {
-            ViewBag.idNecesidad = idNecesidad;
             return View();
         }
         [HttpPost]
-        public ActionResult DonacionMonetaria(DonacionesMonetarias donacion, int idNecesidad)
+        public ActionResult DonacionMonetaria(DonacionesMonetarias donacionMonetaria, HttpPostedFileBase archivo)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || archivo == null)
             {
-                return View(donacion);
+                return View(donacionMonetaria);
             }
 
-           // int IdNecesidadDonacionMonetaria = _servicioDonaciones.BuscarIdNecesidadDonacionMonetaria(idNecesidad);
-            _servicioDonaciones.CrearDonacionMonetaria(donacion);
-            return View();
+            var idUsuario = (int)Session["UsuarioID"];
+            
+            DonacionesMonetarias nuevaDonacionMoentaria = new DonacionesMonetarias();
+            nuevaDonacionMoentaria.IdNecesidadDonacionMonetaria = donacionMonetaria.IdNecesidadDonacionMonetaria;
+            nuevaDonacionMoentaria.IdUsuario = idUsuario;
+            nuevaDonacionMoentaria.Dinero = donacionMonetaria.Dinero;
+            nuevaDonacionMoentaria.FechaCreacion = DateTime.Today;
+            nuevaDonacionMoentaria.ArchivoTransferencia = _servicioDonaciones.GuardarAdjunto(nuevaDonacionMoentaria.IdUsuario, archivo);
+
+            _servicioDonaciones.CrearDonacionMonetaria(nuevaDonacionMoentaria);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult DonacionInsumos()

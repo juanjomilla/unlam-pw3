@@ -62,9 +62,11 @@
     <Compile Include="Repositorios\DonacionesMonetariasRepositorio.cs" />
     <Compile Include="Repositorios\IDonacionesInsumosRepositorio.cs" />
     <Compile Include="Repositorios\IDonacionesMonetariasRepositorio.cs" />
+    <Compile Include="Repositorios\INecesidadesDonacionesMonetariasRepositorio.cs" />
     <Compile Include="Repositorios\INecesidadesRepositorio.cs" />
     <Compile Include="Repositorios\INecesidadesValoracionesRepositorio.cs" />
     <Compile Include="Repositorios\IUsuarioRepositorio.cs" />
+    <Compile Include="Repositorios\NecesidadesDonacionesMonetariasRepositorio.cs" />
     <Compile Include="Repositorios\NecesidadesRepositorio.cs" />
     <Compile Include="Repositorios\NecesidadesValoracionesRepositorio.cs" />
     <Compile Include="Repositorios\UsuarioRepositorio.cs" />
