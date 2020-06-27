@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using Repositorio;
 
@@ -18,12 +17,12 @@ namespace Servicios
 
         public IEnumerable<Necesidades> GetNecesidadesOtrosUsuarios(int idUsuario)
         {
-            return _unitOfWork.Necesidades.Get(x => x.IdUsuarioCreador != idUsuario);
+            return _unitOfWork.Necesidades.Get(x => x.IdUsuarioCreador != idUsuario && x.Estado != 3);
         }
 
         public IEnumerable<Necesidades> GetNecesidadesUsuario(int idUsuario)
         {
-            return _unitOfWork.Necesidades.Get(x => x.IdUsuarioCreador == idUsuario);
+            return _unitOfWork.Necesidades.Get(x => x.IdUsuarioCreador == idUsuario && x.Estado != 3);
         }
 
         public IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top = 5)

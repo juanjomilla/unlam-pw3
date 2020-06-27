@@ -247,6 +247,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutofacModules\DIModule.cs" />
+    <Compile Include="Controllers\DenunciasController.cs" />
     <Compile Include="Controllers\NecesidadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="HttpModules\UsuarioAutenticado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Denuncias\GestionDenunciasViewModel.cs" />
     <Compile Include="ViewModels\Necesidad\CrearNecesidadViewModel.cs" />
     <Compile Include="ViewModels\DetalleNecesidadViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -298,6 +300,7 @@
     <Content Include="Views\EmailTemplate\Text.cshtml" />
     <Content Include="Views\Necesidad\DetalleNecesidad.cshtml" />
     <Content Include="Views\Home\MiPerfil.cshtml" />
+    <Content Include="Views\Denuncias\GestionDenuncias.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
