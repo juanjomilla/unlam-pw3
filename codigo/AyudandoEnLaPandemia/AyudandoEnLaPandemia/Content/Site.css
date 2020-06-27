@@ -16,6 +16,10 @@ textarea {
     max-width: 280px;
 }
 
+.embed-responsive .card-img-top {
+    object-fit: cover;
+} 
+
 /* Imagen de cada necesidad */
 .card-img-top {
     width: 100%;
