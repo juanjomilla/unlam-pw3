@@ -12,19 +12,23 @@
 </head>
 <body>
     <div>
-          @using (Html.BeginForm("DonacionMonetaria", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data" }))
-          {      <div>
-                    <input type="hidden" name="IdNecesidadDonacionMonetaria" value="@TempData["IdnecesidadesDonacionesMonetarias"] " />
-                    CBU : @TempData["CBU"]
-                    Cantidad de dinero requerida: @TempData["Dinero"]
-                    Cantidad a donar :
-                    @Html.EditorFor(o => o.Dinero)
-                    @Html.ValidationMessageFor(o => o.Dinero)
-                    <br>
-                    Adjuntar comprobante :
-                    <input type="file" title="Agregar Comprobante" id="archivo" name="archivo" />
-                    @Html.ValidationMessage("ImagenEmpty")
-                </div>
+    @using (Html.BeginForm("DonacionMonetaria", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {      <div>
+    <input type="hidden" name="IdNecesidadDonacionMonetaria" value="@TempData["IdnecesidadesDonacionesMonetarias"] " />
+    Total requerido  : <input type="text" name="CBU" value="@TempData["Dinero"]" disabled="disabled" />
+    <br>
+    Total restante : <input type="text" name="CBU" value="@TempData["DineroRestante"]" disabled="disabled" />
+    <br>
+    CBU : <input type="text" name="CBU" value="@TempData["CBU"]" disabled="disabled" />
+    <br>
+    Cantidad a donar :
+    @Html.EditorFor(o => o.Dinero)
+    @Html.ValidationMessageFor(o => o.Dinero)
+    <br>
+    Adjuntar comprobante :
+    <input type="file" title="Agregar Comprobante" id="archivo" name="archivo" />
+    @Html.ValidationMessage("ImagenEmpty")
+</div>
             <div>
                 <input type="submit" value="Confirmar" />
             </div>

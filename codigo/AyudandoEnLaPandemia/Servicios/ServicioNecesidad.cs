@@ -25,6 +25,11 @@ namespace Servicios
             return _unitOfWork.Necesidades.Get(x => x.IdUsuarioCreador == idUsuario && x.Estado != 3);
         }
 
+        public int GetTipoNecesidad(int idNecesidad)
+        {
+            return _unitOfWork.Necesidades.GetTipoNecesidad(idNecesidad);
+        }
+
         public IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top = 5)
         {
             return _unitOfWork.Necesidades.GetNecesidadesMasValoradas(top: top);
