@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Web;
+using Newtonsoft.Json.Linq;
 using Repositorio;
-using Repositorio.Repositorios;
+using Servicios.Models;
 
 namespace Servicios
 {
@@ -11,15 +13,9 @@ namespace Servicios
     {
         private readonly UnitOfWork _unitOfWork;
 
-        private IDonacionesMonetariasRepositorio _donacionesMonetariasRepositorio;
-
-        private INecesidadesDonacionesMonetariasRepositorio _necesidadesDonacionesMonetariasRepositorio;
-
-        public ServicioDonaciones(Contexto contexto, IDonacionesMonetariasRepositorio donacionesMonetariasRepositorio, INecesidadesDonacionesMonetariasRepositorio necesidadesDonacionesMonetariasRepositorio)
+        public ServicioDonaciones(Contexto contexto)
         {
             _unitOfWork = new UnitOfWork(contexto);
-            _donacionesMonetariasRepositorio = donacionesMonetariasRepositorio;
-            _necesidadesDonacionesMonetariasRepositorio = necesidadesDonacionesMonetariasRepositorio;
         }
 
         public IEnumerable<DonacionesInsumos> GetDonacionesInsumosUsuario(int idUsuario)
@@ -58,7 +54,7 @@ namespace Servicios
 
         public void CrearDonacionMonetaria(DonacionesMonetarias donacion)
         {
-            _donacionesMonetariasRepositorio.CrearDonacionMonetaria(donacion);
+            _unitOfWork.DonacionesMonetarias.CrearDonacionMonetaria(donacion);
         }
 
         public string GuardarAdjunto(int idUsuario, HttpPostedFileBase archivo)
@@ -70,6 +66,28 @@ namespace Servicios
             archivo.SaveAs($"{path}\\{nombreArchivo}");
 
             return nombreArchivo;
+        }
+
+        public IEnumerable<HistorialDonaciones> GetHistorialDonaciones(int idUsuario)
+        {
+            var request = WebRequest.Create($"https://localhost:44366/api/Donaciones/GetDonacionesUsuario/{idUsuario}");
+            var response = request.GetResponse();
+
+            IEnumerable<HistorialDonaciones> result;
+
+            using (var dataStream = response.GetResponseStream())
+            {
+                var reader = new StreamReader(dataStream);
+                var responseFromServer = reader.ReadToEnd();
+
+                var jsonResponse = JArray.Parse(responseFromServer);
+
+                result = jsonResponse.ToObject<IEnumerable<HistorialDonaciones>>();
+            }
+
+            response.Close();
+
+            return result;
         }
 
         private object CrearCarpetaSiNoExiste(int idUsuario)

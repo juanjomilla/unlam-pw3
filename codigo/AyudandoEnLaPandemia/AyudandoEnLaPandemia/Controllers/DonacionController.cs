@@ -1,20 +1,18 @@
-﻿using AyudandoEnLaPandemia.ViewModels;
-using Repositorio;
-using Servicios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using AyudandoEnLaPandemia.ViewModels.Donaciones;
+using Repositorio;
+using Servicios;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
     public class DonacionController : Controller
     {
-        private ServicioDonaciones _servicioDonaciones;
-        private ServicioNecesidad _servicioNecesidad;
+        private readonly ServicioDonaciones _servicioDonaciones;
+        private readonly ServicioNecesidad _servicioNecesidad;
 
-        public DonacionController (ServicioDonaciones servicioDonaciones, ServicioNecesidad servicioNecesidad)
+        public DonacionController(ServicioDonaciones servicioDonaciones, ServicioNecesidad servicioNecesidad)
         {
             _servicioDonaciones = servicioDonaciones;
             _servicioNecesidad = servicioNecesidad;
@@ -66,6 +64,20 @@ namespace AyudandoEnLaPandemia.Controllers
         public ActionResult DonacionInsumos()
         {
             return View();
+        }
+
+        public ActionResult HistorialDonaciones() 
+        {
+            var idUsuario = (int)Session["UsuarioID"];
+
+            var result = _servicioDonaciones.GetHistorialDonaciones(idUsuario);
+
+            var viewModel = new HistorialDonacionesViewModel
+            {
+                ListaDonaciones = result
+            };
+
+            return View("~/Views/Donacion/HistorialDonaciones.cshtml", viewModel);
         }
     }
 }
