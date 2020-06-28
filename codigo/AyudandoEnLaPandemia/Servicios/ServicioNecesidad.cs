@@ -35,6 +35,11 @@ namespace Servicios
             return _unitOfWork.Necesidades.Get(idNecesidad);
         }
 
+        public IEnumerable<Necesidades> BuscarNecesidades(string buscar)
+        {
+            return _unitOfWork.Necesidades.BuscarNecesidades(buscar);
+        }
+
         public void CrearNecesidad(Necesidades necesidad, HttpPostedFileBase imagen)
         {
             necesidad.Foto = GuardarImagen(necesidad.IdUsuarioCreador, imagen);
