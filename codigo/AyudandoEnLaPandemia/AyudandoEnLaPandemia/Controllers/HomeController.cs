@@ -18,10 +18,22 @@ namespace AyudandoEnLaPandemia.Controllers
         {
             var necesidades = _servicioNecesidad.GetNecesidadesMasValoradas();
 
-            var viewModel = new HomeViewModel
+            var viewModel = new IndexViewModel
             {
                 TituloPagina = "Ayudando en la pandemia",
                 TopNecesidades = necesidades
+            };
+            return View("~/Views/Home/index.cshtml", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Home()
+        {
+            var viewModel = new HomeViewModel()
+            {
+                TituloPagina = "Home",
+                MisNecesidades = _servicioNecesidad.GetNecesidadesUsuario((int)Session["UsuarioID"]),
+                Necesidades = _servicioNecesidad.GetNecesidadesOtrosUsuarios((int)Session["UsuarioID"])
             };
 
             return View("~/Views/Home/home.cshtml", viewModel);

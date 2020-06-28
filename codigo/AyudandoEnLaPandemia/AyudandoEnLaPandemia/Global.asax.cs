@@ -1,3 +1,5 @@
+using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -32,6 +34,17 @@ namespace AyudandoEnLaPandemia
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
+            Response.Clear();
+
+            var error = exception is HttpException httpException ? httpException.GetHttpCode() : 0;
+
+            Server.ClearError();
+            Response.Redirect(string.Format("~/Error/?error={0}", error, exception.Message));
         }
     }
 }

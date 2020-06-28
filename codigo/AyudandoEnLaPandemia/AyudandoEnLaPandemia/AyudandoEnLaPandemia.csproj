@@ -250,6 +250,7 @@
     <Compile Include="AutofacModules\DIModule.cs" />
     <Compile Include="Controllers\DenunciasController.cs" />
     <Compile Include="Controllers\DonacionController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\NecesidadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Denuncias\GestionDenunciasViewModel.cs" />
     <Compile Include="ViewModels\Donaciones\HistorialDonacionesViewModel.cs" />
+    <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\DonacionesInsumosViewModel.cs" />
     <Compile Include="ViewModels\Necesidad\BuscarNecesidadViewModel.cs" />
     <Compile Include="ViewModels\Necesidad\CrearNecesidadViewModel.cs" />
@@ -310,6 +312,7 @@
     <Content Include="Views\Denuncias\GestionDenuncias.cshtml" />
     <Content Include="Views\Necesidad\BusquedaNecesidad.cshtml" />
     <Content Include="Views\Donacion\HistorialDonaciones.cshtml" />
+    <Content Include="Views\Error\error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
