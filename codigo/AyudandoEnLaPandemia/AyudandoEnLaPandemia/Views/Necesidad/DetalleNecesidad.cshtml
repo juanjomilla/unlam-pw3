@@ -20,8 +20,8 @@
                         <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=true">Me Gusta</a>
                         <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=false">No Me Gusta</a>
                         <p>Denunciar</p>
-                        <p>Realizar donación</p>
-                        <form action="/Donacion/Donacion" method="post">
+                        <a href="/Donacion/Donacion?idNecesidad=@Model.Necesidad.IdNecesidad">Realizar donación</a>
+                        @*<form action="/Donacion/Donacion" method="post">
                             <input type="hidden" name="idNecesidad" value="@Model.Necesidad.IdNecesidad" />
                             <div>
                                 <select name="TipoDonacion">
@@ -30,9 +30,9 @@
                                 </select>
                             </div>
                             <div>
-                                <input type="submit" value="Donar" />
+                                <input type="submit" value="Realizar donación" />
                             </div>
-                        </form>
+                        </form>*@
                     }
                     @if (!string.IsNullOrWhiteSpace(Model.Mensaje))
                     {

@@ -20,19 +20,22 @@ namespace AyudandoEnLaPandemia.Controllers
             _servicioNecesidad = servicioNecesidad;
         }
 
-        public ActionResult Donacion(string TipoDonacion, int idNecesidad)
+        public ActionResult Donacion(int idNecesidad)
         {
-            var necesidadesDonacionesMonetarias = _servicioDonaciones.GetNecesidadesDonacionesMonetarias(idNecesidad);
+            int TipoDonacion = _servicioNecesidad.GetTipoNecesidad(idNecesidad);
 
-            TempData["IdnecesidadesDonacionesMonetarias"] = necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria;
-            TempData["Dinero"] = necesidadesDonacionesMonetarias.Dinero;
-            TempData["CBU"] = necesidadesDonacionesMonetarias.CBU;
-
-            if (TipoDonacion.Equals("monetario"))
+            if (TipoDonacion == 0) // 0 Monetario
             {
+                var necesidadesDonacionesMonetarias = _servicioDonaciones.GetNecesidadesDonacionesMonetarias(idNecesidad);
+                decimal totalDonaciones = _servicioDonaciones.GetTotalDonacionesMonetaria(necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria);
+                decimal totalRestante = necesidadesDonacionesMonetarias.Dinero - totalDonaciones;
+                TempData["IdnecesidadesDonacionesMonetarias"] = necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria;
+                TempData["Dinero"] = necesidadesDonacionesMonetarias.Dinero;
+                TempData["DineroRestante"] = totalRestante;
+                TempData["CBU"] = necesidadesDonacionesMonetarias.CBU;
                 return RedirectToAction("DonacionMonetaria");
             }
-            else
+            else // 1 Insumos
             {
                 return RedirectToAction("DonacionInsumos");
             }
@@ -51,8 +54,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(nuevaDonacionMoentaria);
             }
 
-            var idUsuario = (int)Session["UsuarioID"]; 
-            nuevaDonacionMoentaria.IdUsuario = idUsuario;
+            nuevaDonacionMoentaria.IdUsuario = (int)Session["UsuarioID"];
             nuevaDonacionMoentaria.FechaCreacion = DateTime.Today;
             nuevaDonacionMoentaria.ArchivoTransferencia = _servicioDonaciones.GuardarAdjunto(nuevaDonacionMoentaria.IdUsuario, archivo);
 

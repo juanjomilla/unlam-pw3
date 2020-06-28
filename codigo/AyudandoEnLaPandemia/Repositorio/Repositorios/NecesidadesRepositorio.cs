@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Repositorio.Repositorios
 {
@@ -29,6 +30,14 @@ namespace Repositorio.Repositorios
             // los agrupo por IdNecesidad, y luego devuelvo el primero de cada uno.
             // de esta manera elimino posibles duplicados
             return necesidades.GroupBy(x => x.IdNecesidad).Select(x => x.First());
+        }
+
+        public int GetTipoNecesidad(int idNecesidad)
+        {
+            IQueryable<Necesidades> query = _dbSet;
+
+            return query.Where(x => x.IdNecesidad == idNecesidad).Select(x => x.TipoDonacion).FirstOrDefault();
+
         }
     }
 }

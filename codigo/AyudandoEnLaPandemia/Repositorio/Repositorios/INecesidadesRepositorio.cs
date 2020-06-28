@@ -7,5 +7,6 @@ namespace Repositorio.Repositorios
         IEnumerable<Necesidades> GetNecesidadesMasValoradas(int top);
 
         IEnumerable<Necesidades> BuscarNecesidades(string busqueda);
+        int GetTipoNecesidad(int idNecesidad);
     }
 }
