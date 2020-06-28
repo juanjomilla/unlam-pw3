@@ -248,6 +248,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutofacModules\DIModule.cs" />
     <Compile Include="Controllers\DenunciasController.cs" />
+    <Compile Include="Controllers\DonacionController.cs" />
     <Compile Include="Controllers\NecesidadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -292,6 +293,8 @@
     <Content Include="Views\Shared\_necesidadPartial.cshtml" />
     <Content Include="Views\Login\RegistroUsuario.cshtml" />
     <Content Include="Views\Necesidad\crearNecesidad.cshtml" />
+    <Content Include="Views\Donacion\DonacionInsumos.cshtml" />
+    <Content Include="Views\Donacion\DonacionMonetaria.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InsumoForm.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ReferenciaForm.cshtml" />
     <Content Include="Views\Shared\Necesidad\_agregarInsumoPartial.cshtml" />
