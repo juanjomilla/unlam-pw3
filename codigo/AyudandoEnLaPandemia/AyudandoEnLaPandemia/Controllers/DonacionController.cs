@@ -37,7 +37,18 @@ namespace AyudandoEnLaPandemia.Controllers
             }
             else // 1 Insumos
             {
-                return RedirectToAction("DonacionInsumos");
+                var necesidadesDonacionesInsumos = _servicioDonaciones.GetNecesidadesDonacionesInsumos(idNecesidad);
+
+                var viewModel = new DonacionesInsumosViewModel
+                {
+                    Insumos = necesidadesDonacionesInsumos
+                };
+
+                //decimal totalDonaciones = _servicioDonaciones.GetTotalDonacionesInsumos(necesidadesDonacionesInsumos.IdNecesidadDonacionInsumo);
+                //decimal totalRestante = necesidadesDonacionesMonetarias.Dinero - totalDonaciones;
+                //TempData["IdnecesidadesDonacionesInsumos"] = necesidadesDonacionesInsumos.IdNecesidadDonacionInsumo;
+
+                return View("~/Views/Donacion/DonacionInsumos.cshtml", viewModel);
             }
         }
         

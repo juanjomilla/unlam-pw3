@@ -1,6 +1,6 @@
-﻿@model Repositorio.DonacionesInsumos
+﻿@model DonacionesInsumosViewModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -8,11 +8,39 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Donacion</title>
+    <title>Donacion Insumos</title>
 </head>
 <body>
-    <div> 
-        donacion pag incorrecta
+    <div>
+
+        @{
+            if (Model.Insumos.Any())
+            {
+                foreach (var Insumos in Model.Insumos)
+                {
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <div class="card h-100">
+
+                            <div class="card-body">
+                                <h4 class="card-title">@Insumos.Nombre</h4>
+                            </div>
+                            <ul class="list-group list-group-flush text-left">
+                                <li class="list-group-item">Cantidad: @Insumos.Cantidad</li>
+                                <li class="list-group-item">Insumo: @Insumos.Nombre</li>
+                                <li class="list-group-item">ID: @Insumos.IdNecesidad</li>
+                            </ul>
+
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Nada</p>
+            }
+        }
+
+
     </div>
 </body>
 </html>
