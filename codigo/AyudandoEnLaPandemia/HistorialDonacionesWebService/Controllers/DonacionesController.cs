@@ -17,6 +17,7 @@ namespace HistorialDonacionesWebService.Controllers
             _servicioDonaciones = servicioDonaciones;
         }
 
+        [Route("api/Donaciones/GetDonacionesUsuario/{idUsuario}")]
         public HttpResponseMessage GetDonacionesUsuario(int idUsuario)
         {
             var donacionesInsumos = _servicioDonaciones.GetDonacionesInsumosUsuario(idUsuario);
