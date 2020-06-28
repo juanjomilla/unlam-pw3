@@ -167,6 +167,18 @@ namespace AyudandoEnLaPandemia.Controllers
             return RedirectToAction("Detalle", new { id = idNecesidad, mensaje = "¡Valoración realizada correctamente!" });
         }
 
+        public ActionResult BuscarNecesidad(string busqueda = null)
+        {
+            var resultadoBusqueda = _servicioNecesidad.BuscarNecesidades(busqueda);
+
+            var viewModel = new BuscarNecesidadViewModel
+            {
+                Necesidades = resultadoBusqueda
+            };
+
+            return View("~/Views/Necesidad/BusquedaNecesidad.cshtml", viewModel);
+        }
+
         private void ValidarMaximoNecesidades(int idUsuario)
         {
             var limiteNecesidades = 3;
