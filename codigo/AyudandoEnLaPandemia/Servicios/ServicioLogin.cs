@@ -29,5 +29,12 @@ namespace Servicios
                 !string.IsNullOrWhiteSpace(usuario.Foto) &&
                 usuario.FechaNacimiento != null;
         }
+
+        public bool EsAdministrador(int idUsuario)
+        {
+            var usuario = _usuarioRepositorio.Get(idUsuario);
+
+            return usuario.TipoUsuario == 1;
+        }
     }
 }

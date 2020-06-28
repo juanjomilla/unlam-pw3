@@ -58,8 +58,10 @@
     <Compile Include="Partials\DonacionesMonetariasMetadata.cs" />
     <Compile Include="Partials\UsuarioMetadata.cs" />
     <Compile Include="Partials\Usuarios.cs" />
+    <Compile Include="Repositorios\DenunciasRepositorio.cs" />
     <Compile Include="Repositorios\DonacionesInsumosRepositorio.cs" />
     <Compile Include="Repositorios\DonacionesMonetariasRepositorio.cs" />
+    <Compile Include="Repositorios\IDenunciasRepositorio.cs" />
     <Compile Include="Repositorios\IDonacionesInsumosRepositorio.cs" />
     <Compile Include="Repositorios\IDonacionesMonetariasRepositorio.cs" />
     <Compile Include="Repositorios\INecesidadesDonacionesMonetariasRepositorio.cs" />

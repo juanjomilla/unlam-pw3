@@ -15,6 +15,7 @@ namespace Repositorio
             DonacionesMonetarias = new DonacionesMonetariasRepositorio(_dbContext);
             NecesidadesValoraciones = new NecesidadesValoracionesRepositorio(_dbContext);
             NecesidadesDonacionesMonetarias = new NecesidadesDonacionesMonetariasRepositorio(_dbContext);
+            DenunciasRepo = new DenunciasRepositorio(_dbContext);
         }
 
         public INecesidadesRepositorio Necesidades { get; }
@@ -28,6 +29,8 @@ namespace Repositorio
         public INecesidadesValoracionesRepositorio NecesidadesValoraciones { get; set; }
 
         public INecesidadesDonacionesMonetariasRepositorio NecesidadesDonacionesMonetarias { get; set; }
+
+        public IDenunciasRepositorio DenunciasRepo { get; set; }
 
         public void SaveChanges()
         {
