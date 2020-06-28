@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Web;
+using Newtonsoft.Json.Linq;
 using Repositorio;
 using Repositorio.Repositorios;
+using Servicios.Models;
 
 namespace Servicios
 {
@@ -83,6 +86,28 @@ namespace Servicios
             archivo.SaveAs($"{path}\\{nombreArchivo}");
 
             return nombreArchivo;
+        }
+
+        public IEnumerable<HistorialDonaciones> GetHistorialDonaciones(int idUsuario)
+        {
+            var request = WebRequest.Create($"https://localhost:44366/api/Donaciones/GetDonacionesUsuario/{idUsuario}");
+            var response = request.GetResponse();
+
+            IEnumerable<HistorialDonaciones> result;
+
+            using (var dataStream = response.GetResponseStream())
+            {
+                var reader = new StreamReader(dataStream);
+                var responseFromServer = reader.ReadToEnd();
+
+                var jsonResponse = JArray.Parse(responseFromServer);
+
+                result = jsonResponse.ToObject<IEnumerable<HistorialDonaciones>>();
+            }
+
+            response.Close();
+
+            return result;
         }
 
         private object CrearCarpetaSiNoExiste(int idUsuario)
