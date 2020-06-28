@@ -22,14 +22,14 @@ namespace AyudandoEnLaPandemia.Controllers
 
         public ActionResult Donacion(string TipoDonacion, int idNecesidad)
         {
-            var necesidadesDonacionesMonetarias = _servicioDonaciones.GetNecesidadesDonacionesMonetarias(idNecesidad);
-
-            TempData["IdnecesidadesDonacionesMonetarias"] = necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria;
-            TempData["Dinero"] = necesidadesDonacionesMonetarias.Dinero;
-            TempData["CBU"] = necesidadesDonacionesMonetarias.CBU;
 
             if (TipoDonacion.Equals("monetario"))
             {
+                var necesidadesDonacionesMonetarias = _servicioDonaciones.GetNecesidadesDonacionesMonetarias(idNecesidad);
+
+                TempData["IdnecesidadesDonacionesMonetarias"] = necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria;
+                TempData["Dinero"] = necesidadesDonacionesMonetarias.Dinero;
+                TempData["CBU"] = necesidadesDonacionesMonetarias.CBU;
                 return RedirectToAction("DonacionMonetaria");
             }
             else
@@ -51,8 +51,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(nuevaDonacionMoentaria);
             }
 
-            var idUsuario = (int)Session["UsuarioID"]; 
-            nuevaDonacionMoentaria.IdUsuario = idUsuario;
+            nuevaDonacionMoentaria.IdUsuario = (int)Session["UsuarioID"];
             nuevaDonacionMoentaria.FechaCreacion = DateTime.Today;
             nuevaDonacionMoentaria.ArchivoTransferencia = _servicioDonaciones.GuardarAdjunto(nuevaDonacionMoentaria.IdUsuario, archivo);
 
