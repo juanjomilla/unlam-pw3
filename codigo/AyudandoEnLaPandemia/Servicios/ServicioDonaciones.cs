@@ -58,7 +58,7 @@ namespace Servicios
 
         public void CrearDonacionMonetaria(DonacionesMonetarias donacion)
         {
-            _donacionesMonetariasRepositorio.CrearDonacionMonetaria(donacion);
+            _unitOfWork.DonacionesMonetarias.CrearDonacionMonetaria(donacion);
         }
 
         public string GuardarAdjunto(int idUsuario, HttpPostedFileBase archivo)
