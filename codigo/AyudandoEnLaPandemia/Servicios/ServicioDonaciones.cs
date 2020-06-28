@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using Repositorio;
+using Repositorio.Repositorios;
 using Servicios.Models;
 
 namespace Servicios
@@ -13,9 +14,24 @@ namespace Servicios
     {
         private readonly UnitOfWork _unitOfWork;
 
-        public ServicioDonaciones(Contexto contexto)
+        private IDonacionesMonetariasRepositorio _donacionesMonetariasRepositorio;
+
+        private INecesidadesDonacionesMonetariasRepositorio _necesidadesDonacionesMonetariasRepositorio;
+       
+        private IDonacionesInsumosRepositorio _donacionesInsumosRepositorio;
+
+        private INecesidadesDonacionesInsumoRepositorio _necesidadesDonacionesInsumoRepositorio;
+
+        public ServicioDonaciones(Contexto contexto, IDonacionesMonetariasRepositorio donacionesMonetariasRepositorio, 
+                                  INecesidadesDonacionesMonetariasRepositorio necesidadesDonacionesMonetariasRepositorio,
+                                  IDonacionesInsumosRepositorio donacionesInsumoRepositorio, 
+                                  INecesidadesDonacionesInsumoRepositorio necesidadesDonacionesInsumoRepositorio)
         {
             _unitOfWork = new UnitOfWork(contexto);
+            _donacionesMonetariasRepositorio = donacionesMonetariasRepositorio;
+            _necesidadesDonacionesMonetariasRepositorio = necesidadesDonacionesMonetariasRepositorio;
+            _donacionesInsumosRepositorio = donacionesInsumoRepositorio;
+            _necesidadesDonacionesInsumoRepositorio = necesidadesDonacionesInsumoRepositorio;
         }
 
         public IEnumerable<DonacionesInsumos> GetDonacionesInsumosUsuario(int idUsuario)
@@ -26,6 +42,11 @@ namespace Servicios
         public NecesidadesDonacionesMonetarias GetNecesidadesDonacionesMonetarias(int idNecesidad)
         {
             return _unitOfWork.NecesidadesDonacionesMonetarias.BuscarNecesidad(idNecesidad);
+        }
+
+        public IEnumerable<NecesidadesDonacionesInsumos> GetNecesidadesDonacionesInsumos(int idNecesidad)
+        {
+            return _unitOfWork.NecesidadesDonacionesInsumos.BuscarNecesidad(idNecesidad);
         }
 
         public IEnumerable<DonacionesMonetarias> GetDonacionesMonetariasUsuario(int idUsuario)
@@ -42,7 +63,6 @@ namespace Servicios
         {
             return _unitOfWork.DonacionesMonetarias.GetTotalDonaciones(idNecesidadDonacionMonetaria);
         }
-
 
         public void Dispose()
         {
