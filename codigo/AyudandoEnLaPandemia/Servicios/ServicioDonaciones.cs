@@ -54,9 +54,21 @@ namespace Servicios
             return _unitOfWork.DonacionesMonetarias.Get(x => x.IdUsuario == idUsuario);
         }
 
-        public decimal GetTotalDonacionesInsumo(int idNecesidadDonacionInsumo)
+        public int GetTotalDonacionesInsumo(int idNecesidadDonacionInsumo)
         {
             return _unitOfWork.DonacionesInsumos.GetTotalDonaciones(idNecesidadDonacionInsumo);
+        }
+
+        public bool ValidarDonacionCompleta(int totalDonaciones, int cantidad)
+        {
+            if (totalDonaciones>= cantidad)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public decimal GetTotalDonacionesMonetaria(int idNecesidadDonacionMonetaria)
@@ -119,6 +131,11 @@ namespace Servicios
             }
 
             return path;
+        }
+
+        public void CrearDonacionInsumo(DonacionesInsumos nuevaDonacionInsumo)
+        {
+            _unitOfWork.DonacionesInsumos.CrearDonacionInsumo(nuevaDonacionInsumo);            
         }
     }
 }

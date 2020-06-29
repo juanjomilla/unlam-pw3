@@ -2,6 +2,7 @@
 {
     public interface IDonacionesInsumosRepositorio : IRepositorio<DonacionesInsumos>
     {
-        decimal GetTotalDonaciones(int idNecesidadDonacionInsumo);
+        int GetTotalDonaciones(int idNecesidadDonacionInsumo);
+        void CrearDonacionInsumo(DonacionesInsumos nuevaDonacionInsumo);
     }
 }
