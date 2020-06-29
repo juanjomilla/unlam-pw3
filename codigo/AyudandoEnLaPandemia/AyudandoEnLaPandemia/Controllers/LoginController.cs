@@ -86,6 +86,15 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(registro);
             }
 
+            bool emailEncontrado = _servicioRegistrar.ValidarEmail(registro.Email);
+
+            if (emailEncontrado == true) {
+
+                return RegistroUsuario("NotOK");
+
+            }
+            else { 
+
             StringBuilder token = _servicioRegistrar.CrearToken();
 
             Usuarios usuarioNuevo = new Usuarios();
@@ -95,7 +104,8 @@ namespace AyudandoEnLaPandemia.Controllers
             usuarioNuevo.UserName = registro.UserName;
             usuarioNuevo.Email = registro.Email;
             usuarioNuevo.Password = registro.Password;
-            usuarioNuevo.FechaNacimiento = Convert.ToDateTime(registro.FechaNacimiento);
+            usuarioNuevo.FechaNacimiento = registro.FechaNacimiento;
+            // usuarioNuevo.FechaNacimiento = Convert.ToDateTime(registro.FechaNacimiento);
             usuarioNuevo.TipoUsuario = 0; //Usuario normal
             usuarioNuevo.FechaCracion= DateTime.Today;
             usuarioNuevo.Activo = false;
@@ -104,6 +114,8 @@ namespace AyudandoEnLaPandemia.Controllers
             _servicioRegistrar.CrearRegistro(usuarioNuevo);
 
             return RegistroUsuario("OK");
+
+            }
 
         }
 

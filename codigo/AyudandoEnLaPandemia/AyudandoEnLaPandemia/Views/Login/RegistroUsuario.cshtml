@@ -19,10 +19,10 @@
             </strong>
         </div>
     </div>
-    <div id="message2">
-        <!-- <div class="alert alert-danger">
-         <span class="glyphicon glyphicon-remove"></span><strong>Error Message! Your Registration Is Not Complete</strong>
-     </div>-->
+    <div id="message2" style="display: none;">
+        <div class="alert alert-danger">
+         <span class="glyphicon glyphicon-remove"></span><strong>Error ! Ese email ya fue registrado</strong>
+     </div>
     </div>
 </div>
 
@@ -39,6 +39,7 @@
     </div>
     <div>
         Nombre de usuario: @Html.EditorFor(o => Model.UserName)
+        @Html.ValidationMessageFor(o => o.UserName)
     </div>
     <div>
         Email: @Html.EditorFor(o => Model.Email)
@@ -66,15 +67,19 @@
 
 <script>
 
-   if(@ViewBag.Message="OK")
-   {
+    if ('@ViewBag.Message' == 'OK') {
         $("#message2").hide();
         $("#message1").show();
-   };
+    };
+
+    if ('@ViewBag.Message' == 'NotOK') {
+        
+        $("#message1").hide();
+        $("#message2").show();
+    };
 
     $("#UsuariosViewModel").validate({
         lang: 'es'
     });
-
 
 </script>
