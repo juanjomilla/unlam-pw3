@@ -1,10 +1,8 @@
-﻿@model DonacionesInsumosViewModel
+﻿@model List<DonacionesInsumosViewModel>
 @{
     Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -12,34 +10,48 @@
 </head>
 <body>
     <div>
+        @foreach (var Insumos in Model)
+        {
 
-        @{
-            if (Model.Insumos.Any())
+            using (Html.BeginForm("DonacionInsumos", "Donacion", FormMethod.Post))
             {
-                foreach (var Insumos in Model.Insumos)
-                {
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <div class="card h-100">
-
-                            <div class="card-body">
-                                <h4 class="card-title">@Insumos.Nombre</h4>
-                            </div>
-                            <ul class="list-group list-group-flush text-left">
-                                <li class="list-group-item">Cantidad: @Insumos.Cantidad</li>
-                                <li class="list-group-item">Insumo: @Insumos.Nombre</li>
-                                <li class="list-group-item">ID: @Insumos.IdNecesidad</li>
-                            </ul>
-
-                        </div>
-                    </div>
-                }
+        <div class="col-lg-4 col-sm-6 mb-4">
+            @*<div class="card h-100">*@
+                <div class="card-body">
+                    <h4 class="card-title">@Insumos.Nombre</h4>
+                </div>
+                <input type="hidden" name="IdNecesidadDonacionInsumo" value="@Insumos.IdNecesidadDonacionInsumo" />    
+                <ul>
+                    <li class="list-group-item">Cantidad Requerida: <input type="text" name="Cantidad" value="@Insumos.Cantidad" disabled="disabled" /></li>
+                    <li class="list-group-item">Cantidad Total Donada: <input type="text" name="CantidadTotal" value="@Insumos.CantidadTotal" disabled="disabled" /></li>
+                    <li class="list-group-item">Cantidad Restante: <input type="text" name="CantidadRestante" value="@Insumos.CantidadRestante" disabled="disabled" /></li>
+                    @if (Insumos.statusCompleto == true)
+                    {
+                        <li class="list-group-item">Ingresar Cantidad a donar : <input type="number" id="CantidadAdonarGrey" name="CantidadAdonarGrey" value="@Insumos.CantidadAdonar" disabled="disabled" /></li>
+                    }
+                    else
+                    {
+                        <li class="list-group-item">Ingresar Cantidad a donar : <input type="number" id="CantidadAdonar" name="CantidadAdonar" value="@Insumos.CantidadAdonar" /></li>
+                    }
+                </ul>
+            @*</div>*@
+        </div>
+        <div>
+            @if (Insumos.statusCompleto == true)
+            {
+                <input type="submit" value="Donacion Completa" disabled="disabled" />
             }
             else
             {
-                <p>Nada</p>
+                <input type="submit" value="Donar @Insumos.Nombre" />
             }
+
+        </div>
+
+        <br>
         }
 
+     }
 
     </div>
 </body>
