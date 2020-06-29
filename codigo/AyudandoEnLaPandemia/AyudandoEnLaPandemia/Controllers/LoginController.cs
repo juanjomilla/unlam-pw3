@@ -58,7 +58,7 @@ namespace AyudandoEnLaPandemia.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Home", "Home");
                     }
 
                 }
