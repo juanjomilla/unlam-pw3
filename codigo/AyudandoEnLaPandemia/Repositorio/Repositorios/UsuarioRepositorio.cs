@@ -55,6 +55,20 @@ namespace Repositorio.Repositorios
             }
         }
 
+        public bool ValidarEmail(string email)
+        {
+            var emailEncontrado = Get(x => x.Email == email).FirstOrDefault();
+            if (emailEncontrado==null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+           
+        }
+
         public void ValidarUsuario(int IdUsuario, string token)
         {
             var usuarioValidado = Get(x => x.IdUsuario == IdUsuario & x.Token==token).FirstOrDefault();

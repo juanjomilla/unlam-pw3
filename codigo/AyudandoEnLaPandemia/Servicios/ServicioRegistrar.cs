@@ -9,6 +9,7 @@ namespace Servicios
     public class ServicioRegistrar
     {
         private IUsuarioRepositorio _usuarioRepositorio;
+        private object emailEncontrado;
 
         // se arma el constructor y se guardan en variables privadas lo que inyecta autofac
         public ServicioRegistrar(IUsuarioRepositorio usuarioRepositorio)
@@ -40,6 +41,11 @@ namespace Servicios
         public void ValidarUsuario(int IdUsuario, string token)
         {
             _usuarioRepositorio.ValidarUsuario(IdUsuario, token);
+        }
+
+        public bool ValidarEmail(string email)
+        {
+            return _usuarioRepositorio.ValidarEmail(email);
         }
     }
 }

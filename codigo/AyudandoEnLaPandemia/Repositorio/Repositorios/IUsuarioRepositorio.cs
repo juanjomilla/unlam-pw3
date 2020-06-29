@@ -12,5 +12,6 @@ namespace Repositorio.Repositorios
 
         void CrearUsuario(Usuarios usuarioNuevo);
         void ValidarUsuario(int IdUsuario, string token);
+        bool ValidarEmail(string email);
     }
 }
