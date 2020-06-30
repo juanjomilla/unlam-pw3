@@ -10,7 +10,6 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
 select,
 textarea {
     max-width: 280px;
@@ -18,7 +17,7 @@ textarea {
 
 .embed-responsive .card-img-top {
     object-fit: cover;
-} 
+}
 
 /* Imagen de cada necesidad */
 .card-img-top {
