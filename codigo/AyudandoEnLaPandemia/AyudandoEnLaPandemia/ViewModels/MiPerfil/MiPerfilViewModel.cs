@@ -24,7 +24,6 @@ namespace AyudandoEnLaPandemia.ViewModels.MiPerfil
 
         public int edad { get { return DateTime.Now.Year - FechaNacimiento.Year; } }
 
-        [StringLength(20, ErrorMessage = "No debe tener más de 20 caracteres")]
         public string UserName { get; set; }
         public string Foto { get; set; }
 
