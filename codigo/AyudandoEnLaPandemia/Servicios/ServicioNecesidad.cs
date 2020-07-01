@@ -17,12 +17,12 @@ namespace Servicios
 
         public IEnumerable<Necesidades> GetNecesidadesOtrosUsuarios(int idUsuario)
         {
-            return _unitOfWork.Necesidades.Get(x => x.IdUsuarioCreador != idUsuario && x.Estado != 3);
+            return _unitOfWork.Necesidades.Get(x => x.IdUsuarioCreador != idUsuario && (x.Estado != 3 && x.Estado != 4));
         }
 
         public IEnumerable<Necesidades> GetNecesidadesUsuario(int idUsuario)
         {
-            return _unitOfWork.Necesidades.Get(x => x.IdUsuarioCreador == idUsuario && x.Estado != 3);
+            return _unitOfWork.Necesidades.Get(x => x.IdUsuarioCreador == idUsuario && (x.Estado != 3 && x.Estado != 4));
         }
 
         public int GetTipoNecesidad(int idNecesidad)

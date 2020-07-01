@@ -14,8 +14,8 @@ namespace AyudandoEnLaPandemia.Controllers
         private readonly ServicioNecesidad _servicioNecesidad;
 
         public DenunciasController(
-            ServicioLogin servicioLogin, 
-            ServicioDenuncias servicioDenuncias, 
+            ServicioLogin servicioLogin,
+            ServicioDenuncias servicioDenuncias,
             ServicioNecesidad servicioNecesidad)
         {
             _servicioLogin = servicioLogin;
@@ -37,7 +37,6 @@ namespace AyudandoEnLaPandemia.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.TodosLosMotivos = _servicioDenuncias.ObtenerMotivosDenuncias();
-                ViewBag.IdMotivoDenunciaSeleccionado = nuevaDenuncia.MotivoDenuncia.IdMotivoDenuncia;
                 return View(nuevaDenuncia);
             }
 

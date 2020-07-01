@@ -18,21 +18,6 @@
             <input type="hidden" name="IdNecesidad" id="IdNecesidad" value="@ViewBag.IdNecesidad" />
             <div>
                 Motivo:
-                @*<select name="idMotivoDenuncia">
-                    <option value="">Seleccionar</option>
-                    @foreach (Repositorio.MotivoDenuncia motivo in ViewBag.TodosLosMotivos)
-                    {
-                        if (motivo.IdMotivoDenuncia == ViewBag.IdMotivoDenunciaSeleccionado)
-                        {
-                            <option value="@motivo.IdMotivoDenuncia" selected="selected">@motivo.Descripcion</option>
-                        }
-                        else
-                        {
-                            <option value="@motivo.IdMotivoDenuncia">@motivo.Descripcion</option>
-                        }
-                    }
-                </select>*@
-                
                 @Html.DropDownList("MotivoDenuncia.IdMotivoDenuncia", new SelectList(ViewBag.TodosLosMotivos, "IdMotivoDenuncia", "Descripcion"), new { id = "IdMotivoDenuncia" })
                 @Html.ValidationMessageFor(o => o.MotivoDenuncia.IdMotivoDenuncia)
             </div><br />
