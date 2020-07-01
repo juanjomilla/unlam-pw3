@@ -42,7 +42,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
             var idUsuario = (int)Session["UsuarioID"];
 
-            var usuario = _servicioLogin.ObtenerUsuario(idUsuario);
+            var usuario = _servicioLogin.ObtenerPerfil(idUsuario);
 
             var necesidad = _servicioNecesidad.GetNecesidad(nuevaDenuncia.IdNecesidad);
 
