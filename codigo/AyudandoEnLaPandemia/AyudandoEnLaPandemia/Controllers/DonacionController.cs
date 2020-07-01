@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using AyudandoEnLaPandemia.ViewModels;
+﻿using AyudandoEnLaPandemia.ViewModels;
 using AyudandoEnLaPandemia.ViewModels.Donaciones;
 using Repositorio;
 using Servicios;
+using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Mvc;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
@@ -39,14 +38,14 @@ namespace AyudandoEnLaPandemia.Controllers
             else // 1 Insumos
             {
                 var necesidadesDonacionesInsumos = _servicioDonaciones.GetNecesidadesDonacionesInsumos(idNecesidad);
-               // var viewModel = new DonacionesInsumosViewModel
                 List<DonacionesInsumosViewModel> listDonacionesInsumos = new List<DonacionesInsumosViewModel>();
 
+              //  DonacionesInsumosListViewModel listDonacionesInsumosViewModel = new DonacionesInsumosListViewModel();
 
                 foreach (NecesidadesDonacionesInsumos n in necesidadesDonacionesInsumos)
                 {
                     DonacionesInsumosViewModel donacionesInsumosViewModel = new DonacionesInsumosViewModel();
-                        
+
                     int totalDonaciones = _servicioDonaciones.GetTotalDonacionesInsumo(n.IdNecesidadDonacionInsumo);
                     bool statusCompleto = _servicioDonaciones.ValidarDonacionCompleta(totalDonaciones, n.Cantidad);
                     if (!statusCompleto)
@@ -62,13 +61,17 @@ namespace AyudandoEnLaPandemia.Controllers
                     donacionesInsumosViewModel.statusCompleto = statusCompleto;
                     donacionesInsumosViewModel.Nombre = n.Nombre;
                     donacionesInsumosViewModel.IdNecesidadDonacionInsumo = n.IdNecesidadDonacionInsumo;
-                    listDonacionesInsumos.Add(donacionesInsumosViewModel);
+                    listDonacionesInsumos.Add(donacionesInsumosViewModel);       
+
                 }
 
-                return View("~/Views/Donacion/DonacionInsumos.cshtml", listDonacionesInsumos);
+                DonacionesInsumosListViewModel nuevo = new DonacionesInsumosListViewModel();
+                nuevo.InsumosList = listDonacionesInsumos;
+
+                return View("~/Views/Donacion/DonacionInsumos.cshtml", nuevo);
             }
         }
-        
+
         [HttpGet]
         public ActionResult DonacionMonetaria()
         {
@@ -91,21 +94,64 @@ namespace AyudandoEnLaPandemia.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
-        public ActionResult DonacionInsumos(int CantidadAdonar, int IdNecesidadDonacionInsumo)
+        [HttpGet]
+        public ActionResult DonacionInsumos(String mensaje = "")
         {
-            DonacionesInsumos nuevaDonacionInsumo = new DonacionesInsumos();
-            nuevaDonacionInsumo.IdNecesidadDonacionInsumo = IdNecesidadDonacionInsumo;
-            nuevaDonacionInsumo.Cantidad = CantidadAdonar;
-            nuevaDonacionInsumo.IdUsuario = (int)Session["UsuarioID"];
-
-            _servicioDonaciones.CrearDonacionInsumo(nuevaDonacionInsumo);
-
-            return RedirectToAction("Index", "Home");
-            //return View();
+            ViewBag.Message = mensaje;
+            return View();
         }
 
-        public ActionResult HistorialDonaciones() 
+        [HttpPost]
+        public ActionResult DonacionInsumos(DonacionesInsumosListViewModel listDonacionesInsumos)
+        {
+            bool cantidadCero = ValidarCantidadesCero(listDonacionesInsumos.InsumosList);
+
+            if (cantidadCero == true) {
+
+                ViewBag.Message = "Error";
+                return View(listDonacionesInsumos);
+
+            }
+
+            List<DonacionesInsumos> nuevaDonacionInsumolist = new List<DonacionesInsumos>();
+
+            foreach (var insumo in listDonacionesInsumos.InsumosList)
+            {
+
+                if (insumo.CantidadAdonar != 0) {
+
+                    DonacionesInsumos nuevaDonacionInsumo = new DonacionesInsumos();
+                    nuevaDonacionInsumo.IdNecesidadDonacionInsumo = insumo.IdNecesidadDonacionInsumo;
+                    nuevaDonacionInsumo.Cantidad = insumo.CantidadAdonar;
+                    nuevaDonacionInsumo.IdUsuario = (int)Session["UsuarioID"];
+
+                    nuevaDonacionInsumolist.Add(nuevaDonacionInsumo);
+
+                }
+            }
+
+            _servicioDonaciones.CrearDonacionInsumo(nuevaDonacionInsumolist);
+
+            return RedirectToAction("Index", "Home");
+
+        }
+
+        private bool ValidarCantidadesCero(List<DonacionesInsumosViewModel> insumosList)
+        {
+            bool cantidadesCero =true;
+
+            foreach (var insumo in insumosList)
+            {
+                if (insumo.CantidadAdonar != 0)
+                {
+                    cantidadesCero = false;
+                }
+            }
+
+            return cantidadesCero;
+        }
+
+        public ActionResult HistorialDonaciones()
         {
             var idUsuario = (int)Session["UsuarioID"];
 
