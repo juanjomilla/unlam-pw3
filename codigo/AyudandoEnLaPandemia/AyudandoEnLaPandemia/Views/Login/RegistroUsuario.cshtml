@@ -4,66 +4,101 @@
     Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
 
-<h2>Nuevo Usuario</h2>
-
-<link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
-
-<div class="modal-header">
-   
-    <div id="message1" style="display: none;">
+<div class="modal-dialog text-center">
+    <div class="d-none" id="message1">
         <div class="alert alert-success">
-            <span class="glyphicon glyphicon-ok"></span><strong>
-                Gracias por registrarte!<br />
-                Un email fue enviado a tu casilla con el link de confirmación!<br />
-                Por favor revisar correo
+            <span class="glyphicon glyphicon-ok"></span>
+            <strong>
+                ¡Gracias por registrarte!<br />
+                Un email fue enviado a tu casilla con el link de confirmación.<br />
+                Por favor revisa tu correo.
             </strong>
         </div>
     </div>
-    <div id="message2" style="display: none;">
+    <div class="d-none" id="message2">
         <div class="alert alert-danger">
-         <span class="glyphicon glyphicon-remove"></span><strong>Error ! Ese email ya fue registrado</strong>
-     </div>
+            <span class="glyphicon glyphicon-remove"></span>
+            <strong>¡Error! Ese email ya fue registrado.</strong>
+        </div>
     </div>
 </div>
 
-@using (Html.BeginForm("RegistroUsuario", "Login", FormMethod.Post, new { id = "UsuariosViewModel" }))
-{
-
-    <div>
-        Nombre: @Html.EditorFor(o => Model.Nombre)
-        @Html.ValidationMessageFor(o => o.Nombre)
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center"><h4>Creá tu cuenta</h4></div>
+                <div class="card-body">
+                    <form action="/Login/RegistroUsuario" method="post" id="UsuariosViewModel">
+                        <div class="form-group row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(o => Model.Nombre, new { @type = "text", @class = "form-control", @placeholder = "Nombre" })
+                                @Html.ValidationMessageFor(o => o.Nombre)
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                @Html.PasswordFor(o => Model.Apellido, new { @type = "text", @class = "form-control", @placeholder = "Apellido" })
+                                @Html.ValidationMessageFor(o => o.Apellido)
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                @Html.PasswordFor(o => Model.UserName, new { @type = "text", @class = "form-control", @placeholder = "Nombre de Usuario" })
+                                @Html.ValidationMessageFor(o => o.UserName)
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(o => Model.Email, new { @type = "email", @class = "form-control", @placeholder = "Correo electrónico" })
+                                @Html.ValidationMessageFor(o => o.Email)
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                @Html.PasswordFor(o => Model.Password, new { @type = "password", @class = "form-control", @placeholder = "Contraseña" })
+                                @Html.ValidationMessageFor(o => o.Password)
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                @Html.PasswordFor(o => Model.RePassword, new { @type = "password", @class = "form-control", @placeholder = "Repetir Contraseña" })
+                                @Html.ValidationMessageFor(o => o.RePassword)
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(o => Model.FechaNacimiento, new { @type = "date", @class = "form-control", @placeholder = "Fecha de Nacimiento (dd/mm/aa)" })
+                                @Html.ValidationMessageFor(o => o.FechaNacimiento)
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-block">Crear cuenta</button>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        Apellido: @Html.EditorFor(o => Model.Apellido)
-        @Html.ValidationMessageFor(o => o.Apellido)
-    </div>
-    <div>
-        Nombre de usuario: @Html.EditorFor(o => Model.UserName)
-        @Html.ValidationMessageFor(o => o.UserName)
-    </div>
-    <div>
-        Email: @Html.EditorFor(o => Model.Email)
-        @Html.ValidationMessageFor(o => o.Email)
-    </div>
-
-    <div>
-        Password: @Html.PasswordFor(o => Model.Password)
-        @Html.ValidationMessageFor(o => o.Password)
-    </div>
-
-    <div>
-        Reingresar Password: @Html.PasswordFor(o => Model.RePassword)
-        @Html.ValidationMessageFor(o => o.RePassword)
-    </div>
-
-    <div>
-        Fecha de Nacimiento (dd/mm/aa): @Html.EditorFor(o => Model.FechaNacimiento)
-        @Html.ValidationMessageFor(o => o.FechaNacimiento)
-    </div>
-
-    <input type="submit" value="Registrar" />
-
-}
+</div>
 
 <script>
 
@@ -73,7 +108,7 @@
     };
 
     if ('@ViewBag.Message' == 'NotOK') {
-        
+
         $("#message1").hide();
         $("#message2").show();
     };

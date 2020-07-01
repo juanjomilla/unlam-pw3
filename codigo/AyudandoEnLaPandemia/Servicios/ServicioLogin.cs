@@ -3,6 +3,7 @@ using Repositorio.Repositorios;
 using System;
 using System.IO;
 using System.Web;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Servicios
 {

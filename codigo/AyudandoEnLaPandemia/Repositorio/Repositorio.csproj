@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Partials\Denuncias.cs" />
+    <Compile Include="Partials\DenunciasMetadata.cs" />
+    <Compile Include="Repositorios\IMotivoDenunciaRepositorio.cs" />
     <Compile Include="Repositorios\INecesidadesDonacionesInsumoRepositorio.cs" />
     <Compile Include="Partials\DonacionesMonetarias.cs" />
     <Compile Include="Partials\DonacionesMonetariasMetadata.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Repositorios\INecesidadesRepositorio.cs" />
     <Compile Include="Repositorios\INecesidadesValoracionesRepositorio.cs" />
     <Compile Include="Repositorios\IUsuarioRepositorio.cs" />
+    <Compile Include="Repositorios\MotivoDenunciaRepositorio.cs" />
     <Compile Include="Repositorios\NecesidadesDonacionesInsumoRepositorio.cs" />
     <Compile Include="Repositorios\NecesidadesDonacionesMonetariasRepositorio.cs" />
     <Compile Include="Repositorios\NecesidadesRepositorio.cs" />
