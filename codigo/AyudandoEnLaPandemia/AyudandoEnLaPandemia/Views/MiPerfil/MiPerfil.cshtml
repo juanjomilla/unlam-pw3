@@ -15,11 +15,13 @@
                 {
                         <div class="form-group row text-center">
                             <div class="col-lg-6 offset-lg-3">
+                                <input type="hidden" name="Foto" value="@Model.Foto" />
+                                <input type="hidden" id="IdUsuario" name="IdUsuario" value="@Model.IdUsuario" />
                                 <img src="~/Content/usuario/imagenes/@Model.IdUsuario/@Model.Foto" class="avatar rounded-circle img-thumbnail" alt="">
                                 @*<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar rounded-circle img-thumbnail" alt="">*@
                                 <h6>Actualiza tu foto</h6>
                                 <label class="btn btn-primary">
-                                    <input type="file" title="Subir foto" id="foto" name="foto" class="form-control-file" />
+                                    <input type="file" title="Subir foto" name="foto" class="form-control-file" />
                                     @Html.ValidationMessage("FotoEmpty")
                                 </label>
                             </div>

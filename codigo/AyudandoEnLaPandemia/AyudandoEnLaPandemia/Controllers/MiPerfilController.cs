@@ -54,7 +54,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(perfil);
             }
 
-            perfil.Foto = _servicioLogin.GuardarAdjunto(idUsuario, foto);
+            perfil.Foto = _servicioLogin.GuardarAdjunto(perfil.IdUsuario, foto);
 
             _servicioLogin.ActualizarPerfil(perfil.Nombre, perfil.Apellido, perfil.FechaNacimiento, perfil.Foto, idUsuario);
 

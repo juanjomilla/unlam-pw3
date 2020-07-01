@@ -29,18 +29,22 @@ namespace AyudandoEnLaPandemia.Controllers
                 var necesidadesDonacionesMonetarias = _servicioDonaciones.GetNecesidadesDonacionesMonetarias(idNecesidad);
                 decimal totalDonaciones = _servicioDonaciones.GetTotalDonacionesMonetaria(necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria);
                 decimal totalRestante = necesidadesDonacionesMonetarias.Dinero - totalDonaciones;
-                TempData["IdnecesidadesDonacionesMonetarias"] = necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria;
-                TempData["Dinero"] = necesidadesDonacionesMonetarias.Dinero;
-                TempData["DineroRestante"] = totalRestante;
-                TempData["CBU"] = necesidadesDonacionesMonetarias.CBU;
-                return RedirectToAction("DonacionMonetaria");
+
+                var donacion = new DonacionMonetariaViewModel
+                {
+                    IdNecesidadDonacionMonetaria = necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria,
+                    Dinero = (Double)necesidadesDonacionesMonetarias.Dinero,
+                    totalRestante = (Double)totalRestante,
+                    CBU = necesidadesDonacionesMonetarias.CBU
+                };
+
+                return View("~/Views/Donacion/DonacionMonetaria.cshtml", donacion);
             }
             else // 1 Insumos
             {
                 var necesidadesDonacionesInsumos = _servicioDonaciones.GetNecesidadesDonacionesInsumos(idNecesidad);
                 List<DonacionesInsumosViewModel> listDonacionesInsumos = new List<DonacionesInsumosViewModel>();
 
-              //  DonacionesInsumosListViewModel listDonacionesInsumosViewModel = new DonacionesInsumosListViewModel();
 
                 foreach (NecesidadesDonacionesInsumos n in necesidadesDonacionesInsumos)
                 {
@@ -77,8 +81,9 @@ namespace AyudandoEnLaPandemia.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult DonacionMonetaria(DonacionesMonetarias nuevaDonacionMoentaria, HttpPostedFileBase archivo)
+        public ActionResult DonacionMonetaria(DonacionMonetariaViewModel donacionMonetaria, HttpPostedFileBase archivo)
         {
        
             if (archivo == null)
@@ -86,16 +91,25 @@ namespace AyudandoEnLaPandemia.Controllers
                 ModelState.AddModelError("ArchivoEmpty", "Se debe adjuntar archivo");
             }
 
-            if (!ModelState.IsValid)
+            if (donacionMonetaria.DineroAdonar < 1)
             {
-                return View(nuevaDonacionMoentaria);
+                ModelState.AddModelError("CantidadDineroAdonar", "La cantidad de dinero no puede ser menor a 1");
             }
 
-            nuevaDonacionMoentaria.IdUsuario = (int)Session["UsuarioID"];
-            nuevaDonacionMoentaria.FechaCreacion = DateTime.Today;
-            nuevaDonacionMoentaria.ArchivoTransferencia = _servicioDonaciones.GuardarAdjunto(nuevaDonacionMoentaria.IdUsuario, archivo);
+            if (!ModelState.IsValid)
+            {
+                return View(donacionMonetaria);
+            }
 
-            _servicioDonaciones.CrearDonacionMonetaria(nuevaDonacionMoentaria);
+            DonacionesMonetarias nuevaDonacionMonetaria = new DonacionesMonetarias();
+
+            nuevaDonacionMonetaria.IdNecesidadDonacionMonetaria = donacionMonetaria.IdNecesidadDonacionMonetaria;
+            nuevaDonacionMonetaria.Dinero = donacionMonetaria.DineroAdonar;
+            nuevaDonacionMonetaria.IdUsuario = (int)Session["UsuarioID"];
+            nuevaDonacionMonetaria.FechaCreacion = DateTime.Today;
+            nuevaDonacionMonetaria.ArchivoTransferencia = _servicioDonaciones.GuardarAdjunto(nuevaDonacionMonetaria.IdUsuario, archivo);
+
+            _servicioDonaciones.CrearDonacionMonetaria(nuevaDonacionMonetaria);
 
             return RedirectToAction("DonacionConfirmada");
         }

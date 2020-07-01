@@ -1,4 +1,4 @@
-﻿@model Repositorio.DonacionesMonetarias
+﻿@model DonacionMonetariaViewModel
 @{
     Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
@@ -12,23 +12,23 @@
 </head>
 <body>
     <div>
-    @using (Html.BeginForm("DonacionMonetaria", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("DonacionMonetaria", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
     {      <div>
-    <input type="hidden" name="IdNecesidadDonacionMonetaria" value="@TempData["IdnecesidadesDonacionesMonetarias"] " />
-    Total requerido  : <input type="text" name="CBU" value="@TempData["Dinero"]" disabled="disabled" />
+    @Html.HiddenFor(Model => Model.IdNecesidadDonacionMonetaria)
+    Total requerido  : @Html.TextBoxFor(Model => Model.Dinero, new { @readonly = "readonly" })
     <br>
-    Total restante : <input type="text" name="CBU" value="@TempData["DineroRestante"]" disabled="disabled" />
+    Total restante  : @Html.TextBoxFor(Model => Model.totalRestante, new { @readonly = "readonly" })
     <br>
-    CBU : <input type="text" name="CBU" value="@TempData["CBU"]" disabled="disabled" />
+    CBU : @Html.TextBoxFor(Model => Model.CBU, new { @readonly = "readonly" })
     <br>
     Cantidad a donar :
-    @Html.EditorFor(o => o.Dinero)
-    @Html.ValidationMessageFor(o => o.Dinero)
+    @Html.EditorFor(Model => Model.DineroAdonar)
+    @Html.ValidationMessage("CantidadDineroAdonar")
     <br>
     Adjuntar comprobante :
     <input type="file" title="Agregar Comprobante" id="archivo" name="archivo" class="form-control-file" />
     @Html.ValidationMessage("ArchivoEmpty")
-    </div>
+</div>
     <div>
          <input type="submit" value="Confirmar" />
     </div>
