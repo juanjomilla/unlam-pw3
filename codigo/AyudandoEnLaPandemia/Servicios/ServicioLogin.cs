@@ -1,5 +1,6 @@
 ﻿using Repositorio;
 using Repositorio.Repositorios;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Servicios
 {
@@ -18,6 +19,11 @@ namespace Servicios
             Usuarios UsuarioEncontrado = _usuarioRepositorio.BuscarUsuario(Usuario);
        
             return UsuarioEncontrado;
+        }
+
+        public Usuarios ObtenerUsuario(int idUsuario)
+        {
+            return _usuarioRepositorio.Get(idUsuario);
         }
 
         public bool UsuarioConPerfilCompleto(int idUsuario)
