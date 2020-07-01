@@ -26,8 +26,8 @@
     @Html.ValidationMessageFor(o => o.Dinero)
     <br>
     Adjuntar comprobante :
-    <input type="file" title="Agregar Comprobante" id="archivo" name="archivo" />
-    @Html.ValidationMessage("ImagenEmpty")
+    <input type="file" title="Agregar Comprobante" id="archivo" name="archivo" class="form-control-file" />
+    @Html.ValidationMessage("ArchivoEmpty")
     </div>
     <div>
          <input type="submit" value="Confirmar" />

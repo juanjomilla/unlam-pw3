@@ -1,4 +1,4 @@
-﻿@model List<DonacionesInsumosViewModel>
+﻿@model DonacionesInsumosListViewModel
 @{
     Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
@@ -10,49 +10,57 @@
 </head>
 <body>
     <div>
-        @foreach (var Insumos in Model)
-        {
+        <div id="message1" style="display: none;">
+            <div class="alert alert-danger">
+                <span class="glyphicon glyphicon-remove"></span><strong>Error! Debe ingresar cantidad de al menos 1 insumo</strong>
+            </div>
+        </div>
 
-            using (Html.BeginForm("DonacionInsumos", "Donacion", FormMethod.Post))
+            @using (Html.BeginForm("DonacionInsumos", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
             {
-        <div class="col-lg-4 col-sm-6 mb-4">
-            @*<div class="card h-100">*@
-                <div class="card-body">
-                    <h4 class="card-title">@Insumos.Nombre</h4>
+                <div id="InsumosList">
+
+
+                    @for (var i = 0; i < Model.InsumosList.Count; i++)
+                    {
+
+                        <div class="col-lg-4 col-sm-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">@Html.TextBoxFor(o => o.InsumosList[i].Nombre, new { @readonly = "readonly" })</h4>
+                                </div>
+                                @Html.HiddenFor(o => o.InsumosList[i].IdNecesidadDonacionInsumo)
+                                <ul>
+                                    <li class="list-group-item">Cantidad Requerida: @Html.TextBoxFor(o => o.InsumosList[i].Cantidad, new { @readonly = "readonly" })</li>
+                                    <li class="list-group-item">Cantidad Total Donada: @Html.TextBoxFor(o => o.InsumosList[i].CantidadTotal, new { @readonly = "readonly" })</li>
+                                    <li class="list-group-item">Cantidad Restante: @Html.TextBoxFor(o => o.InsumosList[i].CantidadRestante, new { @readonly = "readonly" })</li>
+                                    @if (Model.InsumosList[i].statusCompleto == true)
+                                    {
+                                        <li class="list-group-item">Ingresar Cantidad a donar : <input type="number" id="CantidadAdonarGrey" name="CantidadAdonarGrey" value="0" disabled="disabled" /></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-group-item">Ingresar Cantidad a donar : @Html.EditorFor(o => o.InsumosList[i].CantidadAdonar)</li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <input type="hidden" name="IdNecesidadDonacionInsumo" value="@Insumos.IdNecesidadDonacionInsumo" />    
-                <ul>
-                    <li class="list-group-item">Cantidad Requerida: <input type="text" name="Cantidad" value="@Insumos.Cantidad" disabled="disabled" /></li>
-                    <li class="list-group-item">Cantidad Total Donada: <input type="text" name="CantidadTotal" value="@Insumos.CantidadTotal" disabled="disabled" /></li>
-                    <li class="list-group-item">Cantidad Restante: <input type="text" name="CantidadRestante" value="@Insumos.CantidadRestante" disabled="disabled" /></li>
-                    @if (Insumos.statusCompleto == true)
-                    {
-                        <li class="list-group-item">Ingresar Cantidad a donar : <input type="number" id="CantidadAdonarGrey" name="CantidadAdonarGrey" value="@Insumos.CantidadAdonar" disabled="disabled" /></li>
-                    }
-                    else
-                    {
-                        <li class="list-group-item">Ingresar Cantidad a donar : <input type="number" id="CantidadAdonar" name="CantidadAdonar" value="@Insumos.CantidadAdonar" /></li>
-                    }
-                </ul>
-            @*</div>*@
-        </div>
-        <div>
-            @if (Insumos.statusCompleto == true)
-            {
-                <input type="submit" value="Donacion Completa" disabled="disabled" />
-            }
-            else
-            {
-                <input type="submit" value="Donar @Insumos.Nombre" />
+                <div>
+                    <input type="submit" value="Confirmar Donacion" />
+                </div>
+                <br>
             }
 
         </div>
-
-        <br>
-        }
-
-     }
-
-    </div>
 </body>
 </html>
+<script>
+
+    if ('@ViewBag.Message' == 'Error') {
+        $("#message1").show();
+    };
+
+</script>

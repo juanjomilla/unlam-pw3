@@ -12,6 +12,22 @@ namespace Repositorio.Repositorios
         // El contexto ya está registrado en autofac, por lo tanto se inyecta automáticamente
         public UsuarioRepositorio(Contexto contexto) : base(contexto) { }
 
+        public void ActualizarPerfil(string nombre, string apellido, DateTime fechaNacimiento, string foto, int idUsuario)
+        {
+            using (var unitOfWork = new UnitOfWork(_dbContext))
+            {
+                Usuarios perfilViejo = unitOfWork.Usuarios.Get(idUsuario);
+
+                perfilViejo.Nombre = nombre;
+                perfilViejo.Apellido = apellido;
+                perfilViejo.FechaNacimiento = fechaNacimiento;
+                perfilViejo.Foto = foto;
+
+                unitOfWork.SaveChanges();
+
+            }
+        }
+
         public Usuarios BuscarUsuario(Usuarios usuario)
         {
             var usuarioEcontrado = Get(x => x.Email == usuario.Email && x.Password == usuario.Password).FirstOrDefault();
