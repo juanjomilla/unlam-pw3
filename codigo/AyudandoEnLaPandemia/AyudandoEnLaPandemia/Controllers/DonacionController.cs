@@ -38,12 +38,6 @@ namespace AyudandoEnLaPandemia.Controllers
                     CBU = necesidadesDonacionesMonetarias.CBU
                 };
 
-                //TempData["IdnecesidadesDonacionesMonetarias"] = necesidadesDonacionesMonetarias.IdNecesidadDonacionMonetaria;
-                //TempData["Dinero"] = necesidadesDonacionesMonetarias.Dinero;
-                //TempData["DineroRestante"] = totalRestante;
-                //TempData["CBU"] = necesidadesDonacionesMonetarias.CBU;
-                //return RedirectToAction("DonacionMonetaria");
-
                 return View("~/Views/Donacion/DonacionMonetaria.cshtml", donacion);
             }
             else // 1 Insumos
@@ -51,7 +45,6 @@ namespace AyudandoEnLaPandemia.Controllers
                 var necesidadesDonacionesInsumos = _servicioDonaciones.GetNecesidadesDonacionesInsumos(idNecesidad);
                 List<DonacionesInsumosViewModel> listDonacionesInsumos = new List<DonacionesInsumosViewModel>();
 
-              //  DonacionesInsumosListViewModel listDonacionesInsumosViewModel = new DonacionesInsumosListViewModel();
 
                 foreach (NecesidadesDonacionesInsumos n in necesidadesDonacionesInsumos)
                 {
