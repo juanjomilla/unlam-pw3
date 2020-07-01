@@ -80,7 +80,13 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpPost]
         public ActionResult DonacionMonetaria(DonacionesMonetarias nuevaDonacionMoentaria, HttpPostedFileBase archivo)
         {
-            if (!ModelState.IsValid || archivo == null)
+       
+            if (archivo == null)
+            {
+                ModelState.AddModelError("ArchivoEmpty", "Se debe adjuntar archivo");
+            }
+
+            if (!ModelState.IsValid /*|| archivo == null*/)
             {
                 return View(nuevaDonacionMoentaria);
             }
@@ -91,8 +97,14 @@ namespace AyudandoEnLaPandemia.Controllers
 
             _servicioDonaciones.CrearDonacionMonetaria(nuevaDonacionMoentaria);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("DonacionConfirmada");
         }
+
+        public ActionResult DonacionConfirmada()
+        {
+            return View();
+        }
+
 
         [HttpGet]
         public ActionResult DonacionInsumos(String mensaje = "")
@@ -132,7 +144,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
             _servicioDonaciones.CrearDonacionInsumo(nuevaDonacionInsumolist);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("DonacionConfirmada");
 
         }
 
