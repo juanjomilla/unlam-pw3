@@ -133,9 +133,9 @@ namespace Servicios
             return path;
         }
 
-        public void CrearDonacionInsumo(DonacionesInsumos nuevaDonacionInsumo)
+        public void CrearDonacionInsumo(List<DonacionesInsumos> nuevaDonacionInsumolist)
         {
-            _unitOfWork.DonacionesInsumos.CrearDonacionInsumo(nuevaDonacionInsumo);            
+            _unitOfWork.DonacionesInsumos.CrearDonacionInsumo(nuevaDonacionInsumolist);
         }
     }
 }
