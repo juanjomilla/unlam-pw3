@@ -13,5 +13,6 @@ namespace Repositorio.Repositorios
         void CrearUsuario(Usuarios usuarioNuevo);
         void ValidarUsuario(int IdUsuario, string token);
         bool ValidarEmail(string email);
+        void ActualizarPerfil(string nombre, string apellido, DateTime fechaNacimiento, string foto, int idUsuario);
     }
 }

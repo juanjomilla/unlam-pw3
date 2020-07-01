@@ -86,7 +86,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 ModelState.AddModelError("ArchivoEmpty", "Se debe adjuntar archivo");
             }
 
-            if (!ModelState.IsValid /*|| archivo == null*/)
+            if (!ModelState.IsValid)
             {
                 return View(nuevaDonacionMoentaria);
             }
