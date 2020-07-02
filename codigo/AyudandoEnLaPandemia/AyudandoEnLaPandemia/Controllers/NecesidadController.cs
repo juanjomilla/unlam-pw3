@@ -107,7 +107,8 @@ namespace AyudandoEnLaPandemia.Controllers
                 FechaCreacion = DateTime.Now,
                 TipoDonacion = (int)crearNecesidadViewModel.TipoDonacion,
                 Usuarios = usuario,
-                IdUsuarioCreador = idUsuario
+                IdUsuarioCreador = idUsuario,
+                Valoracion = 0
             };
 
             _servicioNecesidad.CrearNecesidad(
@@ -164,7 +165,7 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpPost]
         public ActionResult AgregarInsumoPartial(GuardarNecesidadViewModel crearNecesidadViewModel)
         {
-            crearNecesidadViewModel.Insumos.Add(new InsumoForm());
+            crearNecesidadViewModel.Insumos.Add(new NecesidadesDonacionesInsumos());
 
             return PartialView("~/Views/Shared/Necesidad/_agregarInsumoPartial.cshtml", crearNecesidadViewModel);
         }
