@@ -95,15 +95,20 @@ namespace Servicios
                     necesidadAnterior.NecesidadesDonacionesInsumos.ElementAt(i).Cantidad = nuevaNecesidad.NecesidadesDonacionesInsumos.ElementAt(i).Cantidad;
                     necesidadAnterior.NecesidadesDonacionesInsumos.ElementAt(i).Nombre = nuevaNecesidad.NecesidadesDonacionesInsumos.ElementAt(i).Nombre;
                 }
-            }            
+            }
+
+            for (int i = 0; i < necesidadAnterior.NecesidadesReferencias.Count(); i++)
+            {
+                necesidadAnterior.NecesidadesReferencias.ElementAt(i).Nombre = nuevaNecesidad.NecesidadesReferencias.ElementAt(i).Nombre;
+                necesidadAnterior.NecesidadesReferencias.ElementAt(i).Telefono = nuevaNecesidad.NecesidadesReferencias.ElementAt(i).Telefono;
+            }
             
             necesidadAnterior.Descripcion = nuevaNecesidad.Descripcion;
             necesidadAnterior.Denuncias = nuevaNecesidad.Denuncias;
             necesidadAnterior.Nombre = nuevaNecesidad.Nombre;
             necesidadAnterior.FechaFin = nuevaNecesidad.FechaFin;
             necesidadAnterior.TelefonoContacto = nuevaNecesidad.TelefonoContacto;
-            necesidadAnterior.NecesidadesReferencias = nuevaNecesidad.NecesidadesReferencias;
-
+            
             _unitOfWork.SaveChanges();
         }
 
