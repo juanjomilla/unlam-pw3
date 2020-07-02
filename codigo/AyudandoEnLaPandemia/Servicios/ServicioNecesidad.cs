@@ -41,9 +41,9 @@ namespace Servicios
             return _unitOfWork.Necesidades.Get(idNecesidad);
         }
 
-        public IEnumerable<Necesidades> BuscarNecesidades(string buscar)
+        public IEnumerable<Necesidades> BuscarNecesidades(string buscar, int idUsuario)
         {
-            return _unitOfWork.Necesidades.BuscarNecesidades(buscar);
+            return _unitOfWork.Necesidades.BuscarNecesidades(buscar, idUsuario);
         }
 
         public void CrearNecesidad(

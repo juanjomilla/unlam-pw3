@@ -24,6 +24,43 @@
             }
         });
     });
+
+    $("#btnBusqueda").click(function () {
+        $.ajax({
+            async: true,
+            data: $('#busqueda').serialize(),
+            type: "POST",
+            url: '/Necesidad/BuscarNecesidad',
+            success: function (partialView) {
+                console.log("partialView: " + partialView);
+                $('#resultadosBusqueda').html(partialView);
+            }
+        });
+    });
+
+    $("#chkMostrarTodas").click(function () {
+        var chk = $("#chkMostrarTodas")[0].checked;
+        $("#misNecesidades .necesidad").each(function () {
+            if (chk) {
+                $(".necesidad").show();
+            } else {
+                $(".necesidadInactiva").hide();
+            }
+        });
+    });
+
+    $("#contraerBtn").click(function () {
+        var btnText = $("#contraerBtn")[0].text;
+        var ocultarText = "Ocultar mis necesidades";
+        var mostrarText = "Mostrar mis necesidades";
+        
+        if (btnText === mostrarText){
+            $("#contraerBtn")[0].text = ocultarText;
+        }
+        else{
+            $("#contraerBtn")[0].text = mostrarText;
+        }
+    });
 });
 
 function show(input) {
