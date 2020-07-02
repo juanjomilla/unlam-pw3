@@ -5,7 +5,9 @@
     {
         foreach (var necesidad in Model.Necesidades)
         {
-            <div class="col-lg-4 col-sm-6 mb-4">
+            var necesidadInactiva = (necesidad.FechaFin - DateTime.Now).Days > 0 ? "necesidadInactiva" : string.Empty;
+
+            <div class="col-lg-4 col-sm-6 mb-4 @necesidadInactiva necesidad">
                 <div class="card h-100">
                     <img class="card-img-top" src="~/Content/necesidades/imagenes/@necesidad.IdUsuarioCreador/@necesidad.Foto" alt="">
                     <div class="card-body">

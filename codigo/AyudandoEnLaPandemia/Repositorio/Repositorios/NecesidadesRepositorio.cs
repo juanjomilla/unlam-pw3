@@ -18,13 +18,14 @@ namespace Repositorio.Repositorios
                 .Take(top);
         }
 
-        public IEnumerable<Necesidades> BuscarNecesidades(string busqueda)
+        public IEnumerable<Necesidades> BuscarNecesidades(string busqueda, int idUsuario)
         {
             IQueryable<Necesidades> query = _dbSet;
 
             var necesidades = query
                 .Where(x => x.Usuarios.Nombre.Contains(busqueda) || x.Usuarios.Apellido.Contains(busqueda) || x.Nombre.Contains(busqueda))
                 .Where(x => x.Estado != 3 && x.Estado != 4)
+                .Where(x => x.IdUsuarioCreador != idUsuario)
                 .ToList();
 
             // los agrupo por IdNecesidad, y luego devuelvo el primero de cada uno.
