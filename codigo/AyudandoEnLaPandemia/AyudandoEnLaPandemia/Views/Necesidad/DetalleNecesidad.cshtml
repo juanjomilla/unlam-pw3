@@ -21,18 +21,22 @@
                         <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=false">No Me Gusta</a><br />
                         <a href="/Denuncias/DenunciarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Denunciar</a><br />
                         <a href="/Donacion/Donacion?idNecesidad=@Model.Necesidad.IdNecesidad">Realizar donación</a>
-                        @*<form action="/Donacion/Donacion" method="post">
-                            <input type="hidden" name="idNecesidad" value="@Model.Necesidad.IdNecesidad" />
-                            <div>
-                                <select name="TipoDonacion">
-                                    <option value="monetario">Monetaria</option>
-                                    <option value="insumos">Insumos</option>
-                                </select>
-                            </div>
-                            <div>
-                                <input type="submit" value="Realizar donación" />
-                            </div>
-                        </form>*@
+                            @*<form action="/Donacion/Donacion" method="post">
+                    <input type="hidden" name="idNecesidad" value="@Model.Necesidad.IdNecesidad" />
+                    <div>
+                        <select name="TipoDonacion">
+                            <option value="monetario">Monetaria</option>
+                            <option value="insumos">Insumos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="submit" value="Realizar donación" />
+                    </div>
+                </form>*@
+                    }
+                    else
+                    {
+                        <a href="/Necesidad/Modificarnecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Modificar</a>
                     }
                     @if (!string.IsNullOrWhiteSpace(Model.Mensaje))
                     {

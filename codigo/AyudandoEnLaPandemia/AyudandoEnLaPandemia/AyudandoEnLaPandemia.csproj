@@ -160,9 +160,6 @@
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
-    <Content Include="Scripts\jquery-3.5.1.slim.js" />
-    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
-    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -270,12 +267,10 @@
     <Compile Include="ViewModels\DonacionesInsumosViewModel.cs" />
     <Compile Include="ViewModels\MiPerfil\MiPerfilViewModel.cs" />
     <Compile Include="ViewModels\Necesidad\BuscarNecesidadViewModel.cs" />
-    <Compile Include="ViewModels\Necesidad\CrearNecesidadViewModel.cs" />
+    <Compile Include="ViewModels\Necesidad\GuardarNecesidadViewModel.cs" />
     <Compile Include="ViewModels\DetalleNecesidadViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\NecesidadViewModel.cs" />
-    <Compile Include="ViewModels\Necesidad\InsumoForm.cs" />
-    <Compile Include="ViewModels\Necesidad\ReferenciaForm.cs" />
     <Compile Include="ViewModels\UsuariosViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -301,11 +296,11 @@
     <Content Include="Views\Home\home.cshtml" />
     <Content Include="Views\Shared\_necesidadPartial.cshtml" />
     <Content Include="Views\Login\RegistroUsuario.cshtml" />
-    <Content Include="Views\Necesidad\crearNecesidad.cshtml" />
+    <Content Include="Views\Necesidad\guardarNecesidad.cshtml" />
     <Content Include="Views\Donacion\DonacionInsumos.cshtml" />
     <Content Include="Views\Donacion\DonacionMonetaria.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\InsumoForm.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\ReferenciaForm.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\NecesidadesDonacionesInsumos.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\NecesidadesReferencias.cshtml" />
     <Content Include="Views\Shared\Necesidad\_agregarInsumoPartial.cshtml" />
     <Content Include="Views\Shared\Necesidad\_agregarReferenciaPartial.cshtml" />
     <Content Include="Views\Login\Confirm.cshtml" />

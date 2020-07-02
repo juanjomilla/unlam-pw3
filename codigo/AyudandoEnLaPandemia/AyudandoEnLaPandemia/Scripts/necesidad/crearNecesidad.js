@@ -1,18 +1,4 @@
-﻿$("#btnAgregarInsumo").on('click', function () {
-    console.log($('#CrearNecesidadForm').serialize());
-    $.ajax({
-        async: true,
-        data: $('#CrearNecesidadForm').serialize(),
-        type: "POST",
-        url: '/Necesidad/AgregarInsumoPartial',
-        success: function (partialView) {
-            console.log("partialView: " + partialView);
-            $('#editorInsumos').html(partialView);
-        }
-    });
-})
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $("select").change(function () {
         $(this).find("option:selected").each(function () {
             var optionValue = $(this).attr("value");
@@ -24,6 +10,20 @@ $(document).ready(function () {
             }
         });
     }).change();
+
+    $("#btnAgregarInsumo").click(function () {
+        console.log($('#CrearNecesidadForm').serialize());
+        $.ajax({
+            async: true,
+            data: $('#CrearNecesidadForm').serialize(),
+            type: "POST",
+            url: '/Necesidad/AgregarInsumoPartial',
+            success: function (partialView) {
+                console.log("partialView: " + partialView);
+                $('#editorInsumos').html(partialView);
+            }
+        });
+    });
 });
 
 function show(input) {
