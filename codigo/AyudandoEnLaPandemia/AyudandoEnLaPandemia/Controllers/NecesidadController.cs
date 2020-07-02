@@ -28,10 +28,10 @@ namespace AyudandoEnLaPandemia.Controllers
 
         public ActionResult CrearNecesidad()
         {
-            var viewModel = new CrearNecesidadViewModel
+            var viewModel = new GuardarNecesidadViewModel
             {
-                Insumos = new List<InsumoForm> { new InsumoForm() },
-                Referencias = new List<ReferenciaForm> { new ReferenciaForm(), new ReferenciaForm() }
+                Insumos = new List<NecesidadesDonacionesInsumos> { new NecesidadesDonacionesInsumos() },
+                Referencias = new List<NecesidadesReferencias> { new NecesidadesReferencias(), new NecesidadesReferencias() }
             };
 
             var idUsuario = (int) Session["UsuarioID"];
@@ -39,19 +39,39 @@ namespace AyudandoEnLaPandemia.Controllers
             ValidarMaximoNecesidades(idUsuario);
             ValidarUsuarioActivo(idUsuario);
 
-            return View("~/Views/Necesidad/crearNecesidad.cshtml", viewModel);
+            return View("~/Views/Necesidad/guardarNecesidad.cshtml", viewModel);
+        }
+
+        public ActionResult ModificarNecesidad(int idNecesidad = 0)
+        {
+            var necesidad = _servicioNecesidad.GetNecesidad(idNecesidad);
+
+            var viewModel = new GuardarNecesidadViewModel
+            {
+                Insumos = necesidad.NecesidadesDonacionesInsumos,
+                Referencias = necesidad.NecesidadesReferencias,
+                Descripcion = necesidad.Descripcion,
+                FechaFin = necesidad.FechaFin,
+                Nombre = necesidad.Nombre,
+                TelefonoContacto = necesidad.TelefonoContacto,
+                TipoDonacion = (GuardarNecesidadViewModel.TipoDeDonacion) necesidad.TipoDonacion,
+                ModificandoDatos = true,
+                IdNecesidad = idNecesidad,
+                TituloPagina = "Modificar necesidad"
+            };
+
+            if (necesidad.NecesidadesDonacionesMonetarias.Any())
+            {
+                viewModel.CantDinero = necesidad.NecesidadesDonacionesMonetarias.First().Dinero;
+                viewModel.CBUAlias = necesidad.NecesidadesDonacionesMonetarias.First().CBU;
+            }
+
+            return View("~/Views/Necesidad/guardarNecesidad.cshtml", viewModel);
         }
 
         [HttpPost]
-        public ActionResult GuardarNecesidad(
-            CrearNecesidadViewModel crearNecesidadViewModel,
-            List<InsumoForm> insumos,
-            List<ReferenciaForm> referencias,
-            HttpPostedFileBase foto)
+        public ActionResult GuardarNecesidad(GuardarNecesidadViewModel crearNecesidadViewModel, HttpPostedFileBase foto)
         {
-            crearNecesidadViewModel.Insumos = insumos ?? crearNecesidadViewModel.Insumos;
-            crearNecesidadViewModel.Referencias = referencias ?? crearNecesidadViewModel.Referencias;
-
             if (foto == null)
             {
                 ModelState.AddModelError("ImagenEmpty", "Se debe adjuntar una imagen");
@@ -65,65 +85,85 @@ namespace AyudandoEnLaPandemia.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("~/Views/Necesidad/crearNecesidad.cshtml", crearNecesidadViewModel);
+                return View("~/Views/Necesidad/guardarNecesidad.cshtml", crearNecesidadViewModel);
             }
 
-            var insumosList = new List<NecesidadesDonacionesInsumos>();
-            var referenciasList = new List<NecesidadesReferencias>();
-            var monetaria = new List<NecesidadesDonacionesMonetarias>();
-            monetaria.Add(new NecesidadesDonacionesMonetarias
+            var usuario = _servicioLogin.ObtenerPerfil(idUsuario);
+            var monetaria = new List<NecesidadesDonacionesMonetarias>
             {
-                CBU = crearNecesidadViewModel.CBUAlias,
-                Dinero = crearNecesidadViewModel.CantDinero
-            });
-
-            foreach (var insumo in crearNecesidadViewModel.Insumos)
-            {
-                insumosList.Add(new NecesidadesDonacionesInsumos { Nombre = insumo.Nombre, Cantidad = insumo.Cantidad });
-            }
-
-            foreach (var referencia in crearNecesidadViewModel.Referencias)
-            {
-                referenciasList.Add(new NecesidadesReferencias { Nombre = referencia.Nombre, Telefono = referencia.Telefono });
-            }
+                new NecesidadesDonacionesMonetarias
+                {
+                    CBU = crearNecesidadViewModel.CBUAlias,
+                    Dinero = crearNecesidadViewModel.CantDinero
+                }
+            };
 
             var necesidad = new Necesidades
             {
                 Nombre = crearNecesidadViewModel.Nombre,
                 Descripcion = crearNecesidadViewModel.Descripcion,
-                NecesidadesReferencias = referenciasList,
-                IdUsuarioCreador = idUsuario,
                 TelefonoContacto = crearNecesidadViewModel.TelefonoContacto,
                 FechaFin = Convert.ToDateTime(crearNecesidadViewModel.FechaFin),
                 FechaCreacion = DateTime.Now,
-                TipoDonacion = (int) crearNecesidadViewModel.TipoDonacion
+                TipoDonacion = (int)crearNecesidadViewModel.TipoDonacion,
+                Usuarios = usuario,
+                IdUsuarioCreador = idUsuario
             };
 
-            if (crearNecesidadViewModel.TipoDonacion == CrearNecesidadViewModel.TipoDeDonacion.Insumos)
-            {
-                necesidad.NecesidadesDonacionesInsumos = insumosList;
-            }
-            else
-            {
-                necesidad.NecesidadesDonacionesMonetarias = monetaria;
-            }   
-
-            _servicioNecesidad.CrearNecesidad(necesidad, foto);
+            _servicioNecesidad.CrearNecesidad(
+                crearNecesidadViewModel.Referencias,
+                monetaria,
+                crearNecesidadViewModel.Insumos,
+                necesidad,
+                foto);
 
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public ActionResult AgregarInsumoPartial(
-            [Bind(Include = "Form")] CrearNecesidadViewModel crearNecesidadViewModel,
-            List<InsumoForm> insumos,
-            List<ReferenciaForm> referencias)
+        public ActionResult ActualizarNecesidad(
+            GuardarNecesidadViewModel crearNecesidadViewModel,
+            HttpPostedFileBase foto)
         {
-            var insumosList = insumos ?? crearNecesidadViewModel.Insumos;
-            var referenciasList = referencias ?? crearNecesidadViewModel.Referencias;
+            var necesidad = new Necesidades
+            {
+                Nombre = crearNecesidadViewModel.Nombre,
+                Descripcion = crearNecesidadViewModel.Descripcion,
+                TelefonoContacto = crearNecesidadViewModel.TelefonoContacto,
+                FechaFin = Convert.ToDateTime(crearNecesidadViewModel.FechaFin),
+                FechaCreacion = DateTime.Now,
+                TipoDonacion = (int)crearNecesidadViewModel.TipoDonacion
+            };
 
-            crearNecesidadViewModel.Insumos = insumosList;
-            crearNecesidadViewModel.Referencias = referenciasList;
+            if (!ValidarDatosForm(crearNecesidadViewModel))
+            {
+                return View("~/Views/Necesidad/guardarNecesidad.cshtml", crearNecesidadViewModel);
+            }
+
+            var necesidadesMonetarias = new List<NecesidadesDonacionesMonetarias>
+            {
+                new NecesidadesDonacionesMonetarias
+                {
+                    CBU = crearNecesidadViewModel.CBUAlias,
+                    Dinero = crearNecesidadViewModel.CantDinero
+                }
+            };
+
+            necesidad.NecesidadesDonacionesInsumos = crearNecesidadViewModel.Insumos;
+            necesidad.NecesidadesDonacionesMonetarias = necesidadesMonetarias;
+            necesidad.NecesidadesReferencias = crearNecesidadViewModel.Referencias;
+
+            _servicioNecesidad.ActualizarNecesidad(
+                necesidad,
+                foto,
+                crearNecesidadViewModel.IdNecesidad);
+
+            return RedirectToAction("Home", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult AgregarInsumoPartial(GuardarNecesidadViewModel crearNecesidadViewModel)
+        {
             crearNecesidadViewModel.Insumos.Add(new InsumoForm());
 
             return PartialView("~/Views/Shared/Necesidad/_agregarInsumoPartial.cshtml", crearNecesidadViewModel);
@@ -198,18 +238,30 @@ namespace AyudandoEnLaPandemia.Controllers
             }
         }
 
-        private void ValidarDatosForm(CrearNecesidadViewModel form)
+        public void ValidarImagenNoEsNula(HttpPostedFileBase foto)
         {
-            if (form.TipoDonacion == CrearNecesidadViewModel.TipoDeDonacion.Monetaria)
+            if (foto == null)
+            {
+                ModelState.AddModelError("ImagenEmpty", "Se debe adjuntar una imagen");
+            }
+        }
+
+        private bool ValidarDatosForm(GuardarNecesidadViewModel form)
+        {
+            var datosValidos = true;
+
+            if (form.TipoDonacion == GuardarNecesidadViewModel.TipoDeDonacion.Monetaria)
             {
                 if (form.CantDinero < 1)
                 {
                     ModelState.AddModelError("CantidadDinero", "La cantidad de dinero no puede ser menor a 1");
+                    datosValidos = false;
                 }
 
                 if (string.IsNullOrWhiteSpace(form.CBUAlias))
                 {
                     ModelState.AddModelError("CBUAliasEmpty", "Se debe ingrear un CBU/Alias");
+                    datosValidos = false;
                 }
             }
             else
@@ -217,13 +269,17 @@ namespace AyudandoEnLaPandemia.Controllers
                 if (!form.Insumos.Any())
                 {
                     ModelState.AddModelError("InsumosEmpty", "Se debe ingresar como mínimo un insumo");
+                    datosValidos = false;
                 }
             }
 
             if (form.Referencias.Count < 2)
             {
                 ModelState.AddModelError("InsuficientesReferencias", "Se deben ingresar como mínimo dos referencias");
+                datosValidos = false;
             }
+
+            return datosValidos;
         }
     }
 }

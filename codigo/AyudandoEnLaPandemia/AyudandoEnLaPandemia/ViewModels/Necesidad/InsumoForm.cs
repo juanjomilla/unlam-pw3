@@ -1,12 +1,10 @@
 ﻿using System.Web.Mvc;
+using Repositorio;
 
 namespace AyudandoEnLaPandemia.ViewModels.Necesidad
 {
     [Bind(Include = "Nombre, Cantidad")]
-    public class InsumoForm
+    public class InsumoForm : NecesidadesDonacionesInsumos
     {
-        public string Nombre { get; set; }
-
-        public int Cantidad { get; set; }
     }
 }

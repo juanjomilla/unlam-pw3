@@ -20,6 +20,11 @@ namespace Servicios
             return UsuarioEncontrado;
         }
 
+        public Usuarios ObtenerPerfil(int idUsuario)
+        {
+            return _usuarioRepositorio.Get(idUsuario);
+        }
+
         public bool UsuarioConPerfilCompleto(int idUsuario)
         {
             var usuario = _usuarioRepositorio.Get(idUsuario);

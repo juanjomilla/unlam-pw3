@@ -1,9 +1,8 @@
-﻿namespace AyudandoEnLaPandemia.ViewModels.Necesidad
-{
-    public class ReferenciaForm
-    {
-        public string Nombre { get; set; }
+﻿using Repositorio;
 
-        public string Telefono { get; set; }
+namespace AyudandoEnLaPandemia.ViewModels.Necesidad
+{
+    public class ReferenciaForm : NecesidadesReferencias
+    {
     }
 }
