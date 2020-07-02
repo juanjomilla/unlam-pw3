@@ -13,7 +13,7 @@ namespace Repositorio.Repositorios
             IQueryable<Necesidades> query = _dbSet;
 
             return query
-                .Where(x => x.Estado != 3)
+                .Where(x => x.Estado != 3 && x.Estado != 4)
                 .OrderByDescending(x => x.Valoracion)
                 .Take(top);
         }
@@ -24,7 +24,7 @@ namespace Repositorio.Repositorios
 
             var necesidades = query
                 .Where(x => x.Usuarios.Nombre.Contains(busqueda) || x.Usuarios.Apellido.Contains(busqueda) || x.Nombre.Contains(busqueda))
-                .Where(x => x.Estado != 3)
+                .Where(x => x.Estado != 3 && x.Estado != 4)
                 .ToList();
 
             // los agrupo por IdNecesidad, y luego devuelvo el primero de cada uno.

@@ -44,14 +44,14 @@ namespace AyudandoEnLaPandemia.ViewModels
         {
             var usuarioFormulario = context.ObjectInstance as UsuariosViewModel;
 
-                if (usuarioFormulario.edad >= 18)
-                {
-                    return ValidationResult.Success;
-                }
-                else
-                {
-                    return new ValidationResult("Debe ser mayor de edad para registrarse");
-                }
+            if (usuarioFormulario.edad >= 18)
+            {
+                return ValidationResult.Success;
+            }
+            else
+            {
+                return new ValidationResult("Debe ser mayor de edad para registrarse");
+            }
 
         }
 

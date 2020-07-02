@@ -1,5 +1,9 @@
 ﻿using Repositorio;
 using Repositorio.Repositorios;
+using System;
+using System.IO;
+using System.Web;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Servicios
 {
@@ -33,6 +37,33 @@ namespace Servicios
                 !string.IsNullOrWhiteSpace(usuario.Nombre) &&
                 !string.IsNullOrWhiteSpace(usuario.Foto) &&
                 usuario.FechaNacimiento != null;
+        }
+
+        public string GuardarAdjunto(int idUsuario, HttpPostedFileBase foto)
+        {
+            var extension = Path.GetExtension(foto.FileName);
+            var nombreArchivo = $"{Guid.NewGuid().ToString().Substring(0, 10)}{extension}";
+            var path = CrearCarpetaSiNoExiste(idUsuario);
+
+            foto.SaveAs($"{path}\\{nombreArchivo}");
+
+            return nombreArchivo;
+        }
+
+        public void ActualizarPerfil(string nombre, string apellido, DateTime fechaNacimiento, string foto, int idUsuario)
+        {
+            _usuarioRepositorio.ActualizarPerfil(nombre, apellido, fechaNacimiento, foto, idUsuario);
+        }
+
+        private object CrearCarpetaSiNoExiste(int idUsuario)
+        {
+            var path = HttpContext.Current.Server.MapPath($"~/Content/usuario/imagenes/{idUsuario}");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            return path;
         }
 
         public bool EsAdministrador(int idUsuario)

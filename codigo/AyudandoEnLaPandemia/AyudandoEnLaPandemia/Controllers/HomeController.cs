@@ -39,9 +39,5 @@ namespace AyudandoEnLaPandemia.Controllers
             return View("~/Views/Home/home.cshtml", viewModel);
         }
 
-        public ActionResult MiPerfil()
-        {
-            return View();
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Repositorio.Repositorios
 {
@@ -6,13 +7,17 @@ namespace Repositorio.Repositorios
     {
         public DonacionesInsumosRepositorio(Contexto contexto) : base(contexto) { }
 
-        public void CrearDonacionInsumo(DonacionesInsumos nuevaDonacionInsumo)
+        public void CrearDonacionInsumo(List<DonacionesInsumos> nuevaDonacionInsumo)
         {
             using (var unitOfWork = new UnitOfWork(_dbContext))
             {
-                unitOfWork.DonacionesInsumos.Add(nuevaDonacionInsumo);
+                foreach (var insumo in nuevaDonacionInsumo)
+                {
+                  unitOfWork.DonacionesInsumos.Add(insumo);
+                }
+
                 unitOfWork.SaveChanges();
-            }
+            }            
         }
 
         public int GetTotalDonaciones(int idNecesidadDonacionInsumo)

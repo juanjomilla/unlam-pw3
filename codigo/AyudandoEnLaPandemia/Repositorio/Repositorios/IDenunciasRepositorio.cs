@@ -2,5 +2,6 @@
 {
     public interface IDenunciasRepositorio : IRepositorio<Denuncias>
     {
+        int ObtenerCantidadDenunciasActivas(int idNecesidad);
     }
 }

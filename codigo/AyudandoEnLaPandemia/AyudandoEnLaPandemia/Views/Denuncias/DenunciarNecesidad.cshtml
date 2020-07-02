@@ -1,0 +1,35 @@
+﻿@model Repositorio.Denuncias
+@{
+    ViewBag.Title = "DenunciarNecesidad";
+    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Denunciar Necesidad</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("DenunciarNecesidad", "Denuncias", FormMethod.Post))
+        {
+            <input type="hidden" name="IdNecesidad" id="IdNecesidad" value="@ViewBag.IdNecesidad" />
+            <div>
+                Motivo:
+                @Html.DropDownList("MotivoDenuncia.IdMotivoDenuncia", new SelectList(ViewBag.TodosLosMotivos, "IdMotivoDenuncia", "Descripcion"), new { id = "IdMotivoDenuncia" })
+                @Html.ValidationMessageFor(o => o.MotivoDenuncia.IdMotivoDenuncia)
+            </div><br />
+            <div>
+                Comentario:
+                @Html.TextAreaFor(o => Model.Comentarios)
+                @Html.ValidationMessageFor(o => o.Comentarios)
+            </div><br />
+            <div>
+                <input type="submit" value="Denunciar" />
+            </div>
+        }
+    </div>
+</body>
+</html>
