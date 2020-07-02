@@ -5,7 +5,6 @@ using System.Net;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using Repositorio;
-using Repositorio.Repositorios;
 using Servicios.Models;
 
 namespace Servicios
@@ -14,24 +13,9 @@ namespace Servicios
     {
         private readonly UnitOfWork _unitOfWork;
 
-        private IDonacionesMonetariasRepositorio _donacionesMonetariasRepositorio;
-
-        private INecesidadesDonacionesMonetariasRepositorio _necesidadesDonacionesMonetariasRepositorio;
-       
-        private IDonacionesInsumosRepositorio _donacionesInsumosRepositorio;
-
-        private INecesidadesDonacionesInsumoRepositorio _necesidadesDonacionesInsumoRepositorio;
-
-        public ServicioDonaciones(Contexto contexto, IDonacionesMonetariasRepositorio donacionesMonetariasRepositorio, 
-                                  INecesidadesDonacionesMonetariasRepositorio necesidadesDonacionesMonetariasRepositorio,
-                                  IDonacionesInsumosRepositorio donacionesInsumoRepositorio, 
-                                  INecesidadesDonacionesInsumoRepositorio necesidadesDonacionesInsumoRepositorio)
+        public ServicioDonaciones(Contexto contexto)
         {
             _unitOfWork = new UnitOfWork(contexto);
-            _donacionesMonetariasRepositorio = donacionesMonetariasRepositorio;
-            _necesidadesDonacionesMonetariasRepositorio = necesidadesDonacionesMonetariasRepositorio;
-            _donacionesInsumosRepositorio = donacionesInsumoRepositorio;
-            _necesidadesDonacionesInsumoRepositorio = necesidadesDonacionesInsumoRepositorio;
         }
 
         public IEnumerable<DonacionesInsumos> GetDonacionesInsumosUsuario(int idUsuario)
