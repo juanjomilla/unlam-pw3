@@ -11,28 +11,57 @@
     <title>Donacion Monetaria</title>
 </head>
 <body>
-    <div>
-    @using (Html.BeginForm("DonacionMonetaria", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
-    {      <div>
-    @Html.HiddenFor(Model => Model.IdNecesidadDonacionMonetaria)
-    Total requerido  : @Html.TextBoxFor(Model => Model.Dinero, new { @readonly = "readonly" })
-    <br>
-    Total restante  : @Html.TextBoxFor(Model => Model.totalRestante, new { @readonly = "readonly" })
-    <br>
-    CBU : @Html.TextBoxFor(Model => Model.CBU, new { @readonly = "readonly" })
-    <br>
-    Cantidad a donar :
-    @Html.EditorFor(Model => Model.DineroAdonar)
-    @Html.ValidationMessage("CantidadDineroAdonar")
-    <br>
-    Adjuntar comprobante :
-    <input type="file" title="Agregar Comprobante" id="archivo" name="archivo" class="form-control-file" />
-    @Html.ValidationMessage("ArchivoEmpty")
-</div>
-    <div>
-         <input type="submit" value="Confirmar" />
-    </div>
-    }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-header text-center"><h4>Donación Monetaria</h4></div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("DonacionMonetaria", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
+                        {
+                            @Html.HiddenFor(Model => Model.IdNecesidadDonacionMonetaria)
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label form-control-label">Total requerido:</label>
+                                <div class="col-lg-8">
+                                    @Html.TextBoxFor(Model => Model.totalRestante, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label form-control-label">Total restante:</label>
+                                <div class="col-lg-8">
+                                    @Html.TextBoxFor(Model => Model.totalRestante, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label form-control-label">CBU:</label>
+                                <div class="col-lg-8">
+                                    @Html.TextBoxFor(Model => Model.CBU, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label form-control-label">Cantidad a donar:</label>
+                                <div class="col-lg-8">
+                                    @Html.EditorFor(Model => Model.DineroAdonar)
+                                    @Html.ValidationMessage("CantidadDineroAdonar")
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-6 col-form-label form-control-label">Adjuntar comprobante:</label>
+                                <div class="col-md-12">
+                                    <input type="file" title="Agregar comprobante" id="archivo" name="archivo" class="form-control-file" />
+                                    @Html.ValidationMessage("ArchivoEmpty")
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-primary float-right" value="Confirmar" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
