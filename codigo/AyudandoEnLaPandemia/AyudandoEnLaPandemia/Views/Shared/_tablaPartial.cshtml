@@ -1,0 +1,25 @@
+﻿@model TablaPartialViewModel
+
+<div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                @foreach (var titulo in Model.TitulosTabla)
+                {
+                    <th>@Html.Raw(titulo)</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contenido in Model.ContenidoTabla)
+            {
+                <tr>
+                    @foreach (var texto in contenido)
+                    {
+                        <td>@Html.Raw(texto)</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -10,7 +10,7 @@ namespace Servicios.Models
 
         public string TipoDonacion { get; set; }
 
-        public int Estado { get; set; }
+        public string Estado { get; set; }
 
         public decimal TotalRecaudado { get; set; }
 
