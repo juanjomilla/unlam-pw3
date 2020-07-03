@@ -91,9 +91,9 @@ namespace AyudandoEnLaPandemia.Controllers
                 ModelState.AddModelError("ArchivoEmpty", "Se debe adjuntar archivo");
             }
 
-            if (donacionMonetaria.DineroAdonar < 1)
+            if (donacionMonetaria.DineroAdonar < 1 || donacionMonetaria.DineroAdonar > donacionMonetaria.totalRestante)
             {
-                ModelState.AddModelError("CantidadDineroAdonar", "La cantidad de dinero no puede ser menor a 1");
+                ModelState.AddModelError("CantidadDineroAdonar", "La cantidad de dinero no puede ser 0 ni mayor a la cantidad pendiente por donar");
             }
 
             if (!ModelState.IsValid)
@@ -130,9 +130,9 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpPost]
         public ActionResult DonacionInsumos(DonacionesInsumosListViewModel listDonacionesInsumos)
         {
-            bool cantidadCero = ValidarCantidadesCero(listDonacionesInsumos.InsumosList);
+            bool cantidadCeroOdeMas = ValidarCantidadesCeroOdeMas(listDonacionesInsumos.InsumosList);
 
-            if (cantidadCero == true) {
+            if (cantidadCeroOdeMas == true) {
 
                 ViewBag.Message = "Error";
                 return View(listDonacionesInsumos);
@@ -162,19 +162,19 @@ namespace AyudandoEnLaPandemia.Controllers
 
         }
 
-        private bool ValidarCantidadesCero(List<DonacionesInsumosViewModel> insumosList)
+        private bool ValidarCantidadesCeroOdeMas(List<DonacionesInsumosViewModel> insumosList)
         {
-            bool cantidadesCero =true;
+            bool cantidadesCeroOdeMas =true;
 
             foreach (var insumo in insumosList)
             {
-                if (insumo.CantidadAdonar != 0)
+                if (insumo.CantidadAdonar != 0 || insumo.CantidadAdonar < insumo.CantidadRestante)
                 {
-                    cantidadesCero = false;
+                    cantidadesCeroOdeMas = false;
                 }
             }
 
-            return cantidadesCero;
+            return cantidadesCeroOdeMas;
         }
 
         public ActionResult HistorialDonaciones()
