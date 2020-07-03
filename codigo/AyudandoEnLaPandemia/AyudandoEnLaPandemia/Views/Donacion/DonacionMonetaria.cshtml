@@ -22,8 +22,17 @@
     CBU : @Html.TextBoxFor(Model => Model.CBU, new { @readonly = "readonly" })
     <br>
     Cantidad a donar :
-    @Html.EditorFor(Model => Model.DineroAdonar)
-    @Html.ValidationMessage("CantidadDineroAdonar")
+    @if (Model.totalRestante == 0)
+    {
+        @Html.TextBoxFor(Model => Model.DineroAdonar, new { @readonly = "readonly" })
+        @Html.ValidationMessage("CantidadDineroAdonar")
+    }
+    else
+    {
+        @Html.EditorFor(Model => Model.DineroAdonar)
+        @Html.ValidationMessage("CantidadDineroAdonar")
+
+    }
     <br>
     Adjuntar comprobante :
     <input type="file" title="Agregar Comprobante" id="archivo" name="archivo" class="form-control-file" />

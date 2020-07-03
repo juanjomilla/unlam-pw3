@@ -135,7 +135,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
             if (cantidadCeroOdeMas == true) {
 
-                ViewBag.Message = "Error";
+                ViewBag.Message = "NotOK";
                 return View(listDonacionesInsumos);
 
             }
@@ -165,14 +165,28 @@ namespace AyudandoEnLaPandemia.Controllers
 
         private bool ValidarCantidadesCeroOdeMas(List<DonacionesInsumosViewModel> insumosList)
         {
-            bool cantidadesCeroOdeMas =true;
+            bool cantidadesCero =true;
+
+            bool cantidadesdeMas = false;
+
+            bool cantidadesCeroOdeMas = false;
 
             foreach (var insumo in insumosList)
             {
-                if (insumo.CantidadAdonar != 0 || insumo.CantidadAdonar < insumo.CantidadRestante)
+                if (insumo.CantidadAdonar != 0)
                 {
-                    cantidadesCeroOdeMas = false;
+                    cantidadesCero = false;
                 }
+
+                if (insumo.CantidadAdonar > insumo.CantidadRestante)
+                {
+                    cantidadesdeMas = true;
+                }
+            }
+
+            if (cantidadesCero==true || cantidadesdeMas == true)
+            {
+                cantidadesCeroOdeMas = true;
             }
 
             return cantidadesCeroOdeMas;

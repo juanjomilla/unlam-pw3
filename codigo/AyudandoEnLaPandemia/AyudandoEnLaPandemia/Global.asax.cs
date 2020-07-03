@@ -36,15 +36,15 @@ namespace AyudandoEnLaPandemia
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        //protected void Application_Error(object sender, EventArgs e)
-        //{
-        //    var exception = Server.GetLastError();
-        //    Response.Clear();
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
+            Response.Clear();
 
-        //    var error = exception is HttpException httpException ? httpException.GetHttpCode() : 0;
+            var error = exception is HttpException httpException ? httpException.GetHttpCode() : 0;
 
-        //    Server.ClearError();
-        //    Response.Redirect(string.Format("~/Error/?error={0}", error, exception.Message));
-        //}
+            Server.ClearError();
+            Response.Redirect(string.Format("~/Error/?error={0}", error, exception.Message));
+        }
     }
 }

@@ -64,6 +64,7 @@
 
     $("#message2").hide();
     $("#message1").hide();
+    $("#message4").hide();
     let mensajeRegistro = $('#mensajeRegistro')[0].value;
     if (mensajeRegistro == 'OK')
     {
@@ -73,7 +74,10 @@
     if (mensajeRegistro == 'NotOK')
     {
         $("#message2").show();
+        $("#message4").show();
     };
+
+
 });
 
 function show(input) {
