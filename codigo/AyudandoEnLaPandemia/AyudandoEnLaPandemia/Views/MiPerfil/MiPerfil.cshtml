@@ -13,50 +13,62 @@
             <div class="card-body">
                 @using (Html.BeginForm("MiPerfil", "MiPerfil", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group", id = "MiPerfilViewModel" }))
                 {
-                        <div class="form-group row text-center">
-                            <div class="col-lg-6 offset-lg-3">
-                                <input type="hidden" name="Foto" value="@Model.Foto" />
-                                <input type="hidden" id="IdUsuario" name="IdUsuario" value="@Model.IdUsuario" />
-                                <img src="~/Content/usuario/imagenes/@Model.IdUsuario/@Model.Foto" class="avatar rounded-circle img-thumbnail" alt="">
-                                @*<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar rounded-circle img-thumbnail" alt="">*@
-                                <h6>Actualiza tu foto</h6>
-                                <label class="btn btn-primary">
-                                    <input type="file" title="Subir foto" name="foto" class="form-control-file" />
-                                    @Html.ValidationMessage("FotoEmpty")
-                                </label>
-                            </div>
+                    <div class="form-group row text-center">
+                        <div class="col-lg-6 offset-lg-3">
+                            <input type="hidden" name="Foto" value="@Model.Foto" />
+                            <input type="hidden" id="IdUsuario" name="IdUsuario" value="@Model.IdUsuario" />
+                            <img src="~/Content/usuario/imagenes/@Model.IdUsuario/@Model.Foto" class="avatar rounded-circle img-thumbnail" alt="">
+                            @*<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar rounded-circle img-thumbnail" alt="">*@
+                            <h6>Actualiza tu foto</h6>
+                            <label class="btn btn-primary">
+                                <input type="file" title="Subir foto" name="foto" class="form-control-file" />
+                                @Html.ValidationMessage("FotoEmpty")
+                            </label>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label form-control-label">Nombre:</label>
-                            <div class="col-lg-8">
-                                <input class="form-control" type="text" name="Nombre" value="@Model.Nombre">
-                                @Html.ValidationMessageFor(Model => Model.Nombre)
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label form-control-label">Email:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(Model => Model.Email, new { @readonly = "readonly" })
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label form-control-label">Apellido:</label>
-                            <div class="col-lg-8">
-                                <input class="form-control" type="text" name="Apellido" value="@Model.Apellido">
-                                @Html.ValidationMessageFor(Model => Model.Apellido)
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label form-control-label">UserName:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(Model => Model.UserName, new { @readonly = "readonly" })
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label form-control-label">F. de Nacimiento:</label>
-                            <div class="col-lg-8">
-                                <input class="form-control" type="text" name="FechaNacimiento" value="@Model.FechaNacimiento">
-                                @Html.ValidationMessageFor(Model => Model.FechaNacimiento)
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label form-control-label">Nombre:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="Nombre" value="@Model.Nombre">
+                            @Html.ValidationMessageFor(Model => Model.Nombre)
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label form-control-label"></label>
-                            <div class="col-lg-8">
-                                <input type="reset" class="btn btn-secondary" value="Cancelar">
-                                <input type="submit" class="btn btn-primary" value="Guardar">
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label form-control-label">Apellido:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="Apellido" value="@Model.Apellido">
+                            @Html.ValidationMessageFor(Model => Model.Apellido)
                         </div>
-                   
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label form-control-label">F. de Nacimiento:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="FechaNacimiento" value="@Model.FechaNacimiento">
+                            @Html.ValidationMessageFor(Model => Model.FechaNacimiento)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label form-control-label"></label>
+                        <div class="col-lg-8">
+                            <input type="reset" class="btn btn-secondary" value="Cancelar">
+                            <input type="submit" class="btn btn-primary" value="Guardar">
+                        </div>
+                    </div>
+
                 }
-                </div>
+            </div>
         </div>
     </div>
 </div>
