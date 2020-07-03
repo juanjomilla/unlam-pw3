@@ -25,6 +25,7 @@ namespace AyudandoEnLaPandemia.ViewModels.MiPerfil
         public int edad { get { return DateTime.Now.Year - FechaNacimiento.Year; } }
 
         public string UserName { get; set; }
+        public string Email { get; set; }
         public string Foto { get; set; }
 
         //public static ValidationResult ValidarMayorEdad(object value, ValidationContext context)

@@ -33,7 +33,8 @@ namespace AyudandoEnLaPandemia.Controllers
                 FechaNacimiento = perfil.FechaNacimiento,
                 UserName = perfil.UserName,
                 Foto = perfil.Foto,
-                IdUsuario = perfil.IdUsuario
+                IdUsuario = perfil.IdUsuario,
+                Email = perfil.Email
             };
             return View("~/Views/MiPerfil/MiPerfil.cshtml", perfilActual);
         }
@@ -54,9 +55,15 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(perfil);
             }
 
+            if (perfil.UserName == null)
+            {
+                string username = _servicioLogin.CrearUserName(perfil.Nombre, perfil.Apellido);
+                perfil.UserName = username;
+            }
+
             perfil.Foto = _servicioLogin.GuardarAdjunto(perfil.IdUsuario, foto);
 
-            _servicioLogin.ActualizarPerfil(perfil.Nombre, perfil.Apellido, perfil.FechaNacimiento, perfil.Foto, idUsuario);
+            _servicioLogin.ActualizarPerfil(perfil.Nombre, perfil.Apellido, perfil.FechaNacimiento, perfil.Foto, idUsuario, perfil.UserName);
 
             return RedirectToAction("MiPerfil");
         }

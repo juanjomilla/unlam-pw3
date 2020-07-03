@@ -99,13 +99,9 @@ namespace AyudandoEnLaPandemia.Controllers
 
                 Usuarios usuarioNuevo = new Usuarios();
 
-                usuarioNuevo.Nombre = registro.Nombre;
-                usuarioNuevo.Apellido = registro.Apellido;
-                usuarioNuevo.UserName = registro.UserName;
                 usuarioNuevo.Email = registro.Email;
                 usuarioNuevo.Password = registro.Password;
                 usuarioNuevo.FechaNacimiento = registro.FechaNacimiento;
-                // usuarioNuevo.FechaNacimiento = Convert.ToDateTime(registro.FechaNacimiento);
                 usuarioNuevo.TipoUsuario = 0; //Usuario normal
                 usuarioNuevo.FechaCracion= DateTime.Today;
                 usuarioNuevo.Activo = false;
@@ -132,10 +128,5 @@ namespace AyudandoEnLaPandemia.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult RegisterConfirm()
-        //{
-        //    return View();
-        //}
     }
 }
