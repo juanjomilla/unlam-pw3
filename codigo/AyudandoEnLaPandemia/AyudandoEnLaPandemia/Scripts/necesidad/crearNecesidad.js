@@ -61,6 +61,19 @@
             $("#contraerBtn")[0].text = mostrarText;
         }
     });
+
+    $("#message2").hide();
+    $("#message1").hide();
+    let mensajeRegistro = $('#mensajeRegistro')[0].value;
+    if (mensajeRegistro == 'OK')
+    {
+        $("#message1").show();
+    };
+
+    if (mensajeRegistro == 'NotOK')
+    {
+        $("#message2").show();
+    };
 });
 
 function show(input) {

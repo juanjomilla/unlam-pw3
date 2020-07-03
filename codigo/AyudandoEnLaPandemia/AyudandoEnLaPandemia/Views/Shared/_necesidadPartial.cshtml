@@ -5,7 +5,7 @@
     {
         foreach (var necesidad in Model.Necesidades)
         {
-            var necesidadInactiva = (necesidad.FechaFin - DateTime.Now).Days > 0 ? "necesidadInactiva" : string.Empty;
+            var necesidadInactiva = (necesidad.FechaFin - DateTime.Now).Days < 0 ? "necesidadInactiva" : string.Empty;
 
             <div class="col-lg-4 col-sm-6 mb-4 @necesidadInactiva necesidad">
                 <div class="card h-100">
@@ -15,7 +15,7 @@
                     </div>
                     <ul class="list-group list-group-flush text-left">
                         <li class="list-group-item">Creado por: @necesidad.Usuarios.UserName</li>
-                        <li class="list-group-item">Valoración actual: @necesidad.Valoracion</li>
+                        <li class="list-group-item">Valoración actual: @necesidad.Valoracion %</li>
                         <li class="list-group-item">Creado el día: @necesidad.FechaCreacion</li>
                     </ul>
                     <div class="card-footer">

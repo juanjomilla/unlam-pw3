@@ -9,8 +9,8 @@ namespace AyudandoEnLaPandemia.Controllers
 {
     public class LoginController : Controller
     {
-        private ServicioLogin _servicioLogin;
-        private ServicioRegistrar _servicioRegistrar;
+        private readonly ServicioLogin _servicioLogin;
+        private readonly ServicioRegistrar _servicioRegistrar;
 
         // se arma el constructor y se guardan en variables privadas lo que inyecta autofac
         public LoginController(ServicioLogin servicioLogin, ServicioRegistrar servicioRegistrar) 
@@ -43,14 +43,17 @@ namespace AyudandoEnLaPandemia.Controllers
             {
                 return LoginUsuario("Email y/o Contraseña inválidos");
             }
-            else {
+            else
+            {
                 if (!usuarioEncontrado.Activo)
                 {
                     return LoginUsuario("Su usuario está inactivo. Actívelo desde el email recibido");
                 }
-                else { 
+                else
+                { 
                     Session["UsuarioID"] = usuarioEncontrado.IdUsuario;
                     Session["UsuarioNombreApellido"] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
+                    Session["EsAdministrador"] = usuarioEncontrado.TipoUsuario == 1;
 
                     if (!string.IsNullOrWhiteSpace(redirigir))
                     {
@@ -60,7 +63,6 @@ namespace AyudandoEnLaPandemia.Controllers
                     {
                         return RedirectToAction("Home", "Home");
                     }
-
                 }
             }
         }
@@ -80,7 +82,6 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpPost]
         public ActionResult RegistroUsuario(UsuariosViewModel registro)
         {
-
             if (!ModelState.IsValid)
             {
                 return View(registro);
@@ -88,38 +89,34 @@ namespace AyudandoEnLaPandemia.Controllers
 
             bool emailEncontrado = _servicioRegistrar.ValidarEmail(registro.Email);
 
-            if (emailEncontrado == true) {
-
+            if (emailEncontrado)
+            {
                 return RegistroUsuario("NotOK");
-
             }
-            else { 
+            else
+            { 
+                StringBuilder token = _servicioRegistrar.CrearToken();
 
-            StringBuilder token = _servicioRegistrar.CrearToken();
+                Usuarios usuarioNuevo = new Usuarios();
 
-            Usuarios usuarioNuevo = new Usuarios();
-
-            usuarioNuevo.Nombre = registro.Nombre;
-            usuarioNuevo.Apellido = registro.Apellido;
-            usuarioNuevo.UserName = registro.UserName;
-            usuarioNuevo.Email = registro.Email;
-            usuarioNuevo.Password = registro.Password;
-            usuarioNuevo.FechaNacimiento = registro.FechaNacimiento;
-            // usuarioNuevo.FechaNacimiento = Convert.ToDateTime(registro.FechaNacimiento);
-            usuarioNuevo.TipoUsuario = 0; //Usuario normal
-            usuarioNuevo.FechaCracion= DateTime.Today;
-            usuarioNuevo.Activo = false;
-            usuarioNuevo.Token = token.ToString();
+                usuarioNuevo.Nombre = registro.Nombre;
+                usuarioNuevo.Apellido = registro.Apellido;
+                usuarioNuevo.UserName = registro.UserName;
+                usuarioNuevo.Email = registro.Email;
+                usuarioNuevo.Password = registro.Password;
+                usuarioNuevo.FechaNacimiento = registro.FechaNacimiento;
+                // usuarioNuevo.FechaNacimiento = Convert.ToDateTime(registro.FechaNacimiento);
+                usuarioNuevo.TipoUsuario = 0; //Usuario normal
+                usuarioNuevo.FechaCracion= DateTime.Today;
+                usuarioNuevo.Activo = false;
+                usuarioNuevo.Token = token.ToString();
             
-            _servicioRegistrar.CrearRegistro(usuarioNuevo);
+                _servicioRegistrar.CrearRegistro(usuarioNuevo);
 
-            return RegistroUsuario("OK");
-
+                return RegistroUsuario("OK");
             }
-
         }
 
-        
         public ActionResult Confirm(int IdUsuario, string token, String mensaje = "")
         {
             ViewBag.Message = mensaje;
@@ -140,6 +137,5 @@ namespace AyudandoEnLaPandemia.Controllers
         //{
         //    return View();
         //}
-
     }
 }

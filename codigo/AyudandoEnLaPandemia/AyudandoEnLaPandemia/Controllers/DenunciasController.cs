@@ -112,12 +112,49 @@ namespace AyudandoEnLaPandemia.Controllers
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
             }
 
+            var denuncias = _servicioDenuncias.ObtenerDenunciasActivas();
+
             var viewModel = new GestionDenunciasViewModel
             {
-                Denuncias = _servicioDenuncias.ObtenerDenunciasActivas()
+                TitulosTabla = GenerarTitulosTablaDenuncias(),
+                ContenidoTabla = GenerarContenidoTablaDenuncias(denuncias)
             };
 
             return View("~/Views/Denuncias/GestionDenuncias.cshtml", viewModel);
+        }
+
+        private IEnumerable<string> GenerarTitulosTablaDenuncias()
+        {
+            return new List<string>
+            {
+                "Fecha de creación",
+                "Motivo",
+                "Detalle de necesidad",
+                "Comentarios",
+                string.Empty,
+                string.Empty
+            };
+        }
+
+        private IEnumerable<IEnumerable<string>> GenerarContenidoTablaDenuncias(IEnumerable<Denuncias> registrosDenuncias)
+        {
+            var contenido = new List<List<string>>();
+
+            foreach (var registro in registrosDenuncias)
+            {
+                contenido.Add(
+                    new List<string>
+                    {
+                        registro.FechaCreacion.ToString("dd MMMM yyyy"),
+                        registro.MotivoDenuncia.Descripcion,
+                        $"<a href=\"/Necesidad/Detalle/{registro.IdNecesidad}\" class=\"btn btn-primary\">Detalle necesidad</a>",
+                        registro.Comentarios,
+                        $"<a href=\"/Denuncias/DesestimarDenuncia/{registro.IdDenuncia}\" class=\"btn btn-primary\">Desestimar denuncia</a>",
+                        $"<a href=\"/Denuncias/AceptarDenuncia/{registro.IdDenuncia}\" class=\"btn btn-primary\">Aceptar denuncia</a>"
+                    });
+            }
+
+            return contenido;
         }
     }
 }

@@ -5,7 +5,7 @@
 }
 
 <div class="modal-dialog text-center">
-    <div class="d-none" id="message1">
+    <div class="" id="message1">
         <div class="alert alert-success">
             <span class="glyphicon glyphicon-ok"></span>
             <strong>
@@ -15,7 +15,7 @@
             </strong>
         </div>
     </div>
-    <div class="d-none" id="message2">
+    <div class="" id="message2">
         <div class="alert alert-danger">
             <span class="glyphicon glyphicon-remove"></span>
             <strong>¡Error! Ese email ya fue registrado.</strong>
@@ -98,23 +98,5 @@
             </div>
         </div>
     </div>
+    @Html.Hidden("mensajeRegistro", (object) ViewBag.Message)
 </div>
-
-<script>
-
-    if ('@ViewBag.Message' == 'OK') {
-        $("#message2").hide();
-        $("#message1").show();
-    };
-
-    if ('@ViewBag.Message' == 'NotOK') {
-
-        $("#message1").hide();
-        $("#message2").show();
-    };
-
-    $("#UsuariosViewModel").validate({
-        lang: 'es'
-    });
-
-</script>

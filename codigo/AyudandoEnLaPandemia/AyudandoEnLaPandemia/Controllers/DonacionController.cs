@@ -2,6 +2,7 @@
 using AyudandoEnLaPandemia.ViewModels.Donaciones;
 using Repositorio;
 using Servicios;
+using Servicios.Models;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -185,10 +186,45 @@ namespace AyudandoEnLaPandemia.Controllers
 
             var viewModel = new HistorialDonacionesViewModel
             {
-                ListaDonaciones = result
+                TitulosTabla = GenerarTitulosTablaHistorialDonaciones(),
+                ContenidoTabla = GenerarContenidoTablaHistorialDonaciones(result)
             };
 
             return View("~/Views/Donacion/HistorialDonaciones.cshtml", viewModel);
+        }
+
+        private IEnumerable<string> GenerarTitulosTablaHistorialDonaciones()
+        {
+            return new List<string>
+            {
+                "Fecha de donación",
+                "Nombre",
+                "Estado",
+                "Total recaudado",
+                "Mi donación",
+                "Detalle necesidad"
+            };
+        }
+
+        private IEnumerable<IEnumerable<string>> GenerarContenidoTablaHistorialDonaciones(IEnumerable<HistorialDonaciones> registrosHistoriales)
+        {
+            var contenido = new List<List<string>>();
+
+            foreach (var registro in registrosHistoriales)
+            {
+                contenido.Add(
+                    new List<string>
+                    {
+                        registro.FechaDonacion.ToString("dd MMMM yyyy"),
+                        registro.NombreNecesidad,
+                        registro.Estado,
+                        registro.TotalRecaudado.ToString(),
+                        registro.MiDonacion.ToString(),
+                        $"<a href=\"/Necesidad/Detalle/{registro.IdNecesidad}\" class=\"btn btn-primary\">Detalle necesidad</a>"
+                    });
+            }
+
+            return contenido;
         }
     }
 }

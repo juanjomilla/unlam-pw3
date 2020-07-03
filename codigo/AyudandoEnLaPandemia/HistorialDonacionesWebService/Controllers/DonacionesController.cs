@@ -30,7 +30,7 @@ namespace HistorialDonacionesWebService.Controllers
                 responseList.Add(new HistorialDonacionesResponse
                 {
                     NombreNecesidad = donacionInsumo.NecesidadesDonacionesInsumos.Nombre,
-                    Estado = donacionInsumo.NecesidadesDonacionesInsumos.Necesidades.Estado,
+                    Estado = GetEstadoNecesidad(donacionInsumo.NecesidadesDonacionesInsumos.Necesidades.Estado, donacionInsumo.NecesidadesDonacionesInsumos.Necesidades.FechaFin),
                     FechaDonacion = DateTime.Now,
                     IdNecesidad = donacionInsumo.NecesidadesDonacionesInsumos.IdNecesidad,
                     MiDonacion = donacionInsumo.Cantidad,
@@ -44,7 +44,7 @@ namespace HistorialDonacionesWebService.Controllers
                 responseList.Add(new HistorialDonacionesResponse
                 {
                     NombreNecesidad = donacionMonetaria.NecesidadesDonacionesMonetarias.CBU,
-                    Estado = donacionMonetaria.NecesidadesDonacionesMonetarias.Necesidades.Estado,
+                    Estado = GetEstadoNecesidad(donacionMonetaria.NecesidadesDonacionesMonetarias.Necesidades.Estado, donacionMonetaria.NecesidadesDonacionesMonetarias.Necesidades.FechaFin),
                     FechaDonacion = donacionMonetaria.FechaCreacion,
                     IdNecesidad = donacionMonetaria.NecesidadesDonacionesMonetarias.IdNecesidad,
                     MiDonacion = donacionMonetaria.Dinero,
@@ -59,6 +59,33 @@ namespace HistorialDonacionesWebService.Controllers
             }
 
             return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseList);
+        }
+
+        private string GetEstadoNecesidad(int estadoNecesidad, DateTime fechaFin)
+        {
+            string estado;
+
+            switch (estadoNecesidad)
+            {
+                case 0:
+                case 1:
+                    estado = (fechaFin - DateTime.Now).Days > 0 ? "Activa" : "Finalizada";
+                    break;
+                case 2:
+                    estado = "Finalizada";
+                    break;
+                case 3:
+                    estado = "Denunciada";
+                    break;
+                case 4:
+                    estado = "En revisión";
+                    break;
+                default:
+                    estado = "Estado no disponible";
+                    break;
+            }
+
+            return estado;
         }
     }
 }
