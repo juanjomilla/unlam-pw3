@@ -92,9 +92,9 @@ namespace AyudandoEnLaPandemia.Controllers
                 ModelState.AddModelError("ArchivoEmpty", "Se debe adjuntar archivo");
             }
 
-            if (donacionMonetaria.DineroAdonar < 1)
+            if (donacionMonetaria.DineroAdonar < 1 || donacionMonetaria.DineroAdonar > donacionMonetaria.totalRestante)
             {
-                ModelState.AddModelError("CantidadDineroAdonar", "La cantidad de dinero no puede ser menor a 1");
+                ModelState.AddModelError("CantidadDineroAdonar", "La cantidad de dinero no puede ser 0 ni mayor a la cantidad pendiente por donar");
             }
 
             if (!ModelState.IsValid)
@@ -131,11 +131,11 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpPost]
         public ActionResult DonacionInsumos(DonacionesInsumosListViewModel listDonacionesInsumos)
         {
-            bool cantidadCero = ValidarCantidadesCero(listDonacionesInsumos.InsumosList);
+            bool cantidadCeroOdeMas = ValidarCantidadesCeroOdeMas(listDonacionesInsumos.InsumosList);
 
-            if (cantidadCero == true) {
+            if (cantidadCeroOdeMas == true) {
 
-                ViewBag.Message = "Error";
+                ViewBag.Message = "NotOK";
                 return View(listDonacionesInsumos);
 
             }
@@ -163,9 +163,13 @@ namespace AyudandoEnLaPandemia.Controllers
 
         }
 
-        private bool ValidarCantidadesCero(List<DonacionesInsumosViewModel> insumosList)
+        private bool ValidarCantidadesCeroOdeMas(List<DonacionesInsumosViewModel> insumosList)
         {
             bool cantidadesCero =true;
+
+            bool cantidadesdeMas = false;
+
+            bool cantidadesCeroOdeMas = false;
 
             foreach (var insumo in insumosList)
             {
@@ -173,9 +177,19 @@ namespace AyudandoEnLaPandemia.Controllers
                 {
                     cantidadesCero = false;
                 }
+
+                if (insumo.CantidadAdonar > insumo.CantidadRestante)
+                {
+                    cantidadesdeMas = true;
+                }
             }
 
-            return cantidadesCero;
+            if (cantidadesCero==true || cantidadesdeMas == true)
+            {
+                cantidadesCeroOdeMas = true;
+            }
+
+            return cantidadesCeroOdeMas;
         }
 
         public ActionResult HistorialDonaciones()
