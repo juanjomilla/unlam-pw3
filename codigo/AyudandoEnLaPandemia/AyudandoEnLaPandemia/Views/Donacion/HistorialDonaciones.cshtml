@@ -1,25 +1,4 @@
 ﻿@model HistorialDonacionesViewModel
-
-<div>
-    <table>
-        <tr>
-            <th>Fecha de donación</th>
-            <th>Nombre</th>
-            <th>Estado</th>
-            <th>Total recaudado</th>
-            <th>Mi donacion</th>
-            <th>Detalle necesidad</th>
-        </tr>
-        @foreach (var donacion in Model.ListaDonaciones)
-        {
-            <tr>
-                <td>@donacion.FechaDonacion</td>
-                <td>@donacion.NombreNecesidad</td>
-                <td>@donacion.Estado</td>
-                <td>@donacion.TotalRecaudado</td>
-                <td>@donacion.MiDonacion</td>
-                <td>@Html.ActionLink("Detalle necesidad", $"Detalle/{donacion.IdNecesidad}", "Necesidad")</td>
-            </tr>
-        }
-    </table>
-</div>
+@{
+    Html.RenderPartial("~/Views/Shared/_tablaPartial.cshtml", new TablaPartialViewModel { TitulosTabla = Model.TitulosTabla, ContenidoTabla = Model.ContenidoTabla });
+}

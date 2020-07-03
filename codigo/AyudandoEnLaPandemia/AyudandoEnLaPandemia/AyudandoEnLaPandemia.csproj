@@ -271,6 +271,7 @@
     <Compile Include="ViewModels\DetalleNecesidadViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\NecesidadViewModel.cs" />
+    <Compile Include="ViewModels\TablaPartialViewModel.cs" />
     <Compile Include="ViewModels\UsuariosViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +315,7 @@
     <Content Include="Views\Error\error.cshtml" />
     <Content Include="Views\Donacion\DonacionConfirmada.cshtml" />
     <Content Include="Views\Denuncias\DenunciarNecesidad.cshtml" />
+    <Content Include="Views\Shared\_tablaPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

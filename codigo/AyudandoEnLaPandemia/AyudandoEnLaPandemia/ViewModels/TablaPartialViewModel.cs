@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace AyudandoEnLaPandemia.ViewModels.Denuncias
+namespace AyudandoEnLaPandemia.ViewModels
 {
-    public class GestionDenunciasViewModel
+    public class TablaPartialViewModel
     {
         public IEnumerable<IEnumerable<string>> ContenidoTabla { get; set; }
 
