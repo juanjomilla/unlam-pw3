@@ -19,28 +19,9 @@ namespace AyudandoEnLaPandemia.ViewModels.MiPerfil
         public string Apellido { get; set; }
 
         [Required(ErrorMessage = "Ingresar Fecha de Nacimiento")]
-        //[CustomValidation(typeof(UsuariosViewModel), "ValidarMayorEdad")]
         public DateTime FechaNacimiento { get; set; }
-
-        public int edad { get { return DateTime.Now.Year - FechaNacimiento.Year; } }
-
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Foto { get; set; }
-
-        //public static ValidationResult ValidarMayorEdad(object value, ValidationContext context)
-        //{
-        //    var usuarioFormulario = context.ObjectInstance as UsuariosViewModel;
-
-        //    if (usuarioFormulario.edad >= 18)
-        //    {
-        //        return ValidationResult.Success;
-        //    }
-        //    else
-        //    {
-        //        return new ValidationResult("Debe ser mayor de edad para registrarse");
-        //    }
-
-        //}
     }
 }
