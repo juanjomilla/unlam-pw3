@@ -13,6 +13,5 @@ namespace AyudandoEnLaPandemia.ViewModels
         public int CantidadRestante { get; set; }
         public int CantidadAdonar { get; set; }
         public bool statusCompleto { get; set; }
-
     }
 }

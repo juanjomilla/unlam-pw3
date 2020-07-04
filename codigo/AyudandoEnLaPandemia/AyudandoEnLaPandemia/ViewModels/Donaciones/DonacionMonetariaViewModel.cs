@@ -15,6 +15,5 @@ namespace AyudandoEnLaPandemia.ViewModels.Donaciones
         public int DineroAdonar { get; set; }
         public int IdNecesidadDonacionMonetaria { get; set; }
         public string CBU { get; set; }
-
     }
 }

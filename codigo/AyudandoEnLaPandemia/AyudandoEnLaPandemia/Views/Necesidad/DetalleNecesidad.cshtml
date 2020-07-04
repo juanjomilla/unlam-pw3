@@ -1,49 +1,41 @@
 ﻿@model DetalleNecesidadViewModel
 
-@{ 
+@{
     Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
 }
 
-<div>
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <img src="~/Content/necesidades/imagenes/@Model.Necesidad.IdUsuarioCreador/@Model.Necesidad.Foto" class="card-img" alt="">
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        @if (!string.IsNullOrWhiteSpace(Model.Mensaje))
+        {
+            <div class="alert alert-warning text-center mx-5" role="alert">
+                <strong>@Model.Mensaje</strong>
             </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">@Model.Necesidad.Nombre</h5>
-                    <p class="card-text">@Model.Necesidad.Descripcion</p>
-                    <p class="card-text"><small class="text-muted">Fecha de creación: @Model.Necesidad.FechaCreacion</small></p>
-                    @if (!Model.EsPropietario)
-                    {
-                        <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=true">Me Gusta</a>
-                        <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=false">No Me Gusta</a><br />
-                        <a href="/Denuncias/DenunciarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Denunciar</a><br />
-                        <a href="/Donacion/Donacion?idNecesidad=@Model.Necesidad.IdNecesidad">Realizar donación</a>
-                            @*<form action="/Donacion/Donacion" method="post">
-                    <input type="hidden" name="idNecesidad" value="@Model.Necesidad.IdNecesidad" />
-                    <div>
-                        <select name="TipoDonacion">
-                            <option value="monetario">Monetaria</option>
-                            <option value="insumos">Insumos</option>
-                        </select>
+        }
+        <div class="card promoting-card">
+            <div class="card-body flex-row">
+                <h4 class="card-title font-weight-bold mb-2">@Model.Necesidad.Nombre</h4>
+            </div>
+            <div class="view overlay">
+                <img src="~/Content/necesidades/imagenes/@Model.Necesidad.IdUsuarioCreador/@Model.Necesidad.Foto" class="card-img-top rounded-0" alt="">
+            </div>
+            <div class="card-body">
+                <p class="card-text">* @Model.Necesidad.Descripcion</p>
+                <p class="card-text"><small class="text-muted">Fecha de creación: @Model.Necesidad.FechaCreacion</small></p>
+                @if (!Model.EsPropietario)
+                {
+                    <a class="btn btn-info" role="button" href="/Denuncias/DenunciarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Denunciar</a>
+                    <a class="btn btn-info" role="button" href="/Donacion/Donacion?idNecesidad=@Model.Necesidad.IdNecesidad">Donar</a>
+                    <div class="float-right">
+                        <a class="btn btn-success" role="button" href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=true">Me gusta</a>
+                        <a class="btn btn-danger" role="button" href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=false">No me gusta</a>
                     </div>
-                    <div>
-                        <input type="submit" value="Realizar donación" />
-                    </div>
-                </form>*@
-                    }
-                    else
-                    {
-                        <a href="/Necesidad/Modificarnecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Modificar</a>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(Model.Mensaje))
-                    {
-                        <p>@Model.Mensaje</p>
-                    }
-                </div>
-                    </div>
+                }
+                else
+                {
+                    <a class="btn btn-info" role="button" href="/Necesidad/Modificarnecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Modificar</a>
+                }
+            </div>
         </div>
     </div>
 </div>

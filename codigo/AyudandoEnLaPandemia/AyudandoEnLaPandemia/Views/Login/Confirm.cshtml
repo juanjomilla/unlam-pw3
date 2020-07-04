@@ -3,11 +3,14 @@
     Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
 
-<br />
-<br />
-<div class="alert alert-warning" id="previous">
-    <strong>Confirmación de cuenta</strong>
-
-    <a href="/Login/RegisterConfirm?IdUsuario=@ViewBag.IdUsuario&Token=@ViewBag.Token">Click Aqui</a>
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="alert alert-warning text-center" role="alert" id="previous">
+                <strong>
+                    Confirmación de cuenta <a href="/Login/RegisterConfirm?IdUsuario=@ViewBag.IdUsuario&Token=@ViewBag.Token">Click Aquí</a>
+                </strong>
+            </div>
+        </div>
+    </div>
 </div>

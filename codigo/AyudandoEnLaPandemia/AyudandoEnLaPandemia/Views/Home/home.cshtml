@@ -1,28 +1,33 @@
 ﻿@model HomeViewModel
 
-<div class="form-inline my-2 my-lg-0 ml-auto" id = "busquedaForm">
-    <input class="form-control" type="search" placeholder="Buscar..." aria-label="Search" id="busqueda" name="busqueda">
-    <button class="btn btn-primary btn-md my-2 my-sm-0 ml-3" type="submit" id="btnBusqueda">Buscar</button>
-</div>
+@{
+    Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
+}
 
-<div>
-    <div>
-        <div>
-            <a class="btn btn-primary" data-toggle="collapse" href="#misNecesidades" role="button" aria-expanded="true" aria-controls="misNecesidades" id="contraerBtn">Ocultar mis necesidades</a>
-        </div>
-        <div class="custom-checkbox">
-            @Html.CheckBox("chkMostrarTodas", true)
-            @Html.Label("chkMostrarTodas", "Solo visualizar activas")
-        </div>
-        <div class="collapse show" id="misNecesidades">
-            <h2>Mis Necesidades</h2>
-            @{
-                Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.MisNecesidades });
-            }
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="form-inline justify-content-center" id="busquedaForm">
+            <input class="form-control" type="search" placeholder="Buscar..." aria-label="Search" id="busqueda" name="busqueda">
+            <button class="btn btn-primary btn-md my-2 my-sm-0 ml-3" type="submit" id="btnBusqueda">Buscar</button>
         </div>
     </div>
-    <div id="otrasNecesidades">
-        <h2>Resultado búsqueda</h2>
-        <div id="resultadosBusqueda"></div>
+</div>
+<div class="my-2">
+    <a class="btn btn-primary" data-toggle="collapse" href="#misNecesidades" role="button" aria-expanded="true" aria-controls="misNecesidades" id="contraerBtn">Ocultar mis necesidades</a>
+    <div class="custom-checkbox">
+        @Html.CheckBox("chkMostrarTodas", true)
+        @Html.Label("chkMostrarTodas", "Visualizar solo activas")
     </div>
+</div>
+<div class="collapse show" id="misNecesidades">
+    <h3>Mis necesidades:</h3>
+    <div class="row text-center">
+        @{
+            Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.MisNecesidades });
+        }
+    </div>
+</div>
+<div id="otrasNecesidades">
+    <h3>Resultado de la búsqueda:</h3>
+    <div class="row text-center" id="resultadosBusqueda"></div>
 </div>

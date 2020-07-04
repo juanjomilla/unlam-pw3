@@ -1,5 +1,6 @@
 ﻿@model GestionDenunciasViewModel
 
 @{
+    Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
     Html.RenderPartial("~/Views/Shared/_tablaPartial.cshtml", new TablaPartialViewModel { TitulosTabla = Model.TitulosTabla, ContenidoTabla = Model.ContenidoTabla });
 }
