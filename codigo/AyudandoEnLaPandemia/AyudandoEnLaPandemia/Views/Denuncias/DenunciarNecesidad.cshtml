@@ -1,51 +1,39 @@
 ﻿@model Repositorio.Denuncias
+
 @{
-    ViewBag.Title = "DenunciarNecesidad";
-    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
+    Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Denunciar Necesidad</title>
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="card">
-                    <div class="card-header text-center"><h4>Denunciar Necesidad</h4></div>
-                    <div class="card-body">
-                        @using (Html.BeginForm("DenunciarNecesidad", "Denuncias", FormMethod.Post))
-                        {
-                            <input type="hidden" name="IdNecesidad" id="IdNecesidad" value="@ViewBag.IdNecesidad" />
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label form-control-label">Motivo:</label>
-                                <div class="col-lg-8">
-                                    @Html.DropDownList("MotivoDenuncia.IdMotivoDenuncia", new SelectList(ViewBag.TodosLosMotivos, "IdMotivoDenuncia", "Descripcion"), new { id = "IdMotivoDenuncia" })
-                                    @Html.ValidationMessageFor(o => o.MotivoDenuncia.IdMotivoDenuncia)
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label form-control-label">Comentario:</label>
-                                <div class="col-lg-8">
-                                    @Html.TextAreaFor(o => Model.Comentarios)
-                                    <br />
-                                    @Html.ValidationMessageFor(o => o.Comentarios)
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <input type="submit" class="btn btn-primary float-right" value="Denunciar" />
-                                </div>
-                            </div>
-                        }
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header text-center"><h4>Denunciar Necesidad</h4></div>
+            <div class="card-body">
+                @using (Html.BeginForm("DenunciarNecesidad", "Denuncias", FormMethod.Post))
+                {
+                    <input type="hidden" name="IdNecesidad" id="IdNecesidad" value="@ViewBag.IdNecesidad" />
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label form-control-label">Motivo:</label>
+                        <div class="col-lg-8">
+                            @Html.DropDownList("MotivoDenuncia.IdMotivoDenuncia", new SelectList(ViewBag.TodosLosMotivos, "IdMotivoDenuncia", "Descripcion"), new { id = "IdMotivoDenuncia" })
+                            @Html.ValidationMessageFor(o => o.MotivoDenuncia.IdMotivoDenuncia)
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label form-control-label">Comentario:</label>
+                        <div class="col-lg-8">
+                            @Html.TextAreaFor(o => Model.Comentarios)
+                            <br />
+                            @Html.ValidationMessageFor(o => o.Comentarios)
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-primary float-right" value="Denunciar" />
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
