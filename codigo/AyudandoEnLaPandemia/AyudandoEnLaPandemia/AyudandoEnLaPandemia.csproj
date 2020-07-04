@@ -316,6 +316,7 @@
     <Content Include="Views\Donacion\DonacionConfirmada.cshtml" />
     <Content Include="Views\Denuncias\DenunciarNecesidad.cshtml" />
     <Content Include="Views\Shared\_tablaPartial.cshtml" />
+    <Content Include="Views\Home\acercaDe.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
