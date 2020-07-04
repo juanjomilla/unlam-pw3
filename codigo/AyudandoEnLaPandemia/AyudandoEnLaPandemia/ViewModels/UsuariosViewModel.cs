@@ -20,23 +20,11 @@ namespace AyudandoEnLaPandemia.ViewModels
         [Compare("Password", ErrorMessage = "La contraseña y la confirmación de contraseña deben coincidir.")]
         public string RePassword { get; set; }
 
-        [Required(ErrorMessage = "Ingresar nombre.")]
-        [StringLength(50, ErrorMessage = "No debe tener más de 50 caracteres.")]
-        public string Nombre { get; set; }
-
-        [Required(ErrorMessage = "Ingresar apellido")]
-        [StringLength(50, ErrorMessage = "No debe tener más de 50 caracteres.")]
-        public string Apellido { get; set; }
-
         [Required(ErrorMessage = "Ingresar fecha de nacimiento.")]
-
         [CustomValidation(typeof(UsuariosViewModel), "ValidarMayorEdad")]
         public DateTime FechaNacimiento { get; set; }
        
         public int Edad { get { return DateTime.Now.Year - FechaNacimiento.Year; } }
-
-        [StringLength(20, ErrorMessage = "No debe tener más de 20 caracteres.")]
-        public string UserName { get; set; }
 
         public static ValidationResult ValidarMayorEdad(object value, ValidationContext context)
         {

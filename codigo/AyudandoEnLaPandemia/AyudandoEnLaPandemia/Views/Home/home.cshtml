@@ -20,14 +20,12 @@
     </div>
 </div>
 <div class="collapse show" id="misNecesidades">
-    <h3>Mis necesidades:</h3>
-    <div class="row text-center">
-        @{
-            Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.MisNecesidades });
-        }
-    </div>
+    @{
+        Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.MisNecesidades, Editable = true, TituloPagina = "Mis necesidades:" });
+    }
 </div>
-<div id="otrasNecesidades">
-    <h3>Resultado de la búsqueda:</h3>
-    <div class="row text-center" id="resultadosBusqueda"></div>
+<div id="resultadosBusqueda">
+    @{
+        Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.Necesidades, TituloPagina = "Otras necesidades:" });
+    }
 </div>

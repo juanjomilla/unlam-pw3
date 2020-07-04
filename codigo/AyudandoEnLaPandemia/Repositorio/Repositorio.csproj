@@ -56,6 +56,8 @@
   <ItemGroup>
     <Compile Include="Partials\Denuncias.cs" />
     <Compile Include="Partials\DenunciasMetadata.cs" />
+    <Compile Include="Partials\NecesidadesReferencias.cs" />
+    <Compile Include="Partials\NecesidadesReferenciasMetadata.cs" />
     <Compile Include="Repositorios\IMotivoDenunciaRepositorio.cs" />
     <Compile Include="Repositorios\INecesidadesDonacionesInsumoRepositorio.cs" />
     <Compile Include="Partials\DonacionesMonetarias.cs" />

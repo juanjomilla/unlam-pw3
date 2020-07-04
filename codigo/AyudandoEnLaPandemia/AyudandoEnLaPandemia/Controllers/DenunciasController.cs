@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using AyudandoEnLaPandemia.ViewModels.Denuncias;
 using Repositorio;
 using Servicios;
-using AyudandoEnLaPandemia.Const;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
@@ -157,7 +156,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 contenido.Add(
                     new List<string>
                     {
-                        registro.FechaCreacion.ToString("dd MMMM yyyy"),
+                        registro.FechaCreacion.ToString("dd/MM/yyyy"),
                         registro.MotivoDenuncia.Descripcion,
                         $"<a href=\"/Necesidad/Detalle/{registro.IdNecesidad}\" target=\"_blank\" class=\"btn btn-primary\">Detalle necesidad</a>",
                         registro.Comentarios,

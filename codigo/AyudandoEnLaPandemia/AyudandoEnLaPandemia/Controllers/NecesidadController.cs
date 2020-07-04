@@ -217,7 +217,7 @@ namespace AyudandoEnLaPandemia.Controllers
             if (necesidadValorada)
             {
                 // la necesidad ya fue valorada por el usuario, debería retornar un mensaje para ser mostrado en la vista
-                return RedirectToAction("Detalle", new { id = idNecesidad, mensaje = "ERROR: Ya has valorado esta necesidad." });
+                return RedirectToAction("Detalle", new { id = idNecesidad, mensaje = "Ya has valorado esta necesidad" });
             }
 
             _servicioValoraciones.ValorarNecesidad(idNecesidad, idUsuario, valoracion);

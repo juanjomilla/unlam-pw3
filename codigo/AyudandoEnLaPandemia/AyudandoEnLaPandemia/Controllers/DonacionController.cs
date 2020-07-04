@@ -140,6 +140,11 @@ namespace AyudandoEnLaPandemia.Controllers
 
             }
 
+            if (!ModelState.IsValid)
+            {
+                return View(listDonacionesInsumos);
+            }
+
             List<DonacionesInsumos> nuevaDonacionInsumolist = new List<DonacionesInsumos>();
 
             foreach (var insumo in listDonacionesInsumos.InsumosList)
@@ -229,7 +234,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 contenido.Add(
                     new List<string>
                     {
-                        registro.FechaDonacion.ToString("dd MMMM yyyy"),
+                        registro.FechaDonacion.ToString("dd/MM/yyyy"),
                         registro.NombreNecesidad,
                         registro.Estado,
                         registro.TotalRecaudado.ToString(),
