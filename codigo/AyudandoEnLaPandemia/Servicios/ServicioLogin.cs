@@ -7,31 +7,32 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Servicios
 {
-    public class ServicioLogin
+    public class ServicioLogin : IDisposable
     {
-        private IUsuarioRepositorio _usuarioRepositorio;
+        //private IUsuarioRepositorio _usuarioRepositorio;
+        private readonly UnitOfWork _unitOfWork;
 
         // se arma el constructor y se guardan en variables privadas lo que inyecta autofac
-        public ServicioLogin(IUsuarioRepositorio usuarioRepositorio)
+        public ServicioLogin(Contexto contexto)
         {
-            _usuarioRepositorio = usuarioRepositorio;
+            _unitOfWork = new UnitOfWork(contexto);
         }
 
         public Usuarios ValidarLogin(Usuarios Usuario)
         {
-            Usuarios UsuarioEncontrado = _usuarioRepositorio.BuscarUsuario(Usuario);
+            Usuarios UsuarioEncontrado = _unitOfWork.Usuarios.BuscarUsuario(Usuario);
        
             return UsuarioEncontrado;
         }
 
         public Usuarios ObtenerPerfil(int idUsuario)
         {
-            return _usuarioRepositorio.Get(idUsuario);
+            return _unitOfWork.Usuarios.Get(idUsuario);
         }
 
         public bool UsuarioConPerfilCompleto(int idUsuario)
         {
-            var usuario = _usuarioRepositorio.Get(idUsuario);
+            var usuario = _unitOfWork.Usuarios.Get(idUsuario);
 
             return !string.IsNullOrWhiteSpace(usuario.Apellido) &&
                 !string.IsNullOrWhiteSpace(usuario.Nombre) &&
@@ -50,9 +51,16 @@ namespace Servicios
             return nombreArchivo;
         }
 
-        public void ActualizarPerfil(string nombre, string apellido, DateTime fechaNacimiento, string foto, int idUsuario)
+        public string CrearUserName(string nombre, string apellido)
         {
-            _usuarioRepositorio.ActualizarPerfil(nombre, apellido, fechaNacimiento, foto, idUsuario);
+            string possibleUserName = $"{nombre}.{apellido}";
+            string username = _unitOfWork.Usuarios.VerificarUserName(possibleUserName, nombre, apellido);
+            return username;
+        }
+
+        public void ActualizarPerfil(string nombre, string apellido, DateTime fechaNacimiento, string foto, int idUsuario, string userName)
+        {
+            _unitOfWork.Usuarios.ActualizarPerfil(nombre, apellido, fechaNacimiento, foto, idUsuario, userName);
         }
 
         private object CrearCarpetaSiNoExiste(int idUsuario)
@@ -68,9 +76,17 @@ namespace Servicios
 
         public bool EsAdministrador(int idUsuario)
         {
-            var usuario = _usuarioRepositorio.Get(idUsuario);
+            var usuario = _unitOfWork.Usuarios.Get(idUsuario);
 
             return usuario.TipoUsuario == 1;
+        }
+
+        public void Dispose()
+        {
+            if (_unitOfWork != null)
+            {
+                _unitOfWork.Dispose();
+            }
         }
     }
 }

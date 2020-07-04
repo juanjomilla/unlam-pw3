@@ -32,6 +32,7 @@ namespace AyudandoEnLaPandemia.ViewModels
         public string Apellido { get; set; }
 
         [Required(ErrorMessage = "Ingresar fecha de nacimiento.")]
+
         [CustomValidation(typeof(UsuariosViewModel), "ValidarMayorEdad")]
         public DateTime FechaNacimiento { get; set; }
        

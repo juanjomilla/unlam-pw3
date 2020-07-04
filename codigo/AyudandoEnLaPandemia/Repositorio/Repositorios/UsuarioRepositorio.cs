@@ -12,7 +12,7 @@ namespace Repositorio.Repositorios
         // El contexto ya está registrado en autofac, por lo tanto se inyecta automáticamente
         public UsuarioRepositorio(Contexto contexto) : base(contexto) { }
 
-        public void ActualizarPerfil(string nombre, string apellido, DateTime fechaNacimiento, string foto, int idUsuario)
+        public void ActualizarPerfil(string nombre, string apellido, DateTime fechaNacimiento, string foto, int idUsuario, string userName)
         {
             using (var unitOfWork = new UnitOfWork(_dbContext))
             {
@@ -22,6 +22,7 @@ namespace Repositorio.Repositorios
                 perfilViejo.Apellido = apellido;
                 perfilViejo.FechaNacimiento = fechaNacimiento;
                 perfilViejo.Foto = foto;
+                perfilViejo.UserName = userName;
 
                 unitOfWork.SaveChanges();
 
@@ -90,6 +91,35 @@ namespace Repositorio.Repositorios
             var usuarioValidado = Get(x => x.IdUsuario == IdUsuario & x.Token==token).FirstOrDefault();
             usuarioValidado.Activo = true;
             _dbContext.SaveChanges();
+        }
+
+        public string VerificarUserName(string posibleUserName, string nombre, string apellido)
+        {
+                var existingUsers = Get(u => u.UserName.StartsWith(posibleUserName)).ToList();
+
+                //Find the first possible open username.
+                if (existingUsers.Count == 0)
+                {
+                     return posibleUserName;
+                }
+                else
+                {
+                    //Iterate through all the possible usernames and create it when a spot is open.
+                    for (var i = 1; i <= existingUsers.Count; i++)
+                    {
+                    string userName = String.Format("{0}.{1}{2}", nombre, apellido, i);
+
+                        if (existingUsers.FirstOrDefault(u => u.UserName == userName) == null)
+                        {
+
+                        posibleUserName = userName;
+
+                        }
+                    }
+                }
+
+            return posibleUserName;
+
         }
 
         private void BuildEmailTemplate(int IdUsuario, string token)

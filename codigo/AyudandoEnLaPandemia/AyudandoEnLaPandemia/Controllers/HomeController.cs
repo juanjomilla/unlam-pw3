@@ -39,5 +39,9 @@ namespace AyudandoEnLaPandemia.Controllers
             return View("~/Views/Home/home.cshtml", viewModel);
         }
 
+            public ActionResult AcercaDe()
+            {
+            return View("~/Views/Home/acercaDe.cshtml");
+            }
     }
 }

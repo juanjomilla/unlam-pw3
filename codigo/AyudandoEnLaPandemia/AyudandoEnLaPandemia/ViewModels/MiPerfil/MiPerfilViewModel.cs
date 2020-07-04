@@ -20,10 +20,8 @@ namespace AyudandoEnLaPandemia.ViewModels.MiPerfil
 
         [Required(ErrorMessage = "Ingresar Fecha de Nacimiento")]
         public DateTime FechaNacimiento { get; set; }
-
-        public int edad { get { return DateTime.Now.Year - FechaNacimiento.Year; } }
-
         public string UserName { get; set; }
+        public string Email { get; set; }
         public string Foto { get; set; }
     }
 }
