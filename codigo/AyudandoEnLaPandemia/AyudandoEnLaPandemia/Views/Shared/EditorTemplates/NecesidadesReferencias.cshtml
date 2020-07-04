@@ -1,12 +1,12 @@
 ﻿@model NecesidadesReferencias
 
-    <div class="row">
-        <div class="col-md-6">
-            @Html.LabelFor(model => model.Nombre, "Nombre")
-            @Html.EditorFor(model => model.Nombre, new { @class = "form-control" })
-        </div>
-        <div class="col-md-6">
-            @Html.LabelFor(model => model.Telefono, "Telefono")
-            @Html.EditorFor(model => model.Telefono, new { @class = "form-control" })
-        </div>
+<div class="row">
+    <div class="col-md-6">
+        @Html.LabelFor(model => model.Nombre, "Nombre")
+        @Html.EditorFor(model => model.Nombre, new { @class = "form-control" })
     </div>
+    <div class="col-md-6">
+        @Html.LabelFor(model => model.Telefono, "Telefono")
+        @Html.EditorFor(model => model.Telefono, new { @class = "form-control" })
+    </div>
+</div>

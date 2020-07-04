@@ -25,3 +25,14 @@ textarea {
     height: 40vh;
     object-fit: contain;
 }
+
+/* Confirmación de correo */
+#confirm-title {
+    text-align: center;
+    background-color: orange;
+    font-size: 45px;
+}
+
+#confirm-text {
+    font-size: 15px;
+}
