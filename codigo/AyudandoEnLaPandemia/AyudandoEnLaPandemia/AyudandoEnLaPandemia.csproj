@@ -245,6 +245,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutofacModules\DIModule.cs" />
+    <Compile Include="Constantes\Const.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DenunciasController.cs" />
     <Compile Include="Controllers\DonacionController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />

@@ -4,7 +4,7 @@ using Servicios;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ServicioNecesidad _servicioNecesidad;
 
@@ -29,11 +29,13 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpGet]
         public ActionResult Home()
         {
+            var idUsuario = GetIdUsuario();
+
             var viewModel = new HomeViewModel()
             {
                 TituloPagina = "Home",
-                MisNecesidades = _servicioNecesidad.GetNecesidadesUsuario((int)Session["UsuarioID"]),
-                Necesidades = _servicioNecesidad.GetNecesidadesOtrosUsuarios((int)Session["UsuarioID"])
+                MisNecesidades = _servicioNecesidad.GetNecesidadesUsuario(idUsuario),
+                Necesidades = _servicioNecesidad.GetNecesidadesOtrosUsuarios(idUsuario)
             };
 
             return View("~/Views/Home/home.cshtml", viewModel);

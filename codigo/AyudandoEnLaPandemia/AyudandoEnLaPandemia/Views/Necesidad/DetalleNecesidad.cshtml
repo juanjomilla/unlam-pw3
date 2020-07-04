@@ -1,49 +1,63 @@
 ﻿@model DetalleNecesidadViewModel
 
-@{ 
+@{
     Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
 }
 
 <div>
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <img src="~/Content/necesidades/imagenes/@Model.Necesidad.IdUsuarioCreador/@Model.Necesidad.Foto" class="card-img" alt="">
+    @MostrarNecesidad(Model.Necesidad.TipoDonacion)
+</div>
+
+@helper MostrarNecesidad(int tipoDonacion)
+{
+    if (tipoDonacion == 0)
+    {
+        @GenerarHtmlParaNecesidad("text-white bg-success", "Necesidad monetaria")
+    }
+    else
+    {
+       @GenerarHtmlParaNecesidad("text-white bg-info", "Necesidad insumo")
+    }
+}
+
+@helper GenerarHtmlParaNecesidad(string headerClass, string headerText) { 
+<div class="card mb-3">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="~/Content/necesidades/imagenes/@Model.Necesidad.IdUsuarioCreador/@Model.Necesidad.Foto" class="card-img" alt="">
+        </div>
+        <div class="col-md-8">
+            <div class="card-header @headerClass">
+                @headerText
             </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">@Model.Necesidad.Nombre</h5>
-                    <p class="card-text">@Model.Necesidad.Descripcion</p>
-                    <p class="card-text"><small class="text-muted">Fecha de creación: @Model.Necesidad.FechaCreacion</small></p>
-                    @if (!Model.EsPropietario)
-                    {
-                        <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=true">Me Gusta</a>
-                        <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=false">No Me Gusta</a><br />
-                        <a href="/Denuncias/DenunciarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Denunciar</a><br />
-                        <a href="/Donacion/Donacion?idNecesidad=@Model.Necesidad.IdNecesidad">Realizar donación</a>
-                            @*<form action="/Donacion/Donacion" method="post">
-                    <input type="hidden" name="idNecesidad" value="@Model.Necesidad.IdNecesidad" />
-                    <div>
-                        <select name="TipoDonacion">
-                            <option value="monetario">Monetaria</option>
-                            <option value="insumos">Insumos</option>
-                        </select>
-                    </div>
-                    <div>
-                        <input type="submit" value="Realizar donación" />
-                    </div>
-                </form>*@
-                    }
-                    else
-                    {
-                        <a href="/Necesidad/Modificarnecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Modificar</a>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(Model.Mensaje))
-                    {
-                        <p>@Model.Mensaje</p>
-                    }
-                </div>
-                    </div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Necesidad.Nombre</h5>
+                <p class="card-text">@Model.Necesidad.Descripcion</p>
+                <p class="card-text"><small class="text-muted">Fecha de creación: @Model.Necesidad.FechaCreacion.ToString("dd/MM/yyyy")</small></p>
+                <p class="card-text"><small class="text-muted">Total donado:</small></p>
+                @foreach (var detalle in Model.DetalleTotalDonacion)
+                {
+                    <small class="text-muted">@detalle.Key: @detalle.Value</small>
+                }
+                <p class="card-text"><small class="text-muted">Valoracion actual: @Model.Necesidad.Valoracion %</small></p>
+                <p class="card-text"><small class="text-muted">Creado por: @Model.Necesidad.Usuarios.UserName</small></p>
+                @if (!Model.EsPropietario)
+                {
+                    <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=true">Me Gusta</a>
+                    <a href="/Necesidad/ValorarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad&valoracion=false">No Me Gusta</a><br />
+                    <a href="/Denuncias/DenunciarNecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Denunciar</a><br />
+                    <a href="/Donacion/Donacion?idNecesidad=@Model.Necesidad.IdNecesidad">Realizar donación</a>
+                }
+                else
+                {
+                    <a href="/Necesidad/Modificarnecesidad?idNecesidad=@Model.Necesidad.IdNecesidad">Modificar</a>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Mensaje))
+                {
+                    <p>@Model.Mensaje</p>
+                }
+            </div>
         </div>
     </div>
 </div>
+}

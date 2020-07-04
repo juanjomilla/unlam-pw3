@@ -10,20 +10,23 @@ using Servicios;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
-    public class NecesidadController : Controller
+    public class NecesidadController : BaseController
     {
         private readonly ServicioNecesidad _servicioNecesidad;
         private readonly ServicioValoraciones _servicioValoraciones;
         private readonly ServicioLogin _servicioLogin;
+        private readonly ServicioDonaciones _servicioDonaciones;
 
         public NecesidadController(
             ServicioNecesidad servicioNecesidad,
             ServicioValoraciones servicioValoraciones,
-            ServicioLogin servicioLogin)
+            ServicioLogin servicioLogin,
+            ServicioDonaciones servicioDonaciones)
         {
             _servicioNecesidad = servicioNecesidad;
             _servicioValoraciones = servicioValoraciones;
             _servicioLogin = servicioLogin;
+            _servicioDonaciones = servicioDonaciones;
         }
 
         public ActionResult CrearNecesidad()
@@ -34,7 +37,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 Referencias = new List<NecesidadesReferencias> { new NecesidadesReferencias(), new NecesidadesReferencias() }
             };
 
-            var idUsuario = (int) Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
 
             ValidarMaximoNecesidades(idUsuario);
             ValidarUsuarioActivo(idUsuario);
@@ -45,6 +48,13 @@ namespace AyudandoEnLaPandemia.Controllers
         public ActionResult ModificarNecesidad(int idNecesidad = 0)
         {
             var necesidad = _servicioNecesidad.GetNecesidad(idNecesidad);
+            var idUsuario = GetIdUsuario();
+
+            if (idUsuario != necesidad.IdUsuarioCreador)
+            {
+                SetMensajeError("No puede modificar la necesidad si no es el usuario creador de la misma");
+                return RedirectToAction("Home", "Home");
+            }
 
             var viewModel = new GuardarNecesidadViewModel
             {
@@ -77,7 +87,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 ModelState.AddModelError("ImagenEmpty", "Se debe adjuntar una imagen");
             }
 
-            var idUsuario = (int)Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
 
             ValidarMaximoNecesidades(idUsuario);
             ValidarUsuarioActivo(idUsuario);
@@ -179,12 +189,19 @@ namespace AyudandoEnLaPandemia.Controllers
                 return HttpNotFound();
             }
 
+            var detalleTotalDonacion = necesidad.TipoDonacion == 0 ?
+                necesidad.NecesidadesDonacionesMonetarias
+                    .Select(x => new KeyValuePair<string, decimal>("Dinero", _servicioDonaciones.GetTotalDonacionesMonetaria(x.IdNecesidadDonacionMonetaria))) :
+                necesidad.NecesidadesDonacionesInsumos
+                    .Select(x => new KeyValuePair<string, decimal>(x.Nombre, _servicioDonaciones.GetTotalDonacionesInsumo(x.IdNecesidadDonacionInsumo)));
+
             var viewModel = new DetalleNecesidadViewModel
             {
                 Necesidad = necesidad,
-                EsPropietario = necesidad.IdUsuarioCreador == (int)Session["UsuarioID"],
+                EsPropietario = necesidad.IdUsuarioCreador == GetIdUsuario(),
                 TituloPagina = necesidad.Nombre + " - Detalle de necesidad",
-                Mensaje = mensaje
+                Mensaje = mensaje,
+                DetalleTotalDonacion = detalleTotalDonacion
             };
 
             return View("~/Views/Necesidad/DetalleNecesidad.cshtml", viewModel);
@@ -193,7 +210,7 @@ namespace AyudandoEnLaPandemia.Controllers
         public ActionResult ValorarNecesidad(int idNecesidad, bool valoracion)
         {
             // primero busco si el usuario ya valoró la necesidad
-            var idUsuario = (int) Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
 
             var necesidadValorada = _servicioValoraciones.NecesidadValorada(idNecesidad, idUsuario);
 
@@ -211,12 +228,13 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpPost]
         public ActionResult BuscarNecesidad(string busqueda)
         {
-            var idUsuario = (int) Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
             var resultadoBusqueda = _servicioNecesidad.BuscarNecesidades(busqueda, idUsuario);
 
             var viewModel = new NecesidadViewModel
             {
-                Necesidades = resultadoBusqueda
+                Necesidades = resultadoBusqueda,
+                TituloPagina = "Resultados búsqueda"
             };
 
             return PartialView("~/Views/Shared/_necesidadPartial.cshtml", viewModel);

@@ -2,7 +2,7 @@
 
 namespace AyudandoEnLaPandemia.ViewModels.Denuncias
 {
-    public class GestionDenunciasViewModel
+    public class GestionDenunciasViewModel : BaseViewModel
     {
         public IEnumerable<IEnumerable<string>> ContenidoTabla { get; set; }
 

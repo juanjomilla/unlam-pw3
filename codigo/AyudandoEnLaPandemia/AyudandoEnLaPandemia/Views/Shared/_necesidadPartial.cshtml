@@ -1,13 +1,14 @@
 ﻿@model NecesidadViewModel
 
+<h2>@Model.TituloPagina</h2>
 @{
     if (Model.Necesidades.Any())
     {
         foreach (var necesidad in Model.Necesidades)
         {
-            var necesidadInactiva = (necesidad.FechaFin - DateTime.Now).Days < 0 ? "necesidadInactiva" : string.Empty;
+            var necesidadInactiva = (necesidad.FechaFin - DateTime.Now).Days < 0;
 
-            <div class="col-lg-4 col-sm-6 mb-4 @necesidadInactiva necesidad">
+            <div class="col-lg-4 col-sm-6 mb-4 @(necesidadInactiva ? "necesidadInactiva" : string.Empty) necesidad">
                 <div class="card h-100">
                     <img class="card-img-top" src="~/Content/necesidades/imagenes/@necesidad.IdUsuarioCreador/@necesidad.Foto" alt="">
                     <div class="card-body">
@@ -16,10 +17,14 @@
                     <ul class="list-group list-group-flush text-left">
                         <li class="list-group-item">Creado por: @necesidad.Usuarios.UserName</li>
                         <li class="list-group-item">Valoración actual: @necesidad.Valoracion %</li>
-                        <li class="list-group-item">Creado el día: @necesidad.FechaCreacion</li>
+                        <li class="list-group-item">Creado el día: @necesidad.FechaCreacion.ToString("dd/MM/yyyy")</li>
                     </ul>
                     <div class="card-footer">
                         @Html.ActionLink("Ver Más", $"Detalle/{necesidad.IdNecesidad}", "Necesidad", null, new { @class = "btn btn-primary text-white" })
+                        @if (Model.Editable && !necesidadInactiva)
+                        {
+                            @Html.ActionLink("Modificar", "ModificarNecesidad", "Necesidad", new { idNecesidad = necesidad.IdNecesidad }, new { @class = "btn btn-primary text-white" })
+                        }
                     </div>
                 </div>
             </div>

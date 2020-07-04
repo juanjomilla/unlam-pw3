@@ -3,8 +3,10 @@ using Repositorio;
 
 namespace AyudandoEnLaPandemia.ViewModels
 {
-    public class NecesidadViewModel
+    public class NecesidadViewModel : BaseViewModel
     {
         public IEnumerable<Necesidades> Necesidades { get; set; }
+
+        public bool Editable { get; set; }
     }
 }

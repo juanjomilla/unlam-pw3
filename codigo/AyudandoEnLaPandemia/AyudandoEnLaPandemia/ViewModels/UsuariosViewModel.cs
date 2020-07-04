@@ -1,8 +1,5 @@
-﻿﻿using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace AyudandoEnLaPandemia.ViewModels
 {
@@ -27,13 +24,13 @@ namespace AyudandoEnLaPandemia.ViewModels
         [CustomValidation(typeof(UsuariosViewModel), "ValidarMayorEdad")]
         public DateTime FechaNacimiento { get; set; }
        
-        public int edad { get { return DateTime.Now.Year - FechaNacimiento.Year; } }
+        public int Edad { get { return DateTime.Now.Year - FechaNacimiento.Year; } }
 
         public static ValidationResult ValidarMayorEdad(object value, ValidationContext context)
         {
             var usuarioFormulario = context.ObjectInstance as UsuariosViewModel;
 
-            if (usuarioFormulario.edad >= 18)
+            if (usuarioFormulario.Edad >= 18)
             {
                 return ValidationResult.Success;
             }

@@ -9,7 +9,7 @@ using AyudandoEnLaPandemia.ViewModels.MiPerfil;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
-    public class MiPerfilController : Controller
+    public class MiPerfilController : BaseController
     {
         private readonly ServicioLogin _servicioLogin;
 
@@ -22,7 +22,7 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpGet]
         public ActionResult MiPerfil()
         {
-            var idUsuario = (int)Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
 
             Usuarios perfil = _servicioLogin.ObtenerPerfil(idUsuario);
 
@@ -43,7 +43,7 @@ namespace AyudandoEnLaPandemia.Controllers
         public ActionResult MiPerfil(MiPerfilViewModel perfil, HttpPostedFileBase foto)
         {
 
-            int idUsuario = (int)Session["UsuarioID"];
+            int idUsuario = GetIdUsuario();
 
             if (foto == null)
             {

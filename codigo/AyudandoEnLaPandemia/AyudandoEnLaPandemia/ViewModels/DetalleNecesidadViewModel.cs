@@ -1,4 +1,5 @@
-﻿using Repositorio;
+﻿using System.Collections.Generic;
+using Repositorio;
 
 namespace AyudandoEnLaPandemia.ViewModels
 {
@@ -8,10 +9,8 @@ namespace AyudandoEnLaPandemia.ViewModels
 
         public bool EsPropietario { get; set; }
 
-        public bool PuedeValorar { get; set; }
-
         public string Mensaje { get; set; }
 
-
+        public IEnumerable<KeyValuePair<string, decimal>> DetalleTotalDonacion { get; set; }
     }
 }

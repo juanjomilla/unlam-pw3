@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Text;
 using System.Web.Mvc;
+using AyudandoEnLaPandemia.Const;
 using AyudandoEnLaPandemia.ViewModels;
 using Repositorio;
 using Servicios;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         private readonly ServicioLogin _servicioLogin;
         private readonly ServicioRegistrar _servicioRegistrar;
@@ -51,9 +52,9 @@ namespace AyudandoEnLaPandemia.Controllers
                 }
                 else
                 { 
-                    Session["UsuarioID"] = usuarioEncontrado.IdUsuario;
-                    Session["UsuarioNombreApellido"] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
-                    Session["EsAdministrador"] = usuarioEncontrado.TipoUsuario == 1;
+                    Session[Constantes.IdUsuarioSessionKey] = usuarioEncontrado.IdUsuario;
+                    Session[Constantes.NombreApellidoUsuarioSessionKey] = usuarioEncontrado.Nombre+" "+usuarioEncontrado.Apellido;
+                    Session[Constantes.EsAdminSessionKey] = usuarioEncontrado.TipoUsuario == 1;
 
                     if (!string.IsNullOrWhiteSpace(redirigir))
                     {

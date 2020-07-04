@@ -4,10 +4,11 @@ using System.Web.Mvc;
 using AyudandoEnLaPandemia.ViewModels.Denuncias;
 using Repositorio;
 using Servicios;
+using AyudandoEnLaPandemia.Const;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
-    public class DenunciasController : Controller
+    public class DenunciasController : BaseController
     {
         private readonly ServicioLogin _servicioLogin;
         private readonly ServicioDenuncias _servicioDenuncias;
@@ -26,6 +27,14 @@ namespace AyudandoEnLaPandemia.Controllers
         [HttpGet]
         public ActionResult DenunciarNecesidad(int idNecesidad = 0)
         {
+            var necesidad = _servicioNecesidad.GetNecesidad(idNecesidad);
+
+            if (necesidad.IdUsuarioCreador == GetIdUsuario())
+            {
+                SetMensajeError("No podes denunciar tus necesidades");
+                return RedirectToAction("Home", "Home");
+            }
+
             ViewBag.TodosLosMotivos = _servicioDenuncias.ObtenerMotivosDenuncias();
             ViewBag.IdNecesidad = idNecesidad;
             return View();
@@ -40,7 +49,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 return View(nuevaDenuncia);
             }
 
-            var idUsuario = (int)Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
 
             var usuario = _servicioLogin.ObtenerPerfil(idUsuario);
 
@@ -77,11 +86,12 @@ namespace AyudandoEnLaPandemia.Controllers
 
         public ActionResult AceptarDenuncia(int id)
         {
-            var idUsuario = (int)Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
 
             if (!_servicioLogin.EsAdministrador(idUsuario))
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+                SetMensajeError("No tiene acceso a la gestión de denuncias");
+                return RedirectToAction("Home", "Home");
             }
 
             _servicioDenuncias.AceptarDenuncia(id);
@@ -91,11 +101,12 @@ namespace AyudandoEnLaPandemia.Controllers
 
         public ActionResult DesestimarDenuncia(int id, string mensaje = "")
         {
-            var idUsuario = (int)Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
 
             if (!_servicioLogin.EsAdministrador(idUsuario))
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+                SetMensajeError("No tiene acceso a la gestión de denuncias");
+                return RedirectToAction("Home", "Home");
             }
 
             _servicioDenuncias.DesestimarDenuncia(id);
@@ -105,11 +116,12 @@ namespace AyudandoEnLaPandemia.Controllers
 
         public ActionResult GestionDenuncias()
         {
-            var idUsuario = (int)Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
 
             if (!_servicioLogin.EsAdministrador(idUsuario))
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+                SetMensajeError("No tiene acceso a la gestión de denuncias");
+                return RedirectToAction("Home", "Home");
             }
 
             var denuncias = _servicioDenuncias.ObtenerDenunciasActivas();
@@ -147,7 +159,7 @@ namespace AyudandoEnLaPandemia.Controllers
                     {
                         registro.FechaCreacion.ToString("dd MMMM yyyy"),
                         registro.MotivoDenuncia.Descripcion,
-                        $"<a href=\"/Necesidad/Detalle/{registro.IdNecesidad}\" class=\"btn btn-primary\">Detalle necesidad</a>",
+                        $"<a href=\"/Necesidad/Detalle/{registro.IdNecesidad}\" target=\"_blank\" class=\"btn btn-primary\">Detalle necesidad</a>",
                         registro.Comentarios,
                         $"<a href=\"/Denuncias/DesestimarDenuncia/{registro.IdDenuncia}\" class=\"btn btn-primary\">Desestimar denuncia</a>",
                         $"<a href=\"/Denuncias/AceptarDenuncia/{registro.IdDenuncia}\" class=\"btn btn-primary\">Aceptar denuncia</a>"
