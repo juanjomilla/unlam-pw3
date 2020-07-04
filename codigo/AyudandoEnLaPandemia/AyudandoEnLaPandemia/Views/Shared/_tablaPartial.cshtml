@@ -1,25 +1,28 @@
 ﻿@model TablaPartialViewModel
 
-<div>
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                @foreach (var titulo in Model.TitulosTabla)
-                {
-                    <th>@Html.Raw(titulo)</th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var contenido in Model.ContenidoTabla)
-            {
+<div class="container">
+    <div class="row text-center">
+        <h3>Gestión de denuncias:</h3>
+        <table class="table table-bordered table-responsive-md text-center">
+            <thead class="thead-light">
                 <tr>
-                    @foreach (var texto in contenido)
+                    @foreach (var titulo in Model.TitulosTabla)
                     {
-                        <td>@Html.Raw(texto)</td>
+                        <th>@Html.Raw(titulo)</th>
                     }
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var contenido in Model.ContenidoTabla)
+                {
+                    <tr>
+                        @foreach (var texto in contenido)
+                        {
+                            <td>@Html.Raw(texto)</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

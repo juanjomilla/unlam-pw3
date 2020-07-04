@@ -84,7 +84,7 @@ namespace AyudandoEnLaPandemia.Controllers
         {
             if (foto == null)
             {
-                ModelState.AddModelError("ImagenEmpty", "Se debe adjuntar una imagen");
+                ModelState.AddModelError("ImagenEmpty", "Se debe adjuntar una imagen.");
             }
 
             var idUsuario = GetIdUsuario();
@@ -217,7 +217,7 @@ namespace AyudandoEnLaPandemia.Controllers
             if (necesidadValorada)
             {
                 // la necesidad ya fue valorada por el usuario, debería retornar un mensaje para ser mostrado en la vista
-                return RedirectToAction("Detalle", new { id = idNecesidad, mensaje = "Ya has valorado esta necesidad" });
+                return RedirectToAction("Detalle", new { id = idNecesidad, mensaje = "ERROR: Ya has valorado esta necesidad." });
             }
 
             _servicioValoraciones.ValorarNecesidad(idNecesidad, idUsuario, valoracion);
@@ -247,7 +247,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
             if (cantNecesidades >= limiteNecesidades)
             {
-                ModelState.AddModelError("LimiteNecesidades", $"Se ha alcanzado el límite de {limiteNecesidades} necesidades por usuario");
+                ModelState.AddModelError("LimiteNecesidades", $"Se ha alcanzado el límite de {limiteNecesidades} necesidades por usuario.");
             }
         }
 
@@ -263,7 +263,7 @@ namespace AyudandoEnLaPandemia.Controllers
         {
             if (foto == null)
             {
-                ModelState.AddModelError("ImagenEmpty", "Se debe adjuntar una imagen");
+                ModelState.AddModelError("ImagenEmpty", "Se debe adjuntar una imagen.");
             }
         }
 
@@ -275,13 +275,13 @@ namespace AyudandoEnLaPandemia.Controllers
             {
                 if (form.CantDinero < 1)
                 {
-                    ModelState.AddModelError("CantidadDinero", "La cantidad de dinero no puede ser menor a 1");
+                    ModelState.AddModelError("CantidadDinero", "La cantidad de dinero no puede ser menor a 1.");
                     datosValidos = false;
                 }
 
                 if (string.IsNullOrWhiteSpace(form.CBUAlias))
                 {
-                    ModelState.AddModelError("CBUAliasEmpty", "Se debe ingrear un CBU/Alias");
+                    ModelState.AddModelError("CBUAliasEmpty", "Se debe ingresar un CBU/Alias.");
                     datosValidos = false;
                 }
             }
@@ -289,14 +289,14 @@ namespace AyudandoEnLaPandemia.Controllers
             {
                 if (!form.Insumos.Any())
                 {
-                    ModelState.AddModelError("InsumosEmpty", "Se debe ingresar como mínimo un insumo");
+                    ModelState.AddModelError("InsumosEmpty", "Se debe ingresar como mínimo un insumo.");
                     datosValidos = false;
                 }
             }
 
             if (form.Referencias.Count < 2)
             {
-                ModelState.AddModelError("InsuficientesReferencias", "Se deben ingresar como mínimo dos referencias");
+                ModelState.AddModelError("InsuficientesReferencias", "Se deben ingresar como mínimo dos referencias.");
                 datosValidos = false;
             }
 

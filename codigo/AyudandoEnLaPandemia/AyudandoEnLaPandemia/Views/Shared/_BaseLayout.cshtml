@@ -24,14 +24,13 @@
                     {
                         <li class="nav-item dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @Session["UsuarioNombreApellido"].ToString()
+                                Menú
                             </button>
-
                             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Inicio", "Home", "Home", new { area = "" }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("Mi Perfil", "MiPerfil", "MiPerfil", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Home", "Home", "Home", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Crear necesidad", "CrearNecesidad", "Necesidad", new { area = "" }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("Historial de donaciones", "HistorialDonaciones", "Donacion", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Crear Necesidad", "CrearNecesidad", "Necesidad", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Historial de Donaciones", "HistorialDonaciones", "Donacion", new { area = "" }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("Denuncias", "GestionDenuncias", "Denuncias", new { area = "" }, new { @class = $"dropdown-item {(!(bool)Session["EsAdministrador"] ? "disabled" : string.Empty)}" })
                                 @Html.ActionLink("Acerca de", "AcercaDe", "Home", new { area = "" }, new { @class = "dropdown-item" })
                                 <div class="dropdown-divider"></div>
@@ -62,5 +61,7 @@
     <div class="container my-5">
         @RenderBody()
     </div>
+
+    @RenderSection("footer", required: false)
 </body>
 </html>

@@ -66,7 +66,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
             if (necesidadDenunciada)
             {
-                return RedirectToAction("Detalle", "Necesidad", new { id = nuevaDenuncia.IdNecesidad, mensaje = "Ya has denunciado esta necesidad." });
+                return RedirectToAction("Detalle", "Necesidad", new { id = nuevaDenuncia.IdNecesidad, mensaje = "ERROR: Ya has denunciado esta necesidad." });
             }
 
             var denuncia = new Denuncias

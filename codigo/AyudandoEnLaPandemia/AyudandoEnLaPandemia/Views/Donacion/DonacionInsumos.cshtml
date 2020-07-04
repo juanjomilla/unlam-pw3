@@ -1,63 +1,72 @@
 ﻿@model DonacionesInsumosListViewModel
+
 @{
-    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
+    Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Donacion Insumos</title>
-</head>
-<body>
-    <div>
-        <div id="message4">
-            <div class="alert alert-danger">
-                <span class="glyphicon glyphicon-remove"></span><strong>Error! Debe ingresar cantidad de al menos 1 insumo y no superar el total restante pendiente por donar</strong>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="d-none" id="message4">
+            <div class="alert alert-danger text-center mx-5" role="alert">
+                <strong>Error! Debe ingresar cantidad de al menos 1 insumo y no superar el total restante pendiente por donar.</strong>
             </div>
         </div>
-
-        @using (Html.BeginForm("DonacionInsumos", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
-        {
-            <div id="InsumosList">
-
-
-                @for (var i = 0; i < Model.InsumosList.Count; i++)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header text-center"><h4>Donación Insumos</h4></div>
+            <div class="card-body">
+                @using (Html.BeginForm("DonacionInsumos", "Donacion", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
                 {
-
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h4 class="card-title">@Html.TextBoxFor(o => o.InsumosList[i].Nombre, new { @readonly = "readonly" })</h4>
-                            </div>
+                    <div id="InsumosList">
+                        @for (var i = 0; i < Model.InsumosList.Count; i++)
+                        {
+                            <h4 class="card-title text-center">@Html.TextBoxFor(o => o.InsumosList[i].Nombre, new { @readonly = "readonly" })</h4>
                             @Html.HiddenFor(o => o.InsumosList[i].IdNecesidadDonacionInsumo)
                             @Html.HiddenFor(o => o.InsumosList[i].statusCompleto)
-                            <ul>
-                                <li class="list-group-item">Cantidad Requerida: @Html.TextBoxFor(o => o.InsumosList[i].Cantidad, new { @readonly = "readonly" })</li>
-                                <li class="list-group-item">Cantidad Total Donada: @Html.TextBoxFor(o => o.InsumosList[i].CantidadTotal, new { @readonly = "readonly" })</li>
-                                <li class="list-group-item">Cantidad Restante: @Html.TextBoxFor(o => o.InsumosList[i].CantidadRestante, new { @readonly = "readonly" })</li>
-                                @if (Model.InsumosList[i].statusCompleto == true)
-                                {
-                                    <li class="list-group-item">Ingresar Cantidad a donar : <input type="number" id="CantidadAdonarGrey" name="CantidadAdonarGrey" value="0" disabled="disabled" /></li>
-                                }
-                                else
-                                {
-                                    <li class="list-group-item">Ingresar Cantidad a donar : @Html.EditorFor(o => o.InsumosList[i].CantidadAdonar)</li>
-                                }
-
-                            </ul>
+                            <div class="form-group row">
+                                <label class="col-lg-6 col-form-label form-control-label">Cantidad requerida:</label>
+                                <div class="col-lg-6">
+                                    @Html.TextBoxFor(o => o.InsumosList[i].Cantidad, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-6 col-form-label form-control-label">Cantidad total donada:</label>
+                                <div class="col-lg-6">
+                                    @Html.TextBoxFor(o => o.InsumosList[i].CantidadTotal, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-6 col-form-label form-control-label">Cantidad restante:</label>
+                                <div class="col-lg-6">
+                                    @Html.TextBoxFor(o => o.InsumosList[i].CantidadRestante, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-6 col-form-label form-control-label">Ingresar cantidad a donar:</label>
+                                <div class="col-lg-6">
+                                    @if (Model.InsumosList[i].statusCompleto == true)
+                                    {
+                                        <input type="number" id="CantidadAdonarGrey" name="CantidadAdonarGrey" value="0" disabled="disabled" />
+                                    }
+                                    else
+                                    {
+                                        @Html.EditorFor(o => o.InsumosList[i].CantidadAdonar)
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-primary float-right" value="Confirmar" />
                         </div>
                     </div>
                 }
             </div>
-            <div>
-                <input type="submit" value="Confirmar Donacion" />
-            </div>
-            <br>
-        }
-
+        </div>
     </div>
-
-    @Html.Hidden("mensajeRegistro", (object)ViewBag.Message)
-
-</body>
-</html>
+</div>
+@Html.Hidden("mensajeRegistro", (object)ViewBag.Message)

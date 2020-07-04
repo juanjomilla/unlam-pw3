@@ -4,4 +4,7 @@
 
 @RenderBody()
 
-@{Html.RenderPartial("~/Views/Shared/pv_Footer.cshtml");}
+@section footer
+{
+    @{Html.RenderPartial("~/Views/Shared/pv_Footer.cshtml");}
+}
