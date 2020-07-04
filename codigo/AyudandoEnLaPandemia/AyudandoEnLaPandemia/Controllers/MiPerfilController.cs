@@ -50,6 +50,11 @@ namespace AyudandoEnLaPandemia.Controllers
                 ModelState.AddModelError("FotoEmpty", "Se debe adjuntar foto");
             }
 
+            if ((DateTime.Today.Year - perfil.FechaNacimiento.Year) < 18)
+            {
+                ModelState.AddModelError("MenorEdad", "Debe ser mayor de edad para estar registrado");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(perfil);
