@@ -66,6 +66,12 @@ namespace Servicios
 
             if (denuncia != null)
             {
+                var cantidadDenunciasActivas = _unitOfWork.DenunciasRepo.ObtenerCantidadDenunciasActivas(denuncia.Necesidades.IdNecesidad);
+                if (cantidadDenunciasActivas <= 5)
+                {
+                    denuncia.Necesidades.Estado = 0;
+                }
+
                 denuncia.Estado = 2;
 
                 _unitOfWork.SaveChanges();

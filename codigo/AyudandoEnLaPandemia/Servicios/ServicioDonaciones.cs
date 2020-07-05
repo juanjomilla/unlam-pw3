@@ -86,22 +86,40 @@ namespace Servicios
 
         public IEnumerable<HistorialDonaciones> GetHistorialDonaciones(int idUsuario)
         {
-            var request = WebRequest.Create($"https://localhost:44366/api/Donaciones/GetDonacionesUsuario/{idUsuario}");
-            var response = request.GetResponse();
-
             IEnumerable<HistorialDonaciones> result;
 
-            using (var dataStream = response.GetResponseStream())
+            try
             {
-                var reader = new StreamReader(dataStream);
-                var responseFromServer = reader.ReadToEnd();
+                var request = WebRequest.Create($"https://localhost:44366/api/Donaciones/GetDonacionesUsuario/{idUsuario}");
+                var response = request.GetResponse();
 
-                var jsonResponse = JArray.Parse(responseFromServer);
+                using (var dataStream = response.GetResponseStream())
+                {
+                    var reader = new StreamReader(dataStream);
+                    var responseFromServer = reader.ReadToEnd();
 
-                result = jsonResponse.ToObject<IEnumerable<HistorialDonaciones>>();
+                    var jsonResponse = JArray.Parse(responseFromServer);
+
+                    result = jsonResponse.ToObject<IEnumerable<HistorialDonaciones>>();
+                }
+
+                response.Close();
             }
-
-            response.Close();
+            catch (WebException ex)
+            {
+                if (((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.NotFound)
+                {
+                    result = new List<HistorialDonaciones>();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            catch(Exception)
+            {
+                throw;
+            }
 
             return result;
         }

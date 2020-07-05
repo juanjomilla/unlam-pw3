@@ -33,7 +33,7 @@ namespace Servicios
             var cantidadNoMeGusta = _unitOfWork.NecesidadesValoraciones.Get(x => x.IdNecesidad == idNecesidad && !x.Valoracion).Count();
             var votosTotales = cantidadMeGusta + cantidadNoMeGusta;
 
-            var nuevaValoracion = votosTotales == 0 ? 0 : (cantidadMeGusta / votosTotales) * 100;
+            var nuevaValoracion = votosTotales == 0 ? 0 : (int)((cantidadMeGusta * 1.0 / votosTotales) * 100);
 
             var necesidad = _unitOfWork.Necesidades.Get(idNecesidad);
             necesidad.Valoracion = nuevaValoracion;

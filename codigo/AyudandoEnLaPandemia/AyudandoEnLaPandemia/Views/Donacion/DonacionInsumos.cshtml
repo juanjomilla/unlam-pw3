@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-8 mx-auto">
-        <div class="d-none" id="message4">
+        <div id="message4">
             <div class="alert alert-danger text-center mx-5" role="alert">
                 <strong>Error! Debe ingresar cantidad de al menos 1 insumo y no superar el total restante pendiente por donar.</strong>
             </div>
@@ -53,7 +53,8 @@
                                     }
                                     else
                                     {
-                                        @Html.EditorFor(o => o.InsumosList[i].CantidadAdonar)
+                                        @Html.EditorFor(o => o.InsumosList[i].CantidadAdonar) <br />
+                                        @Html.ValidationMessageFor(o => o.InsumosList[i].CantidadAdonar)
                                     }
                                 </div>
                             </div>

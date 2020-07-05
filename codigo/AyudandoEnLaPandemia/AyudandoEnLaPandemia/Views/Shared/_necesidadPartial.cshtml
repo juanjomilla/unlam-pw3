@@ -1,40 +1,47 @@
 ﻿@model NecesidadViewModel
 
-@{
-    if (Model.Necesidades.Any())
-    {
-        foreach (var necesidad in Model.Necesidades)
+<h3>@Model.TituloPagina</h3>
+<div class="row text-center">
+    @{
+        if (Model.Necesidades.Any())
         {
-            var necesidadInactiva = (necesidad.FechaFin - DateTime.Now).Days < 0 ? "necesidadInactiva" : string.Empty;
+            foreach (var necesidad in Model.Necesidades)
+            {
+                var necesidadInactiva = (necesidad.FechaFin - DateTime.Now).Days < 0;
 
-            <div class="col-lg-4 col-sm-6 mb-4 @necesidadInactiva necesidad">
-                <div class="card h-100">
-                    <img class="card-img-top" src="~/Content/necesidades/imagenes/@necesidad.IdUsuarioCreador/@necesidad.Foto" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">@necesidad.Nombre</h4>
+                <div class="col-lg-4 col-sm-6 mb-4 @(necesidadInactiva ? "necesidadInactiva" : string.Empty) necesidad">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="~/Content/necesidades/imagenes/@necesidad.IdUsuarioCreador/@necesidad.Foto" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title">@necesidad.Nombre</h4>
+                        </div>
+                        <ul class="list-group list-group-flush text-left">
+                            <li class="list-group-item">Creado por: @necesidad.Usuarios.UserName</li>
+                            <li class="list-group-item">Valoración actual: @necesidad.Valoracion %</li>
+                            <li class="list-group-item">Creado el día: @necesidad.FechaCreacion.ToString("dd/MM/yyyy")</li>
+                        </ul>
+                        <div class="card-footer">
+                            @Html.ActionLink("Ver Más", $"Detalle/{necesidad.IdNecesidad}", "Necesidad", null, new { @class = "btn btn-primary text-white" })
+                            @if (Model.Editable && !necesidadInactiva)
+                            {
+                                @Html.ActionLink("Modificar", "ModificarNecesidad", "Necesidad", new { idNecesidad = necesidad.IdNecesidad }, new { @class = "btn btn-primary text-white" })
+                            }
+                        </div>
                     </div>
-                    <ul class="list-group list-group-flush text-left">
-                        <li class="list-group-item">Creado por: @necesidad.Usuarios.UserName</li>
-                        <li class="list-group-item">Valoración actual: @necesidad.Valoracion%</li>
-                        <li class="list-group-item">Creado el día: @necesidad.FechaCreacion</li>
-                    </ul>
-                    <div class="card-footer">
-                        @Html.ActionLink("Ver Más", $"Detalle/{necesidad.IdNecesidad}", "Necesidad", null, new { @class = "btn btn-primary text-white" })
+                </div>
+            }
+        }
+        else
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <div class="alert alert-warning text-center" role="alert">
+                            <strong>No existen necesidades para mostrar.</strong>
+                        </div>
                     </div>
                 </div>
             </div>
         }
     }
-    else
-    {
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 mx-auto">
-                    <div class="alert alert-warning text-center" role="alert">
-                        <strong>No existen necesidades para mostrar.</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-}
+</div>

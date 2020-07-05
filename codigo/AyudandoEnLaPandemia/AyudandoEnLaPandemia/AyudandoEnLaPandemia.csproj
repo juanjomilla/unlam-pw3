@@ -167,7 +167,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\necesidad\crearNecesidad.js" />
+    <Content Include="Scripts\proyecto\scriptsProyecto.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -245,6 +245,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutofacModules\DIModule.cs" />
+    <Compile Include="Constantes\Const.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DenunciasController.cs" />
     <Compile Include="Controllers\DonacionController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -310,7 +312,6 @@
     <Content Include="Views\Necesidad\DetalleNecesidad.cshtml" />
     <Content Include="Views\MiPerfil\MiPerfil.cshtml" />
     <Content Include="Views\Denuncias\GestionDenuncias.cshtml" />
-    <Content Include="Views\Necesidad\BusquedaNecesidad.cshtml" />
     <Content Include="Views\Donacion\HistorialDonaciones.cshtml" />
     <Content Include="Views\Error\error.cshtml" />
     <Content Include="Views\Donacion\DonacionConfirmada.cshtml" />

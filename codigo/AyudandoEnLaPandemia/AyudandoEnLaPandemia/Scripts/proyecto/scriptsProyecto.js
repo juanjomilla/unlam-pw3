@@ -42,9 +42,9 @@
         var chk = $("#chkMostrarTodas")[0].checked;
         $("#misNecesidades .necesidad").each(function () {
             if (chk) {
-                $(".necesidad").show();
-            } else {
                 $(".necesidadInactiva").hide();
+            } else {
+                $(".necesidad").show();
             }
         });
     });

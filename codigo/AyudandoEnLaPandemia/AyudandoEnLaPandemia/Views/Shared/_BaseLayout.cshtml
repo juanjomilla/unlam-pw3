@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@(ViewBag.Title != null ? (string)ViewBag.Title + " - ": string.Empty)Ayudando en la pandemia</title>
 
     @Styles.Render("~/Content/styles")
     @Scripts.Render("~/Bundles/jquery")
@@ -20,7 +20,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    @if (Session["UsuarioID"] != null)
+                    @if (Session[Constantes.IdUsuarioSessionKey] != null)
                     {
                         <li class="nav-item dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,7 +32,7 @@
                                 @Html.ActionLink("Crear Necesidad", "CrearNecesidad", "Necesidad", new { area = "" }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("Historial de Donaciones", "HistorialDonaciones", "Donacion", new { area = "" }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("Denuncias", "GestionDenuncias", "Denuncias", new { area = "" }, new { @class = $"dropdown-item {(!(bool)Session["EsAdministrador"] ? "disabled" : string.Empty)}" })
-                                @Html.ActionLink("Acerca de", "AcercaDe", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Acerca de", "acerca-de", "Home", new { area = "" }, new { @class = "dropdown-item" })
                                 <div class="dropdown-divider"></div>
                                 @Html.ActionLink("Salir", "Salir", "Login", new { area = "" }, new { @class = "dropdown-item" })
                             </div>
@@ -47,11 +47,23 @@
             </div>
         </div>
     </nav>
+    @if (!string.IsNullOrWhiteSpace((string)TempData[Constantes.MensajeErrorTempData]))
+    {
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="alert alert-danger text-center mx-5 alert-dismissible fade show" role="alert">
+                    <strong>Ups!</strong> @TempData[Constantes.MensajeErrorTempData]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+                <div class="container my-5">
+                    @RenderBody()
+                </div>
 
-    <div class="container my-5">
-        @RenderBody()
-    </div>
-
-    @RenderSection("footer", required: false)
-</body>
+                @RenderSection("footer", required: false)
+    </body>
 </html>

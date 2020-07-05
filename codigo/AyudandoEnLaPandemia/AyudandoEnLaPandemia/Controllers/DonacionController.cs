@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace AyudandoEnLaPandemia.Controllers
 {
-    public class DonacionController : Controller
+    public class DonacionController : BaseController
     {
         private readonly ServicioDonaciones _servicioDonaciones;
         private readonly ServicioNecesidad _servicioNecesidad;
@@ -106,7 +106,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
             nuevaDonacionMonetaria.IdNecesidadDonacionMonetaria = donacionMonetaria.IdNecesidadDonacionMonetaria;
             nuevaDonacionMonetaria.Dinero = donacionMonetaria.DineroAdonar;
-            nuevaDonacionMonetaria.IdUsuario = (int)Session["UsuarioID"];
+            nuevaDonacionMonetaria.IdUsuario = GetIdUsuario();
             nuevaDonacionMonetaria.FechaCreacion = DateTime.Today;
             nuevaDonacionMonetaria.ArchivoTransferencia = _servicioDonaciones.GuardarAdjunto(nuevaDonacionMonetaria.IdUsuario, archivo);
 
@@ -140,6 +140,11 @@ namespace AyudandoEnLaPandemia.Controllers
 
             }
 
+            if (!ModelState.IsValid)
+            {
+                return View(listDonacionesInsumos);
+            }
+
             List<DonacionesInsumos> nuevaDonacionInsumolist = new List<DonacionesInsumos>();
 
             foreach (var insumo in listDonacionesInsumos.InsumosList)
@@ -147,10 +152,13 @@ namespace AyudandoEnLaPandemia.Controllers
 
                 if (insumo.CantidadAdonar != 0) {
 
-                    DonacionesInsumos nuevaDonacionInsumo = new DonacionesInsumos();
-                    nuevaDonacionInsumo.IdNecesidadDonacionInsumo = insumo.IdNecesidadDonacionInsumo;
-                    nuevaDonacionInsumo.Cantidad = insumo.CantidadAdonar;
-                    nuevaDonacionInsumo.IdUsuario = (int)Session["UsuarioID"];
+                    DonacionesInsumos nuevaDonacionInsumo = new DonacionesInsumos
+                    {
+                        IdNecesidadDonacionInsumo = insumo.IdNecesidadDonacionInsumo,
+                        Cantidad = insumo.CantidadAdonar,
+                        IdUsuario = GetIdUsuario(),
+                        FechaCreacion = DateTime.Today
+                    };
 
                     nuevaDonacionInsumolist.Add(nuevaDonacionInsumo);
 
@@ -194,7 +202,7 @@ namespace AyudandoEnLaPandemia.Controllers
 
         public ActionResult HistorialDonaciones()
         {
-            var idUsuario = (int)Session["UsuarioID"];
+            var idUsuario = GetIdUsuario();
 
             var result = _servicioDonaciones.GetHistorialDonaciones(idUsuario);
 
@@ -229,7 +237,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 contenido.Add(
                     new List<string>
                     {
-                        registro.FechaDonacion.ToString("dd MMMM yyyy"),
+                        registro.FechaDonacion.ToString("dd/MM/yyyy"),
                         registro.NombreNecesidad,
                         registro.Estado,
                         registro.TotalRecaudado.ToString(),

@@ -13,8 +13,6 @@
 </header>
 
 <h3 class="text-center">Top 5 necesidades más valoradas por los usuarios:</h3>
-<div class="row text-center">
-    @{
-        Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.TopNecesidades });
-    }
-</div>
+@{
+    Html.RenderPartial("~/Views/Shared/_necesidadPartial.cshtml", new NecesidadViewModel { Necesidades = Model.TopNecesidades });
+}

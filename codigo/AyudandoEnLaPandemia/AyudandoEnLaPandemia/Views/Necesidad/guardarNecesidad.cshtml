@@ -4,6 +4,20 @@
     Layout = "~/Views/Shared/_NecesidadesLayout.cshtml";
 
     var action = Model.ModificandoDatos ? "ActualizarNecesidad" : "GuardarNecesidad";
+    var necesidadInactiva = (Model.FechaFin - DateTime.Now).Days <= 0;
+    var soloLectura = Model.ModificandoDatos && necesidadInactiva;
+}
+
+@if (soloLectura)
+{
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="alert alert-info text-center mx-5" role="alert">
+                <h4 class="alert-heading">Vista modo sólo lectura</h4>
+                <p>Estás mirando una necesidad finalizada, por lo que no se podrá realizar ninguna modificación</p>
+            </div>
+        </div>
+    </div>
 }
 
 <div class="row">
@@ -16,7 +30,7 @@
                     @Html.ValidationMessage("LimiteNecesidades")
                     if (Html.ValidationMessage("PerfilIncompleto") != null)
                     {
-                        @Html.Raw(string.Format(Html.ValidationMessage("PerfilIncompleto").ToString(), Html.ActionLink("Mi Perfil", "MiPerfil", "Home")));
+                        @Html.Raw(string.Format(Html.ValidationMessage("PerfilIncompleto").ToString(), Html.ActionLink("Mi Perfil", "MiPerfil", "MiPerfil")));
                     }
 
                     @Html.HiddenFor(model => Model.ModificandoDatos)
@@ -25,30 +39,30 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             @Html.LabelFor(model => Model.Nombre, "Nombre:")
-                            @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => Model.Nombre, Disabled(soloLectura, new { @class = "form-control" }))
                             @Html.ValidationMessageFor(model => Model.Nombre)
 
                             @Html.LabelFor(model => Model.Descripcion, "Descripción:")
-                            @Html.TextBoxFor(model => Model.Descripcion, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => Model.Descripcion, Disabled(soloLectura, new { @class = "form-control" }))
                             @Html.ValidationMessageFor(model => Model.Descripcion)
                         </div>
                         <div class="col-md-6">
                             @Html.LabelFor(model => Model.FechaFin, "Fecha de finalización (dd/mm/aa):")
-                            @Html.EditorFor(model => Model.FechaFin, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.EditorFor(model => Model.FechaFin, new { htmlAttributes = TypeDate(soloLectura, Disabled(soloLectura, new { @class = "form-control" })) })
                             @Html.ValidationMessageFor(model => Model.FechaFin)
 
                             @Html.LabelFor(model => Model.TelefonoContacto, "Teléfono de contacto:")
-                            @Html.TextBoxFor(model => Model.TelefonoContacto, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => Model.TelefonoContacto, Disabled(soloLectura, new { @class = "form-control" }))
                             @Html.ValidationMessageFor(model => Model.TelefonoContacto)
                         </div>
                     </div><hr />
-                    <div class="form-group row">
-                        @MostrarTipoDonacion()
-                    </div><hr />
+                          <div class="form-group row">
+                              @MostrarTipoDonacion(soloLectura)
+                          </div><hr />
                     <div>
                         @Html.LabelFor(model => Model.Referencias, "Referencias:")
                         <div id="editorReferencias">
-                            @Html.EditorFor(model => Model.Referencias, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => Model.Referencias, new { htmlAttributes = Disabled(soloLectura, new { @class = "form-control" }) })
                         </div>
                         @Html.ValidationMessage("InsuficientesReferencias")
                     </div><hr />
@@ -59,78 +73,106 @@
                         </div>
                     </div>
                     <div class="float-right">
-                        <input type="reset" class="btn btn-secondary" value="Cancelar">
-                        <input type="submit" class="btn btn-primary" value="Guardar" />
+                        @Html.ActionLink("Cancelar", "Home", "Home", new { area = "" }, new { @class = "btn btn-secondary" })
+                        @if (!necesidadInactiva || !Model.ModificandoDatos)
+                        {
+                            <input type="submit" class="btn btn-primary" value="Guardar" />
+                        }
                     </div>
                 }
             </div>
         </div>
-
-        @helper MostrarTipoDonacion()
-        {
-            if (Model.ModificandoDatos)
-            {
-                if (Model.TipoDonacion == GuardarNecesidadViewModel.TipoDeDonacion.Insumos)
-                {
-                    @MostarInsumos();
-                    @Html.Hidden("TipoDonacion", 1)
-                }
-                else
-                {
-                    @MostrarMonetaria();
-                    @Html.Hidden("TipoDonacion", 0)
-                }
-            }
-            else
-            {
-                @MostrarDropDownTipoDonacion();
-                @MostarInsumos();
-                @MostrarMonetaria();
-            }
-        }
-
-        @helper MostrarMonetaria()
-        {
-            <div class="col-md-6 tipoDonacion 0">
-                <div id="monetaria">
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.LabelFor(model => Model.CantDinero, "Cantidad de dinero:")
-                            @Html.TextBoxFor(model => Model.CantDinero, new { @class = "form-control" })
-                            @Html.ValidationMessage("CantidadDinero")
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(model => Model.CBUAlias, "CBU/Alias:")
-                            @Html.TextBoxFor(model => Model.CBUAlias, new { @class = "form-control" })
-                            @Html.ValidationMessage("CBUAliasEmpty")
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-
-        @helper MostarInsumos()
-        {
-            <div class="col-md-6 tipoDonacion 1">
-                <div id="insumos">
-                    <div id="editorInsumos">
-                        @Html.EditorFor(model => Model.Insumos, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    @Html.ValidationMessage("InsumosEmpty")
-                    @if (!Model.ModificandoDatos)
-                    {
-                        <input type="button" class="btn btn-primary float-right my-2" id="btnAgregarInsumo" value="Agregar insumo" />
-                    }
-                </div>
-            </div>
-        }
-
-        @helper MostrarDropDownTipoDonacion()
-        {
-            <div class="col-md-6">
-                @Html.LabelFor(model => Model.TipoDonacion, "Tipo de donación:")
-                @Html.EnumDropDownListFor(model => Model.TipoDonacion, new { @class = "form-control" })
-            </div>
-        }
     </div>
 </div>
+
+@helper MostrarTipoDonacion(bool soloLectura)
+{
+    if (Model.ModificandoDatos)
+    {
+        if (Model.TipoDonacion == GuardarNecesidadViewModel.TipoDeDonacion.Insumos)
+        {
+            @MostarInsumos(soloLectura);
+            @Html.Hidden("TipoDonacion", 1)
+        }
+        else
+        {
+            @MostrarMonetaria(soloLectura);
+            @Html.Hidden("TipoDonacion", 0)
+        }
+    }
+    else
+    {
+        @MostrarDropDownTipoDonacion(soloLectura);
+        @MostarInsumos(soloLectura);
+        @MostrarMonetaria(soloLectura);
+
+    }
+}
+
+@helper MostrarMonetaria(bool soloLectura)
+{
+    <div class="col-md-6 tipoDonacion 0">
+        <div id="monetaria">
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => Model.CantDinero, "Cantidad de dinero:")
+                    @Html.TextBoxFor(model => Model.CantDinero, Disabled(soloLectura, new { @class = "form-control" }))
+                    @Html.ValidationMessage("CantidadDinero")
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(model => Model.CBUAlias, "CBU/Alias")
+                    @Html.TextBoxFor(model => Model.CBUAlias, Disabled(soloLectura, new { @class = "form-control" }))
+                    @Html.ValidationMessage("CBUAliasEmpty")
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper MostarInsumos(bool soloLectura)
+{
+    <div class="col-md-6 tipoDonacion 1">
+        <div id="insumos">
+            <div id="editorInsumos">
+                @Html.EditorFor(model => Model.Insumos, Disabled(soloLectura, new { htmlAttributes = new { @class = "form-control" } }))
+            </div>
+            @Html.ValidationMessage("InsumosEmpty")
+            @if (!Model.ModificandoDatos)
+            {
+                <input type="button" class="btn btn-primary float-right my-2" id="btnAgregarInsumo" value="Agregar insumo" />
+            }
+        </div>
+    </div>
+}
+
+@helper MostrarDropDownTipoDonacion(bool soloLectura)
+{
+    <div class="col-md-6">
+        @Html.LabelFor(model => Model.TipoDonacion, "Tipo de donación")
+        @Html.EnumDropDownListFor(model => Model.TipoDonacion, Disabled(soloLectura, new { @class = "form-control" }))
+    </div>
+}
+
+@functions{
+    RouteValueDictionary Disabled(bool isReadOnly, object htmlAttributes = null)
+    {
+        var dictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+
+        if (isReadOnly)
+        {
+            dictionary.Add("readonly", "readonly");
+        }
+
+        return dictionary;
+    }
+
+    RouteValueDictionary TypeDate(bool isReadOnly, RouteValueDictionary dictionary)
+    {
+        if (!isReadOnly)
+        {
+            dictionary.Add("type", "date");
+        }
+
+        return dictionary;
+    }
+}
