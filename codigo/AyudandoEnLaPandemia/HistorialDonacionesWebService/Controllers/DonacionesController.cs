@@ -31,7 +31,7 @@ namespace HistorialDonacionesWebService.Controllers
                 {
                     NombreNecesidad = donacionInsumo.NecesidadesDonacionesInsumos.Nombre,
                     Estado = GetEstadoNecesidad(donacionInsumo.NecesidadesDonacionesInsumos.Necesidades.Estado, donacionInsumo.NecesidadesDonacionesInsumos.Necesidades.FechaFin),
-                    FechaDonacion = DateTime.Now,
+                    FechaDonacion = donacionInsumo.FechaCreacion,
                     IdNecesidad = donacionInsumo.NecesidadesDonacionesInsumos.IdNecesidad,
                     MiDonacion = donacionInsumo.Cantidad,
                     TipoDonacion = "Insumo",

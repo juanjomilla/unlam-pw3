@@ -312,7 +312,6 @@
     <Content Include="Views\Necesidad\DetalleNecesidad.cshtml" />
     <Content Include="Views\MiPerfil\MiPerfil.cshtml" />
     <Content Include="Views\Denuncias\GestionDenuncias.cshtml" />
-    <Content Include="Views\Necesidad\BusquedaNecesidad.cshtml" />
     <Content Include="Views\Donacion\HistorialDonaciones.cshtml" />
     <Content Include="Views\Error\error.cshtml" />
     <Content Include="Views\Donacion\DonacionConfirmada.cshtml" />

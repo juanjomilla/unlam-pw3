@@ -19,6 +19,7 @@ namespace AyudandoEnLaPandemia.HttpModules
         private readonly string ScriptsPath = "/Scripts/";
         private readonly string BundlesPath = "/Bundles/";
         private readonly string ContentPath = "/Content/";
+        private readonly string ErrorPath = "/Error/";
 
         public void Dispose()
         {
@@ -47,7 +48,7 @@ namespace AyudandoEnLaPandemia.HttpModules
 
         private bool EsAnonimo(HttpContext context)
         {
-            return EsPathAnonimo(context) || EsScriptPath(context) || EsContentPath(context) || EsBundlesPath(context);
+            return EsPathAnonimo(context) || EsScriptPath(context) || EsContentPath(context) || EsBundlesPath(context) || EsErrorPath(context);
         }
 
         private bool EstaAutenticado(HttpContext context)
@@ -63,6 +64,11 @@ namespace AyudandoEnLaPandemia.HttpModules
         private bool EsScriptPath(HttpContext context)
         {
             return context.Request.Path.StartsWith(ScriptsPath);
+        }
+
+        private bool EsErrorPath(HttpContext context)
+        {
+            return context.Request.Path.StartsWith(ErrorPath);
         }
 
         private bool EsContentPath(HttpContext context)

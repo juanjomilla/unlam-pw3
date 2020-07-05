@@ -152,10 +152,13 @@ namespace AyudandoEnLaPandemia.Controllers
 
                 if (insumo.CantidadAdonar != 0) {
 
-                    DonacionesInsumos nuevaDonacionInsumo = new DonacionesInsumos();
-                    nuevaDonacionInsumo.IdNecesidadDonacionInsumo = insumo.IdNecesidadDonacionInsumo;
-                    nuevaDonacionInsumo.Cantidad = insumo.CantidadAdonar;
-                    nuevaDonacionInsumo.IdUsuario = GetIdUsuario();
+                    DonacionesInsumos nuevaDonacionInsumo = new DonacionesInsumos
+                    {
+                        IdNecesidadDonacionInsumo = insumo.IdNecesidadDonacionInsumo,
+                        Cantidad = insumo.CantidadAdonar,
+                        IdUsuario = GetIdUsuario(),
+                        FechaCreacion = DateTime.Today
+                    };
 
                     nuevaDonacionInsumolist.Add(nuevaDonacionInsumo);
 

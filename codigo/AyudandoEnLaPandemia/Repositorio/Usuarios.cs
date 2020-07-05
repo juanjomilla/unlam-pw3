@@ -33,9 +33,9 @@ namespace Repositorio
         public string Password { get; set; }
         public string Foto { get; set; }
         public int TipoUsuario { get; set; }
-        public System.DateTime FechaCracion { get; set; }
         public bool Activo { get; set; }
         public string Token { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Denuncias> Denuncias { get; set; }

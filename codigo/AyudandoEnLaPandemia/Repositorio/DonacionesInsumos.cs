@@ -18,6 +18,7 @@ namespace Repositorio
         public int IdNecesidadDonacionInsumo { get; set; }
         public int IdUsuario { get; set; }
         public int Cantidad { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
     
         public virtual NecesidadesDonacionesInsumos NecesidadesDonacionesInsumos { get; set; }
         public virtual Usuarios Usuarios { get; set; }

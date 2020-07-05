@@ -104,7 +104,7 @@ namespace AyudandoEnLaPandemia.Controllers
                 usuarioNuevo.Password = registro.Password;
                 usuarioNuevo.FechaNacimiento = registro.FechaNacimiento;
                 usuarioNuevo.TipoUsuario = 0; //Usuario normal
-                usuarioNuevo.FechaCracion= DateTime.Today;
+                usuarioNuevo.FechaCreacion= DateTime.Today;
                 usuarioNuevo.Activo = false;
                 usuarioNuevo.Token = token.ToString();
             

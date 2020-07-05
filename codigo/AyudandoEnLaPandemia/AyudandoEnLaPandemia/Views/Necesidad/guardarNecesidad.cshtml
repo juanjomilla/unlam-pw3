@@ -10,9 +10,13 @@
 
 @if (soloLectura)
 {
-    <div class="alert alert-info" role="alert">
-        <h4 class="alert-heading">Vista modo sólo lectura</h4>
-        <p>Estás mirando una necesidad finalizada, por lo que no se podrá realizar ninguna modificación</p>
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="alert alert-info text-center mx-5" role="alert">
+                <h4 class="alert-heading">Vista modo sólo lectura</h4>
+                <p>Estás mirando una necesidad finalizada, por lo que no se podrá realizar ninguna modificación</p>
+            </div>
+        </div>
     </div>
 }
 
@@ -26,7 +30,7 @@
                     @Html.ValidationMessage("LimiteNecesidades")
                     if (Html.ValidationMessage("PerfilIncompleto") != null)
                     {
-                        @Html.Raw(string.Format(Html.ValidationMessage("PerfilIncompleto").ToString(), Html.ActionLink("Mi Perfil", "MiPerfil", "Home")));
+                        @Html.Raw(string.Format(Html.ValidationMessage("PerfilIncompleto").ToString(), Html.ActionLink("Mi Perfil", "MiPerfil", "MiPerfil")));
                     }
 
                     @Html.HiddenFor(model => Model.ModificandoDatos)
